@@ -17,7 +17,7 @@
     <c:if test="${not empty db_content}">
         <table align="center" border="3">
             <tr>
-                <th>Passport numberrrr</th>
+                <th>Passport numberrrrrrrrrrrrrrrr</th>
                 <th>Address</th>
                 <th>Issuing Institution</th>
                 <th>Date of issue</th>
