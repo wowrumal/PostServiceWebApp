@@ -27,8 +27,6 @@ public class Controller extends HttpServlet {
         Command command = CommandHelper.getCommand(commandName);
         String page = null;
 
-
-
         try {
             page = command.execute(req);
         } catch (CommandException e) {
