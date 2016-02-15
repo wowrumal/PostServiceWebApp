@@ -1,7 +1,7 @@
 package by.bsuir.spp.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 
 public class Passport implements Serializable {
@@ -34,16 +34,16 @@ public class Passport implements Serializable {
         return issuingInsitution;
     }
 
-    public void setIssuingInsitution(String issuingInsitution) {
-        this.issuingInsitution = issuingInsitution;
-    }
-
     public Date getIssueDate() {
         return issueDate;
     }
 
     public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
+    }
+
+    public void setIssuingInsitution(String issuingInsitution) {
+        this.issuingInsitution = issuingInsitution;
     }
 
     public int getPassportId() {
