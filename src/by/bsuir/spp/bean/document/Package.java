@@ -7,6 +7,7 @@ public class Package implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private int idPackage;
     private String type;
     private int barCode;
     private Date date;
@@ -14,6 +15,14 @@ public class Package implements Serializable {
     private String getterName;
     private String address;
     private int postIndex;
+
+    public int getIdPackage() {
+        return idPackage;
+    }
+
+    public void setIdPackage(int idPackage) {
+        this.idPackage = idPackage;
+    }
 
     public String getType() {
         return type;
