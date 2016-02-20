@@ -8,20 +8,11 @@ public class Advertisement implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int advertisementId;
     private Package postPackage;
     private int weight;
     private int cost;
     private Passport passport;
     private String addressForGetting;
-
-    public int getAdvertisementId() {
-        return advertisementId;
-    }
-
-    public void setAdvertisementId(int advertisementId) {
-        this.advertisementId = advertisementId;
-    }
 
     public Package getPostPackage() {
         return postPackage;

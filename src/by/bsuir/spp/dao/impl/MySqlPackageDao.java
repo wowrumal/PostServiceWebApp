@@ -99,6 +99,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setString(5, obj.getAddress());
             statement.setInt(6, obj.getPostIndex());
             statement.setInt(7, obj.getBarCode());
+            statement.setInt(8, obj.getIdPackage());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,6 +120,7 @@ public class MySqlPackageDao implements PackageDao {
     @Override
     public List<Package> getAllPackages() {
         List<Package> packages = new ArrayList<>();
+
         try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PACKAGE);
             ResultSet resultSet = statement.executeQuery()){

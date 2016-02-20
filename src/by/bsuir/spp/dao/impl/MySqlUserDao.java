@@ -101,8 +101,9 @@ public class MySqlUserDao implements UserDao {
             statement.setString(3, user.getFirstName());
             statement.setString(4, user.getMiddleName());
             statement.setString(5, user.getSecondName());
-
             statement.setInt(6, user.getUserType().ordinal());
+            statement.setInt(7, user.getId());
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
