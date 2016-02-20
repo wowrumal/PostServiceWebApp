@@ -18,7 +18,6 @@ public class Advertisement implements Serializable {
         return postPackage;
     }
 
-
     public void setPostPackage(Package postPackage) {
         this.postPackage = postPackage;
     }

@@ -7,6 +7,7 @@ import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
 import by.bsuir.spp.exception.dao.DaoException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class MySqlPackageDao implements PackageDao {
 
     private static MySqlPackageDao GetInstance() { return instance;}
 
-    private static final String INSERT_PACKAGE_QUERY = "insert into 'package' ('type', 'date', senderName, getterName, address, postIndex, barcode) "+
+    private static final String INSERT_PACKAGE_QUERY = "insert into `package` ('type', 'date', senderName, getterName, address, postIndex, barcode) "+
                                                         "values (?,?,?,?,?,?,?)";
     private static final String SELECT_ALL_PACKAGE = "select * from `package`";
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
@@ -33,7 +34,7 @@ public class MySqlPackageDao implements PackageDao {
         int id = 0;
 
         try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
-            PreparedStatement statement = connection.prepareStatement(INSERT_PACKAGE_QUERY))
+            PreparedStatement statement = connection.prepareStatement(INSERT_PACKAGE_QUERY, Statement.RETURN_GENERATED_KEYS))
         {
             statement.setString(1, newInstance.getType());
             statement.setDate(2, new Date(newInstance.getDate().getTime()));
@@ -59,12 +60,50 @@ public class MySqlPackageDao implements PackageDao {
 
     @Override
     public Package read(Integer id) throws DaoException {
-        return null;
+        Package myPackage = null;
+
+        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+            PreparedStatement statement = connection.prepareStatement(SELECT_PACKAGE_BY_ID))
+        {
+            statement.setInt(1, id);
+            try(ResultSet resultSet = statement.executeQuery())
+            {
+                if (resultSet.next())
+                {
+                    myPackage = new Package();
+                    myPackage.setIdPackage(id);
+                    myPackage.setType(resultSet.getString(2));
+                    myPackage.setDate(resultSet.getDate(3));
+                    myPackage.setSenderName(resultSet.getString(4));
+                    myPackage.setGetterName(resultSet.getString(5));
+                    myPackage.setAddress(resultSet.getString(6));
+                    myPackage.setPostIndex(resultSet.getInt(7));
+                    myPackage.setBarCode(resultSet.getInt(8));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return myPackage;
     }
 
     @Override
     public void update(Package obj) throws DaoException {
-
+        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_PACKAGE_BY_ID)) {
+            statement.setString(1, obj.getType());
+            statement.setDate(2, new Date(obj.getDate().getTime()));
+            statement.setString(3, obj.getSenderName());
+            statement.setString(4, obj.getGetterName());
+            statement.setString(5, obj.getAddress());
+            statement.setInt(6, obj.getPostIndex());
+            statement.setInt(7, obj.getBarCode());
+            statement.setInt(8, obj.getIdPackage());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -80,6 +119,29 @@ public class MySqlPackageDao implements PackageDao {
 
     @Override
     public List<Package> getAllPackages() {
-        return null;
+        List<Package> packages = new ArrayList<>();
+
+        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+            PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PACKAGE);
+            ResultSet resultSet = statement.executeQuery()){
+            while (resultSet.next())
+            {
+                Package myPackage = new Package();
+                myPackage.setIdPackage(resultSet.getInt(1));
+                myPackage.setType(resultSet.getString(2));
+                myPackage.setDate(resultSet.getDate(3));
+                myPackage.setSenderName(resultSet.getString(4));
+                myPackage.setGetterName(resultSet.getString(5));
+                myPackage.setAddress(resultSet.getString(6));
+                myPackage.setPostIndex(resultSet.getInt(7));
+                myPackage.setBarCode(resultSet.getInt(8));
+
+                packages.add(myPackage);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return packages;
     }
 }
