@@ -29,7 +29,7 @@ public class AddUserCommand implements Command {
 
             Passport passport = new Passport();
             passport.setIssueDate(java.sql.Date.valueOf(request.getParameter(RequestParameterName.ISSUING_DATE)));
-            passport.setAddress(request.getParameter(RequestParameterName.ADDRESS));
+            passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
             passport.setPassportNumber(request.getParameter(RequestParameterName.PASSPORT_NUMBER));
 
             PassportDao passportDao = MySqlPassportDao.getInstance();

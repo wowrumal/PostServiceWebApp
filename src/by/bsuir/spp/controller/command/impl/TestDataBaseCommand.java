@@ -28,7 +28,7 @@ public class TestDataBaseCommand implements Command {
                 Passport passport = new Passport();
                 passport.setPassportNumber(resultSet.getString(2));
                 passport.setAddress(resultSet.getString(3));
-                passport.setIssuingInsitution(resultSet.getString(4));
+                passport.setIssuingInstitution(resultSet.getString(4));
                 passport.setIssueDate(new Date(resultSet.getTimestamp(5).getTime()));
                 passports.add(passport);
             }

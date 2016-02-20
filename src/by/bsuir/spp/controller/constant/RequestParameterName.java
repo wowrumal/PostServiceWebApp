@@ -15,8 +15,11 @@ public final class RequestParameterName {
     public static final String SEC_NAME = "sec_name";
 
     //passport data
+    public static final String PASSPORT = "passport";
+    public static final String PASSPORT_ID = "passport_id";
     public static final String PASSPORT_NUMBER = "passport_number";
-    public static final String ADDRESS = "address";
+    public static final String PASSPORT_ADDRESS = "address";
     public static final String INSTITUTION = "institution";
     public static final String ISSUING_DATE = "issuing_date";
+    public static final String PASSPORTS = "passports";
 }

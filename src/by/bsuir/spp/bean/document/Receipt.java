@@ -7,11 +7,30 @@ public class Receipt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private int receiptId;
     private String clientName;
     private String serviceName;
     private String paymentData;
     private int cost;
     private Date date;
+    private int userId;
+
+
+    public int getReceiptId() {
+        return receiptId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setReceiptId(int receiptId) {
+        this.receiptId = receiptId;
+    }
 
     public String getClientName() {
         return clientName;

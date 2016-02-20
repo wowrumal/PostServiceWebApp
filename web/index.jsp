@@ -26,11 +26,16 @@
                 <tr>
                     <td>${passport.passportNumber}</td>
                     <td>${passport.address}</td>
-                    <td>${passport.issuingInsitution}</td>
+                    <td>${passport.issuingInstitution}</td>
                     <td>${passport.issueDate}</td>
                 </tr>
             </c:forEach>
         </table>
     </c:if>
+
+    <form action="controller" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_passports">
+        <input type="submit" value="load passports">
+    </form>
   </body>
 </html>

@@ -6,7 +6,6 @@ import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
 import by.bsuir.spp.exception.dao.DaoException;
 import by.bsuir.spp.exception.dao.connectionpool.ConnectionPoolException;
 
-import java.security.interfaces.RSAKey;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +33,12 @@ public class MySqlPassportDao implements PassportDao {
     public Integer create(Passport newInstance) throws DaoException {
         int id = 0;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT_PASSPORT_QUERY, java.sql.Statement.RETURN_GENERATED_KEYS))
         {
             statement.setString(1, newInstance.getPassportNumber());
             statement.setString(2, newInstance.getAddress());
-            statement.setString(3, newInstance.getIssuingInsitution());
+            statement.setString(3, newInstance.getIssuingInstitution());
             statement.setDate(4, new Date(newInstance.getIssueDate().getTime()));
             statement.execute();
 
@@ -52,6 +51,8 @@ public class MySqlPassportDao implements PassportDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
 
         return id;
@@ -61,7 +62,7 @@ public class MySqlPassportDao implements PassportDao {
     public Passport read(Integer id) throws DaoException {
         Passport passport = null;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection =  ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_PASSPORT_BY_ID))
         {
             statement.setInt(1, id);
@@ -72,11 +73,13 @@ public class MySqlPassportDao implements PassportDao {
                     passport.setPassportId(id);
                     passport.setPassportNumber(resultSet.getString(2));
                     passport.setAddress(resultSet.getString(3));
-                    passport.setIssuingInsitution(resultSet.getString(4));
+                    passport.setIssuingInstitution(resultSet.getString(4));
                     passport.setIssueDate(resultSet.getDate(5));
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
         return passport;
@@ -84,27 +87,31 @@ public class MySqlPassportDao implements PassportDao {
 
     @Override
     public void update(Passport passport) throws DaoException {
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_PASSPORT_BY_ID))
         {
             statement.setString(1, passport.getPassportNumber());
             statement.setString(2, passport.getAddress());
-            statement.setString(3, passport.getIssuingInsitution());
+            statement.setString(3, passport.getIssuingInstitution());
             statement.setDate(4, new Date(passport.getIssueDate().getTime()));
             statement.setInt(5, passport.getPassportId());
             statement.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void delete(Passport passport) throws DaoException {
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_PASSPORT_BY_ID)) {
             statement.setInt(1, passport.getPassportId());
             statement.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
     }
@@ -113,7 +120,7 @@ public class MySqlPassportDao implements PassportDao {
     public List<Passport> getAllPassports() {
         List<Passport> passports = new ArrayList<>();
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PASSPORT);
             ResultSet resultSet = statement.executeQuery())
         {
@@ -123,11 +130,13 @@ public class MySqlPassportDao implements PassportDao {
                 passport.setPassportId(resultSet.getInt(1));
                 passport.setPassportNumber(resultSet.getString(2));
                 passport.setAddress(resultSet.getString(3));
-                passport.setIssuingInsitution(resultSet.getString(4));
+                passport.setIssuingInstitution(resultSet.getString(4));
                 passport.setIssueDate(resultSet.getDate(5));
                 passports.add(passport);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
 

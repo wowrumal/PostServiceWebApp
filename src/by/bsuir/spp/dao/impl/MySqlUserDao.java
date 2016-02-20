@@ -6,6 +6,7 @@ import by.bsuir.spp.bean.UserType;
 import by.bsuir.spp.dao.UserDao;
 import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
 import by.bsuir.spp.exception.dao.DaoException;
+import by.bsuir.spp.exception.dao.connectionpool.ConnectionPoolException;
 import com.mysql.jdbc.Statement;
 
 import java.sql.Connection;
@@ -37,7 +38,7 @@ public class MySqlUserDao implements UserDao {
     public Integer create(User newInstance) throws DaoException {
         int id = 0;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT_USER_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, newInstance.getLogin());
             statement.setString(2, newInstance.getPassword());
@@ -54,6 +55,8 @@ public class MySqlUserDao implements UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
 
         return id;
@@ -63,7 +66,7 @@ public class MySqlUserDao implements UserDao {
     public User read(Integer id) throws DaoException {
         User user = null;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_USER_BY_ID)){
 
             statement.setInt(1, id);
@@ -88,13 +91,15 @@ public class MySqlUserDao implements UserDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
         return user;
     }
 
     @Override
     public void update(User user) throws DaoException {
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_BY_ID)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
@@ -106,18 +111,22 @@ public class MySqlUserDao implements UserDao {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void delete(User user) throws DaoException {
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_USER_BY_ID)){
 
             statement.setInt(1, user.getId());
             statement.execute();
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
     }
@@ -126,7 +135,7 @@ public class MySqlUserDao implements UserDao {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS);
             ResultSet resultSet = statement.executeQuery()){
 
@@ -150,6 +159,8 @@ public class MySqlUserDao implements UserDao {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
         return users;

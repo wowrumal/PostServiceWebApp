@@ -11,7 +11,7 @@ public class Passport implements Serializable {
     private int passportId;
     private String passportNumber;
     private String address;
-    private String issuingInsitution;
+    private String issuingInstitution;
     private Date issueDate;
 
     public String getPassportNumber() {
@@ -30,8 +30,8 @@ public class Passport implements Serializable {
         this.address = address;
     }
 
-    public String getIssuingInsitution() {
-        return issuingInsitution;
+    public String getIssuingInstitution() {
+        return issuingInstitution;
     }
 
     public Date getIssueDate() {
@@ -42,8 +42,8 @@ public class Passport implements Serializable {
         this.issueDate = issueDate;
     }
 
-    public void setIssuingInsitution(String issuingInsitution) {
-        this.issuingInsitution = issuingInsitution;
+    public void setIssuingInstitution(String issuingInstitution) {
+        this.issuingInstitution = issuingInstitution;
     }
 
     public int getPassportId() {
