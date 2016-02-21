@@ -10,23 +10,20 @@ import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class SelectUserCommand implements Command {
+public class DeleteUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         int userId = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
+        User user = new User();
+        user.setId(userId);
         UserDao userDao = MySqlUserDao.getInstance();
-        User user = null;
 
         try {
-            user = userDao.read(userId);
+            userDao.delete(user);
         } catch (DaoException e) {
             e.printStackTrace();
         }
 
-        if (user != null) {
-            request.setAttribute(RequestParameterName.USER, user);
-        }
-        return new PrepareDataForUserCreationCommand().execute(request);
-
+        return new LoadUsersCommand().execute(request);
     }
 }

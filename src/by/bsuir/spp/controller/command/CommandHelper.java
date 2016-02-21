@@ -2,9 +2,7 @@ package by.bsuir.spp.controller.command;
 
 import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
 import by.bsuir.spp.controller.command.impl.passport.*;
-import by.bsuir.spp.controller.command.impl.user.AddUserCommand;
-import by.bsuir.spp.controller.command.impl.user.LoadUsersCommand;
-import by.bsuir.spp.controller.command.impl.user.PrepareDataForUserCreationCommand;
+import by.bsuir.spp.controller.command.impl.user.*;
 
 import java.util.HashMap;
 
@@ -24,6 +22,9 @@ public class CommandHelper {
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_USER, new PrepareDataForUserCreationCommand());
         availableCommands.put(CommandName.ADD_USER, new AddUserCommand());
         availableCommands.put(CommandName.LOAD_USERS, new LoadUsersCommand());
+        availableCommands.put(CommandName.SELECT_USER, new SelectUserCommand());
+        availableCommands.put(CommandName.UPDATE_USER, new UpdateUserCommand());
+        availableCommands.put(CommandName.DELETE_USER, new DeleteUserCommand());
     }
 
     public static Command getCommand(String commandName) {

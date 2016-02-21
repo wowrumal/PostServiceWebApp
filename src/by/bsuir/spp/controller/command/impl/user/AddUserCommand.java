@@ -26,7 +26,7 @@ public class AddUserCommand implements Command {
             user.setMiddleName(request.getParameter(RequestParameterName.MIDDLE_NAME));
             user.setSecondName(request.getParameter(RequestParameterName.SEC_NAME));
             int idPassport = Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID));
-            user.setUserType(UserType.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase()));
+            user.setUserRole(UserType.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase()));
             Passport passport = new Passport();
             passport.setPassportId(idPassport);
             user.setPassport(passport);

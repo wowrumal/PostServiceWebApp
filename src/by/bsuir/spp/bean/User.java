@@ -16,7 +16,7 @@ public class User implements Serializable {
 
     private Passport passport;
 
-    private UserType userType;
+    private UserType userRole;
 
     public int getId() {
         return id;
@@ -74,11 +74,11 @@ public class User implements Serializable {
         this.secondName = secondName;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public UserType getUserRole() {
+        return userRole;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setUserRole(UserType userRole) {
+        this.userRole = userRole;
     }
 }

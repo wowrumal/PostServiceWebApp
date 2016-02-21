@@ -8,6 +8,7 @@ public final class RequestParameterName {
     public static final String DB_CONTENT = "db_content";
 
     //user data
+    public static final String USER = "user";
     public static final String USER_ID = "user_id";
     public static final String LOGIN_FIELD = "login_field";
     public static final String PASSWORD = "password";

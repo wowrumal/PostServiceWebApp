@@ -46,7 +46,7 @@ public class MySqlUserDao implements UserDao {
             statement.setString(4, newInstance.getMiddleName());
             statement.setString(5, newInstance.getSecondName());
             statement.setInt(6, newInstance.getPassport().getPassportId());
-            statement.setInt(7, newInstance.getUserType().ordinal());
+            statement.setInt(7, newInstance.getUserRole().ordinal());
             statement.execute();
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
@@ -85,7 +85,7 @@ public class MySqlUserDao implements UserDao {
                     passport.setPassportId(resultSet.getInt(7));
 
                     user.setPassport(passport);
-                    user.setUserType(UserType.values()[resultSet.getInt(8)]);
+                    user.setUserRole(UserType.values()[resultSet.getInt(8)]);
                 }
             }
 
@@ -106,7 +106,7 @@ public class MySqlUserDao implements UserDao {
             statement.setString(3, user.getFirstName());
             statement.setString(4, user.getMiddleName());
             statement.setString(5, user.getSecondName());
-            statement.setInt(6, user.getUserType().ordinal());
+            statement.setInt(6, user.getUserRole().ordinal());
             statement.setInt(7, user.getId());
             statement.execute();
         } catch (SQLException e) {
@@ -153,7 +153,7 @@ public class MySqlUserDao implements UserDao {
                 passport.setPassportId(resultSet.getInt(7));
 
                 user.setPassport(passport);
-                user.setUserType(UserType.values()[resultSet.getInt(8)]);
+                user.setUserRole(UserType.values()[resultSet.getInt(8)]);
 
                 users.add(user);
             }

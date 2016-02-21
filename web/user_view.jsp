@@ -43,17 +43,32 @@
         <h2>Passport ID:</h2>
         <p>
             <select size="1" name="passport_id">
-                <c:forEach var="id" items="${passport_ids}">
-                    <option>${id}</option>
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${not empty user}">
+                        <option selected>${user.passport.passportId}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="id" items="${passport_ids}">
+                            <option>${id}</option>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </select>
         </p>
-
-        <h2>Role ID:</h2>
+        <h3>Don't have a passport yet?</h3>
+        <a href="passport_view.jsp">add passport</a>
+        <h2>Role:</h2>
         <p>
             <select size="1" name="user_role">
                 <c:forEach var="role" items="${user_roles}">
-                    <option>${role}</option>
+                    <c:choose>
+                        <c:when test="${user.userRole==role}">
+                            <option selected>${role}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option>${role}</option>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </select>
         </p>

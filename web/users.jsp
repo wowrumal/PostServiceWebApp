@@ -25,9 +25,9 @@
             <tr>
                 <td>${user.login}</td>
                 <td>${user.password}</td>
-                <td>${user.firstName} ${user.middleName} ${user.secondName}</td>
+                <td>${user.secondName} ${user.firstName} ${user.middleName}</td>
                 <td>${user.passport.passportId}</td>
-                <td>${user.userType}</td>
+                <td>${user.userRole}</td>
                 <td>
                     <form action="controller" enctype="multipart/form-data" method="post">
                         <input type="hidden" name="command" value="select_user">
