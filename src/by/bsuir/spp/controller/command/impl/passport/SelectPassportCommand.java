@@ -19,10 +19,10 @@ public class SelectPassportCommand implements Command {
         Passport passport = null;
         try {
             passport = passportDao.read(passportId);
-            request.setAttribute(RequestParameterName.PASSPORT_NUMBER, passport.getPassportNumber());
+/*            request.setAttribute(RequestParameterName.PASSPORT_NUMBER, passport.getPassportNumber());
             request.setAttribute(RequestParameterName.PASSPORT_ADDRESS, passport.getAddress());
             request.setAttribute(RequestParameterName.INSTITUTION, passport.getIssuingInstitution());
-            request.setAttribute(RequestParameterName.ISSUING_DATE, passport.getIssueDate());
+            request.setAttribute(RequestParameterName.ISSUING_DATE, passport.getIssueDate());*/
         } catch (DaoException e) {
             e.printStackTrace();
         }

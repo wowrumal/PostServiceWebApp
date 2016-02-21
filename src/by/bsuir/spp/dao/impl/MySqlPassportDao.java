@@ -27,6 +27,7 @@ public class MySqlPassportDao implements PassportDao {
     private static final String UPDATE_PASSPORT_BY_ID = "update passport set passportNumber=?, address=?, issuingInsistution=?, issueDate=? "+
                                                         "where id=?";
     private static final String SELECT_ALL_PASSPORT = "select * from passport";
+    private static final String SELECT_PASSPORT_IDS = "select id from passport";
 
 
     @Override
@@ -141,5 +142,22 @@ public class MySqlPassportDao implements PassportDao {
         }
 
         return passports;
+    }
+
+    @Override
+    public List<Integer> getIdPassports() {
+        List<Integer> ids = new ArrayList<>();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_PASSPORT_IDS)) {
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+        return ids;
     }
 }

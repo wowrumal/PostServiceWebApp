@@ -27,7 +27,7 @@ public class MySqlUserDao implements UserDao {
     }
 
     private static final String SELECT_USER_BY_ID = "select * from `user` where id=?";
-    private static final String INSERT_USER_QUERY = "insert into `user` (login, password, firstName, middleName, secondName, passportID, userType) " +
+    private static final String INSERT_USER_QUERY = "insert into `user` (login, `password`, firstName, middleName, secondName, passportID, userType) " +
                                                     "values (?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_USER_BY_ID = "delete from `user` where id=?";
     private static final String SELECT_ALL_USERS = "select * from `user`";

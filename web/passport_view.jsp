@@ -28,7 +28,7 @@
         <input type="text" name="passport_number" value="${passport.passportNumber}" placeholder="KH2080553">
 
         <h2>Address:</h2>
-        <input type="text" name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гстелло 17, кв. 1">
+        <input type="text" name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1">
 
         <h2>Issuing institution:</h2>
         <input type="text" name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно">
