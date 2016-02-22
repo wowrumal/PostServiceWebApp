@@ -1,11 +1,24 @@
 package by.bsuir.spp.controller.constant;
 
+import by.bsuir.spp.dao.SearchStatementDao;
+
 public final class RequestParameterName {
     private RequestParameterName(){}
 
     public static final String COMMAND_NAME = "command";
 
     public static final String DB_CONTENT = "db_content";
+
+    //package data
+    public static final String PACKAGES = "packages";
+    public static final String PACKAGE_ID = "package_id";
+    public static final String PACKAGE_TYPE = "package_type";
+    public static final String PACKAGE_DATE = "package_date";
+    public static final String PACKAGE_SENDER_NAME = "package_sender_name";
+    public static final String PACKAGE_GETTER_NAME = "package_getter_name";
+    public static final String PACKAGE_ADDRESS = "package_address";
+    public static final String PACKAGE_POST_INDEX = "package_post_index";
+    public static final String PACKAGE_BARCODE = "package_barcode";
 
     //user data
     public static final String USER_ID = "user_id";
