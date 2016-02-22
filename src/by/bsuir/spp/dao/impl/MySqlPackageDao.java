@@ -5,6 +5,7 @@ import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.dao.PackageDao;
 import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
 import by.bsuir.spp.exception.dao.DaoException;
+import by.bsuir.spp.exception.dao.connectionpool.ConnectionPoolException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class MySqlPackageDao implements PackageDao {
     public Integer create(by.bsuir.spp.bean.document.Package newInstance) throws DaoException {
         int id = 0;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection =  ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT_PACKAGE_QUERY, Statement.RETURN_GENERATED_KEYS))
         {
             statement.setString(1, newInstance.getType());
@@ -53,6 +54,8 @@ public class MySqlPackageDao implements PackageDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
 
         return id;
@@ -62,7 +65,7 @@ public class MySqlPackageDao implements PackageDao {
     public Package read(Integer id) throws DaoException {
         Package myPackage = null;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_PACKAGE_BY_ID))
         {
             statement.setInt(1, id);
@@ -83,6 +86,8 @@ public class MySqlPackageDao implements PackageDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
 
         return myPackage;
@@ -90,7 +95,7 @@ public class MySqlPackageDao implements PackageDao {
 
     @Override
     public void update(Package obj) throws DaoException {
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_PACKAGE_BY_ID)) {
             statement.setString(1, obj.getType());
             statement.setDate(2, new Date(obj.getDate().getTime()));
@@ -103,16 +108,20 @@ public class MySqlPackageDao implements PackageDao {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void delete(Package obj) throws DaoException {
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_PACKAGE_BY_ID)){
             statement.setInt(1, obj.getIdPackage());
             statement.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
     }
@@ -121,7 +130,7 @@ public class MySqlPackageDao implements PackageDao {
     public List<Package> getAllPackages() {
         List<Package> packages = new ArrayList<>();
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PACKAGE);
             ResultSet resultSet = statement.executeQuery()){
             while (resultSet.next())
@@ -140,6 +149,8 @@ public class MySqlPackageDao implements PackageDao {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
         return packages;
