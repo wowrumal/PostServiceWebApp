@@ -10,4 +10,6 @@ public final class JspPageName {
     public static final String VIEW_PASSPORT = "passport_view.jsp";
     public static final String USERS = "users.jsp";
     public static final String VIEW_USER = "user_view.jsp";
+    public static final String RECEIPTS = "receipts.jsp";
+    public static final String VIEW_RECEIPT = "receipt_view.jsp";
 }

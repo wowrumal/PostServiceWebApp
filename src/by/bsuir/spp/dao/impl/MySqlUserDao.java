@@ -33,6 +33,7 @@ public class MySqlUserDao implements UserDao {
     private static final String SELECT_ALL_USERS = "select * from `user`";
     private static final String UPDATE_USER_BY_ID = "update `user` set login=?, password=?, firstName=?, middleName=?, secondName=?, userType=? "+
                                                     "where id=?";
+    private static final String SELECT_IDS = "select id FROM `user`";
 
     @Override
     public Integer create(User newInstance) throws DaoException {
@@ -164,5 +165,23 @@ public class MySqlUserDao implements UserDao {
             e.printStackTrace();
         }
         return users;
+    }
+
+    @Override
+    public List<Integer> getUserIds() {
+        List<Integer> ids = new ArrayList<>();
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            java.sql.Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_IDS)) {
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return ids;
     }
 }

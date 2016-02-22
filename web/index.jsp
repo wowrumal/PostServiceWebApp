@@ -48,5 +48,10 @@
         <input type="submit" value="load users">
     </form>
 
+    <form action="controller" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_receipts">
+        <input type="submit" value="load receipts">
+    </form>
+
   </body>
 </html>

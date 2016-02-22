@@ -3,6 +3,9 @@ package by.bsuir.spp.controller.command;
 import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
 import by.bsuir.spp.controller.command.impl.myPackage.*;
 import by.bsuir.spp.controller.command.impl.passport.*;
+import by.bsuir.spp.controller.command.impl.receipt.AddReceiptCommand;
+import by.bsuir.spp.controller.command.impl.receipt.LoadReceiptsCommand;
+import by.bsuir.spp.controller.command.impl.receipt.PrepareDataForReceiptCreationCommand;
 import by.bsuir.spp.controller.command.impl.user.*;
 
 import java.util.HashMap;
@@ -32,6 +35,10 @@ public class CommandHelper {
         availableCommands.put(CommandName.SELECT_USER, new SelectUserCommand());
         availableCommands.put(CommandName.UPDATE_USER, new UpdateUserCommand());
         availableCommands.put(CommandName.DELETE_USER, new DeleteUserCommand());
+
+        availableCommands.put(CommandName.LOAD_RECEIPTS, new LoadReceiptsCommand());
+        availableCommands.put(CommandName.ADD_RECEIPT, new AddReceiptCommand());
+        availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_RECEIPT, new PrepareDataForReceiptCreationCommand());
     }
 
     public static Command getCommand(String commandName) {

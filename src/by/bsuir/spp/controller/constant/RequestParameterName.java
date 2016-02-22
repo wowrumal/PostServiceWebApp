@@ -42,4 +42,16 @@ public final class RequestParameterName {
     public static final String INSTITUTION = "institution";
     public static final String ISSUING_DATE = "issuing_date";
     public static final String PASSPORTS = "passports";
+
+
+    public static final String USER_IDS = "user_ids";
+    //receipt data
+    public static final String RECEIPT = "receipt";
+    public static final String RECEIPTS = "receipts";
+    public static final String RECEIPT_ID = "receipt_id";
+    public static final String RECEIPT_CLIENTNAME = "receipt_clientname";
+    public static final String RECEIPT_PAYMENT_DATA = "receipt_payment_data";
+    public static final String RECEIPT_COST = "receipt_cost";
+    public static final String RECEIPT_DATE = "receipt_date";
+    public static final String RECEIPT_SERVICE = "receipt_service";
 }

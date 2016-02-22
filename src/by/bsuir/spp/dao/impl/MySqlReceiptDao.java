@@ -12,7 +12,7 @@ import java.util.*;
 
 public class MySqlReceiptDao implements ReceiptDao {
 
-    private static final String INSERT_RECEIPT_QUERY = "insert into receipt (clientName, paymentData, cost, date, idUser) values (?,?,?,?,?)";
+    private static final String INSERT_RECEIPT_QUERY = "insert into receipt (clientName, paymentData, cost, `date`, idUser, serviceName) values (?,?,?,?,?,?)";
     private static final String SELECT_RECEIPT_BY_ID = "select * from receipt where id=?";
     private static final String SELECT_ALL_RECEIPT = "select * from receipt";
     private static final String DELETE_BY_ID = "delete from receipt where id=?";
@@ -42,6 +42,7 @@ public class MySqlReceiptDao implements ReceiptDao {
                 receipt.setCost(resultSet.getInt(4));
                 receipt.setDate(new java.util.Date(resultSet.getDate(5).getTime()));
                 receipt.setUserId(resultSet.getInt(6));
+                receipt.setServiceName(resultSet.getString(7));
                 receipts.add(receipt);
             }
         } catch (SQLException e) {
@@ -63,7 +64,8 @@ public class MySqlReceiptDao implements ReceiptDao {
             statement.setString(2, newInstance.getPaymentData());
             statement.setInt(3, newInstance.getCost());
             statement.setDate(4, new Date(newInstance.getDate().getTime()));
-
+            statement.setInt(5, newInstance.getUserId());
+            statement.setString(6, newInstance.getServiceName());
             statement.execute();
 
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -95,6 +97,8 @@ public class MySqlReceiptDao implements ReceiptDao {
                     receipt.setPaymentData(resultSet.getString(3));
                     receipt.setCost(resultSet.getInt(4));
                     receipt.setDate(resultSet.getDate(5));
+                    receipt.setUserId(resultSet.getInt(6));
+                    receipt.setServiceName(resultSet.getString(7));
                 }
             }
         } catch (SQLException e) {
@@ -108,7 +112,7 @@ public class MySqlReceiptDao implements ReceiptDao {
 
     @Override
     public void update(Receipt obj) throws DaoException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
