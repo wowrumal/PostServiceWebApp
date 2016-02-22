@@ -19,7 +19,7 @@ public class MySqlPackageDao implements PackageDao {
 
     private MySqlPackageDao(){}
 
-    private static MySqlPackageDao GetInstance() { return instance;}
+    public static MySqlPackageDao GetInstance() { return instance;}
 
     private static final String INSERT_PACKAGE_QUERY = "insert into `package` ('type', 'date', senderName, getterName, address, postIndex, barcode) "+
                                                         "values (?,?,?,?,?,?,?)";

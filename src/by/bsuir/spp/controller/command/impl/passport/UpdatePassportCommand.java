@@ -16,7 +16,6 @@ public class UpdatePassportCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         Passport passport = new Passport();
-
         passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
         passport.setPassportNumber(request.getParameter(RequestParameterName.PASSPORT_NUMBER));
         passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
