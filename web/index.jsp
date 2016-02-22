@@ -39,6 +39,11 @@
     </form>
 
     <form action="controller" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_packages">
+        <input type="submit" value="load packages">
+    </form>
+
+    <form action="controller" method="post" enctype="multipart/form-data">
         <input type="hidden" name="command" value="load_users">
         <input type="submit" value="load users">
     </form>

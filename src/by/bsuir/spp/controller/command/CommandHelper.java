@@ -1,6 +1,7 @@
 package by.bsuir.spp.controller.command;
 
 import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
+import by.bsuir.spp.controller.command.impl.myPackage.*;
 import by.bsuir.spp.controller.command.impl.passport.*;
 import by.bsuir.spp.controller.command.impl.user.*;
 
@@ -12,6 +13,12 @@ public class CommandHelper {
     private static HashMap<CommandName, Command> availableCommands = new HashMap<>();
     static {
         availableCommands.put(CommandName.DB_TEST, new TestDataBaseCommand());
+
+        availableCommands.put(CommandName.LOAD_PACKAGES, new LoadPackageCommand());
+        availableCommands.put(CommandName.ADD_PACKAGE, new AddPackageCommand());
+        availableCommands.put(CommandName.DELETE_PACKAGE, new DeletePackageCommand());
+        availableCommands.put(CommandName.SELECT_PACKAGE, new SelectPackageCommand());
+        availableCommands.put(CommandName.UPDATE_PACKAGE, new UpdatePackageCommand());
 
         availableCommands.put(CommandName.LOAD_PASSPORTS, new LoadPassportsCommand());
         availableCommands.put(CommandName.UPDATE_PASSPORT, new UpdatePassportCommand());
