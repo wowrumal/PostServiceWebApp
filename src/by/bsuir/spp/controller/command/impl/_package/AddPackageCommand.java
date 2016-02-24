@@ -1,4 +1,4 @@
-package by.bsuir.spp.controller.command.impl.myPackage;
+package by.bsuir.spp.controller.command.impl._package;
 
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.RequestParameterName;
@@ -33,7 +33,7 @@ public class AddPackageCommand implements Command {
         myPackage.setPostIndex(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX)));
         myPackage.setBarCode(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE)));
 
-        PackageDao packageDao = MySqlPackageDao.GetInstance();
+        PackageDao packageDao = MySqlPackageDao.getInstance();
         int packageId = 0;
         try{
             packageId = packageDao.create(myPackage);
@@ -43,6 +43,6 @@ public class AddPackageCommand implements Command {
 
         request.setAttribute(RequestParameterName.PACKAGE_ID, packageId);
 
-        return new LoadPackageCommand().execute(request);
+        return new LoadPackagesCommand().execute(request);
     }
 }

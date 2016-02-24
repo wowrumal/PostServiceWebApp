@@ -1,6 +1,5 @@
-package by.bsuir.spp.controller.command.impl.myPackage;
+package by.bsuir.spp.controller.command.impl._package;
 
-import by.bsuir.spp.bean.document.*;
 import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.RequestParameterName;
@@ -37,13 +36,13 @@ public class UpdatePackageCommand implements Command {
         myPackage.setPostIndex(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX)));
         myPackage.setBarCode(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE)));
 
-        PackageDao packageDao = MySqlPackageDao.GetInstance();
+        PackageDao packageDao = MySqlPackageDao.getInstance();
         try{
             packageDao.update(myPackage);
         } catch (DaoException e) {
             e.printStackTrace();
         }
 
-        return new LoadPackageCommand().execute(request);
+        return new LoadPackagesCommand().execute(request);
     }
 }

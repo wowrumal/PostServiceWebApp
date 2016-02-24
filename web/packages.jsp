@@ -24,24 +24,24 @@
       <th>Barcode</th>
     </tr>
 
-    <c:forEach var="package" items="${packages}">
+    <c:forEach var="packagee" items="${packages}">
     <tr>
-      <td>$(package.type)</td>
-      <td>$(package.date)</td>
-      <td>$(package.senderName)</td>
-      <td>$(package.getterName)</td>
-      <td>$(package.address)</td>
-      <td>$(package.postIndex)</td>
-      <td>$(package.barcode)</td>
+      <td>${packagee.type}</td>
+      <td>${packagee.date}</td>
+      <td>${packagee.senderName}</td>
+      <td>${packagee.getterName}</td>
+      <td>${packagee.address}</td>
+      <td>${packagee.postIndex}</td>
+      <td>${packagee.barCode}</td>
       <td>
         <form action="controller" enctype="multipart/form-data" method="post">
           <input type="hidden" name="command" value="select_package">
-          <input type="hidden" name="package_id" value="${package.packageId}">
+          <input type="hidden" name="package_id" value="${packagee.idPackage}">
           <input type="submit" value="open">
         </form>
         <form action="controller" enctype="multipart/form-data" method="post">
           <input type="hidden" name="command" value="delete_package">
-          <input type="hidden" name="package_id" value="${package.packageId}">
+          <input type="hidden" name="package_id" value="${packagee.idPackage}">
           <input type="submit" value="delete">
         </form>
       </td>

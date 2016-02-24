@@ -53,5 +53,9 @@
         <input type="submit" value="load receipts">
     </form>
 
+    <form action="controller" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_advertisements">
+        <input type="submit" value="load advertisements">
+    </form>
   </body>
 </html>

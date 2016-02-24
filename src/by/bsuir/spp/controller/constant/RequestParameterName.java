@@ -1,7 +1,5 @@
 package by.bsuir.spp.controller.constant;
 
-import by.bsuir.spp.dao.SearchStatementDao;
-
 public final class RequestParameterName {
     private RequestParameterName(){}
 
@@ -20,6 +18,7 @@ public final class RequestParameterName {
     public static final String PACKAGE_POST_INDEX = "package_post_index";
     public static final String PACKAGE_BARCODE = "package_barcode";
 
+    public static final String PACKAGE_IDS = "package_ids";
     //user data
     public static final String USER = "user";
     public static final String USER_ID = "user_id";
@@ -54,4 +53,12 @@ public final class RequestParameterName {
     public static final String RECEIPT_COST = "receipt_cost";
     public static final String RECEIPT_DATE = "receipt_date";
     public static final String RECEIPT_SERVICE = "receipt_service";
+
+    //advertisement
+    public static final String ADVERTISEMENTS = "advertisements";
+    public static final String ADVERTISEMENT = "advertisement";
+    public static final String WEIGHT = "weight";
+    public static final String COST = "cost";
+
+
 }

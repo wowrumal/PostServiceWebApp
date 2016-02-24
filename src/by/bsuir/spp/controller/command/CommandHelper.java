@@ -1,11 +1,10 @@
 package by.bsuir.spp.controller.command;
 
 import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
-import by.bsuir.spp.controller.command.impl.myPackage.*;
+import by.bsuir.spp.controller.command.impl._package.*;
+import by.bsuir.spp.controller.command.impl.advertisement.*;
 import by.bsuir.spp.controller.command.impl.passport.*;
-import by.bsuir.spp.controller.command.impl.receipt.AddReceiptCommand;
-import by.bsuir.spp.controller.command.impl.receipt.LoadReceiptsCommand;
-import by.bsuir.spp.controller.command.impl.receipt.PrepareDataForReceiptCreationCommand;
+import by.bsuir.spp.controller.command.impl.receipt.*;
 import by.bsuir.spp.controller.command.impl.user.*;
 
 import java.util.HashMap;
@@ -17,7 +16,7 @@ public class CommandHelper {
     static {
         availableCommands.put(CommandName.DB_TEST, new TestDataBaseCommand());
 
-        availableCommands.put(CommandName.LOAD_PACKAGES, new LoadPackageCommand());
+        availableCommands.put(CommandName.LOAD_PACKAGES, new LoadPackagesCommand());
         availableCommands.put(CommandName.ADD_PACKAGE, new AddPackageCommand());
         availableCommands.put(CommandName.DELETE_PACKAGE, new DeletePackageCommand());
         availableCommands.put(CommandName.SELECT_PACKAGE, new SelectPackageCommand());
@@ -39,6 +38,15 @@ public class CommandHelper {
         availableCommands.put(CommandName.LOAD_RECEIPTS, new LoadReceiptsCommand());
         availableCommands.put(CommandName.ADD_RECEIPT, new AddReceiptCommand());
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_RECEIPT, new PrepareDataForReceiptCreationCommand());
+        availableCommands.put(CommandName.SELECT_RECEIPT, new SelectReceiptCommand());
+        availableCommands.put(CommandName.DELETE_RECEIPT, new DeleteReceipCommand());
+
+        availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_ADVERTISEMENT, new PrepareDataForAdvertisementCreationCommand());
+        availableCommands.put(CommandName.LOAD_ADVERTISEMENTS, new LoadAdvertisementsCommand());
+        availableCommands.put(CommandName.ADD_ADVERTISEMENT, new AddAdvertisementCommand());
+        availableCommands.put(CommandName.DELETE_ADVERTISEMENT, new DeleteAdvertisementCommand());
+        availableCommands.put(CommandName.SELECT_ADVERTISEMENT, new SelectAdvertisementCommand());
+        availableCommands.put(CommandName.UPDATE_ADVERTISEMENT, new UpdateAdvertisementCommand());
     }
 
     public static Command getCommand(String commandName) {

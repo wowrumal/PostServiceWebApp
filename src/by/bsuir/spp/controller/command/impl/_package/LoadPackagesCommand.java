@@ -1,4 +1,4 @@
-package by.bsuir.spp.controller.command.impl.myPackage;
+package by.bsuir.spp.controller.command.impl._package;
 
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.JspPageName;
@@ -12,10 +12,10 @@ import java.util.List;
 /**
  * Created by Кирилл on 2/21/2016.
  */
-public class LoadPackageCommand implements Command {
+public class LoadPackagesCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        List<by.bsuir.spp.bean.document.Package> packages = MySqlPackageDao.GetInstance().getAllPackages();
+        List<by.bsuir.spp.bean.document.Package> packages = MySqlPackageDao.getInstance().getAllPackages();
         request.setAttribute(RequestParameterName.PACKAGES, packages);
 
         return JspPageName.PACKAGES;

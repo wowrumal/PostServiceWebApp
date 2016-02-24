@@ -1,6 +1,5 @@
 package by.bsuir.spp.dao;
 
-import by.bsuir.spp.bean.document.*;
 import by.bsuir.spp.bean.document.Package;
 
 import java.util.List;
@@ -11,4 +10,5 @@ import java.util.List;
 public interface PackageDao extends GenericDao<Package, Integer> {
 
     List<Package> getAllPackages();
+    List<Integer> getPackageIds();
 }

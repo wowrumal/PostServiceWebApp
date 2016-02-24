@@ -1,6 +1,5 @@
 package by.bsuir.spp.dao.impl;
 
-import by.bsuir.spp.bean.document.*;
 import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.dao.PackageDao;
 import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
@@ -20,7 +19,7 @@ public class MySqlPackageDao implements PackageDao {
 
     private MySqlPackageDao(){}
 
-    public static MySqlPackageDao GetInstance() { return instance;}
+    public static MySqlPackageDao getInstance() { return instance;}
 
     private static final String INSERT_PACKAGE_QUERY = "insert into `package` ('type', 'date', senderName, getterName, address, postIndex, barcode) "+
                                                         "values (?,?,?,?,?,?,?)";
@@ -29,6 +28,8 @@ public class MySqlPackageDao implements PackageDao {
     private static final String DELETE_PACKAGE_BY_ID = "delete from `package` where id=?";
     private static final String UPDATE_PACKAGE_BY_ID = "update `package` set type=?, date=?, senderName=?, getterName=?, address=?, postIndex=?, barcode=? "+
                                                         "where id=?";
+
+    private static final String SELECT_PACKAGE_IDS = "select id from package";
 
     @Override
     public Integer create(by.bsuir.spp.bean.document.Package newInstance) throws DaoException {
@@ -154,5 +155,24 @@ public class MySqlPackageDao implements PackageDao {
             e.printStackTrace();
         }
         return packages;
+    }
+
+    @Override
+    public List<Integer> getPackageIds() {
+        List<Integer> ids = new ArrayList<>();
+
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_PACKAGE_IDS)) {
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return ids;
     }
 }
