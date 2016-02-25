@@ -1,9 +1,8 @@
 package by.bsuir.spp.controller.command.impl.searchstatement;
 
 import by.bsuir.spp.bean.Passport;
-import by.bsuir.spp.bean.document.*;
+import by.bsuir.spp.bean.document.SearchPackageStatement;
 import by.bsuir.spp.controller.command.Command;
-import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.SearchStatementDao;
 import by.bsuir.spp.dao.impl.MySqlSearchStatementDao;
@@ -28,7 +27,7 @@ public class UpdateSearchStatementCommand implements Command {
         }
         packageStatement.setPetitionContent(request.getParameter(RequestParameterName.PETITION_CONTENT));
         packageStatement.setAddress(request.getParameter(RequestParameterName.SEARCH_STATEMENT_ADDRESS));
-        packageStatement.setPhoneNumber(Integer.parseInt(request.getParameter(RequestParameterName.PHONE_NUMBER)));
+        packageStatement.setPhoneNumber(request.getParameter(RequestParameterName.PHONE_NUMBER));
 
         Passport passport = new Passport();
         passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
@@ -38,7 +37,7 @@ public class UpdateSearchStatementCommand implements Command {
         packagee.setIdPackage(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
         packageStatement.setPostPackage(packagee);
 
-        packageStatement.setId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
+        packageStatement.setId(Integer.parseInt(request.getParameter(RequestParameterName.SEARCH_STATEMENT_ID)));
 
         try {
             searchStatementDao.update(packageStatement);
@@ -46,6 +45,6 @@ public class UpdateSearchStatementCommand implements Command {
             e.printStackTrace();
         }
 
-        return JspPageName.SEARCH_STATEMENTS;
+        return new LoadSearchStatementsCommand().execute(request);
     }
 }

@@ -28,7 +28,7 @@ public class AddSearchStatementCommand implements Command {
         }
         packageStatement.setPetitionContent(request.getParameter(RequestParameterName.PETITION_CONTENT));
         packageStatement.setAddress(request.getParameter(RequestParameterName.SEARCH_STATEMENT_ADDRESS));
-        packageStatement.setPhoneNumber(Integer.parseInt(request.getParameter(RequestParameterName.PHONE_NUMBER)));
+        packageStatement.setPhoneNumber(request.getParameter(RequestParameterName.PHONE_NUMBER));
 
         Passport passport = new Passport();
         passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));

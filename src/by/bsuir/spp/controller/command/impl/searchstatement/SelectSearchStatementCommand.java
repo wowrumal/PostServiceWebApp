@@ -23,6 +23,6 @@ public class SelectSearchStatementCommand implements Command {
             e.printStackTrace();
         }
 
-        return new LoadSearchStatementsCommand().execute(request);
+        return new PrepareDataForSearchStatementCreation().execute(request);
     }
 }

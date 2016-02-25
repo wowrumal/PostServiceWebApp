@@ -41,18 +41,18 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_SEARCH_STATEMENT)) {
             while (resultSet.next()) {
                 SearchPackageStatement searchPackageStatement = new SearchPackageStatement();
-                searchPackageStatement.setId(resultSet.getInt(1));
-                searchPackageStatement.setAddress(resultSet.getString(2));
-                searchPackageStatement.setPhoneNumber(resultSet.getInt(3));
+                searchPackageStatement.setId(resultSet.getInt("id"));
+                searchPackageStatement.setAddress(resultSet.getString("address"));
+                searchPackageStatement.setPhoneNumber(resultSet.getString("phoneNumber"));
                 Passport passport = new Passport();
-                passport.setPassportId(resultSet.getInt(4));
+                passport.setPassportId(resultSet.getInt("passportID"));
                 searchPackageStatement.setPassport(passport);
-                searchPackageStatement.setPetitionContent(resultSet.getString(5));
+                searchPackageStatement.setPetitionContent(resultSet.getString("petitionContent"));
                 by.bsuir.spp.bean.document.Package packagee = new Package();
-                packagee.setIdPackage(resultSet.getInt(6));
+                packagee.setIdPackage(resultSet.getInt("packageID"));
                 searchPackageStatement.setPostPackage(packagee);
-                searchPackageStatement.setCurrentDate(resultSet.getDate(7));
-                searchPackageStatement.setPostManagerName(resultSet.getString(8));
+                searchPackageStatement.setCurrentDate(resultSet.getDate("currentDate"));
+                searchPackageStatement.setPostManagerName(resultSet.getString("managerName"));
 
                 statementList.add(searchPackageStatement);
             }
@@ -71,7 +71,7 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
         try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT_SEARCH_STATEMENT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, newInstance.getAddress());
-            statement.setInt(2, newInstance.getPhoneNumber());
+            statement.setString(2, newInstance.getPhoneNumber());
             statement.setInt(3, newInstance.getPassport().getPassportId());
             statement.setString(4, newInstance.getPetitionContent());
             statement.setInt(5, newInstance.getPostPackage().getIdPackage());
@@ -104,9 +104,9 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
                     packageStatement = new SearchPackageStatement();
                     packageStatement.setId(id);
                     packageStatement.setAddress(resultSet.getString(2));
-                    packageStatement.setPhoneNumber(resultSet.getInt(3));
+                    packageStatement.setPhoneNumber(resultSet.getString(3));
                     Passport passport = new Passport();
-                    packageStatement.setId(resultSet.getInt(4));
+                    passport.setPassportId(resultSet.getInt(4));
                     packageStatement.setPassport(passport);
                     packageStatement.setPetitionContent(resultSet.getString(5));
                     Package packagee = new Package();
@@ -130,13 +130,13 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
         try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_SEARCH_STATEMENT_BY_ID)) {
             statement.setString(1, obj.getAddress());
-            statement.setInt(2, obj.getPhoneNumber());
+            statement.setString(2, obj.getPhoneNumber());
             statement.setInt(3, obj.getPassport().getPassportId());
             statement.setString(4, obj.getPetitionContent());
             statement.setInt(5, obj.getPostPackage().getIdPackage());
             statement.setDate(6, new Date(obj.getCurrentDate().getTime()));
             statement.setString(7, obj.getPostManagerName());
-            statement.setInt(1, obj.getId());
+            statement.setInt(8, obj.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

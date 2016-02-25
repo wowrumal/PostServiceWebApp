@@ -12,7 +12,7 @@ public class SearchPackageStatement implements Serializable {
 
     private int id;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
     private Passport passport;
 
     private String petitionContent;
@@ -39,11 +39,11 @@ public class SearchPackageStatement implements Serializable {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
