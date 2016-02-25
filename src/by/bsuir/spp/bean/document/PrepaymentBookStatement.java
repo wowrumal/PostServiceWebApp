@@ -15,6 +15,16 @@ public class PrepaymentBookStatement implements Serializable {
     private String organizationHeadName;
     private String bookkeeperName;
 
+    private int passportId;
+
+    public int getPassportId() {
+        return passportId;
+    }
+
+    public void setPassportId(int passportId) {
+        this.passportId = passportId;
+    }
+
     private Date date;
 
     public int getStatementNumber() {

@@ -60,5 +60,23 @@ public final class RequestParameterName {
     public static final String WEIGHT = "weight";
     public static final String COST = "cost";
 
+    //prepayment book
+    public static final String PREPAYMENT_BOOKS = "prepayment_books";
+    public static final String PREPAYMENT_BOOK = "prepayment_book";
+    public static final String PREPAYMENT_BOOK_NUMBER = "prepayment_book_number";
+    public static final String CLIENT_NAME = "client_name";
+    public static final String CLIENT_NUMBER = "client_number";
+    public static final String UNPAID_COST = "unpaid_cost";
+    public static final String ORGANIZATION_HEAD_NAME = "organization_head_name";
+    public static final String BOOKKEEPER_NAME = "bookkeeper_name";
+    public static final String DATE = "date";
 
+    //search statement
+    public static final String SEARCH_STATEMENTS = "search_statements";
+    public static final String SEARCH_STATEMENT = "search_statement";
+    public static final String SEARCH_STATEMENT_ID = "search_statement_id";
+    public static final String SEARCH_STATEMENT_ADDRESS = "search_statement_address";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String PETITION_CONTENT = "petition_content";
+    public static final String POST_MANAGER_NAME = "post_manager_name";
 }

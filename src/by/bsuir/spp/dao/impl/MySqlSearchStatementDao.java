@@ -1,9 +1,15 @@
 package by.bsuir.spp.dao.impl;
 
-import by.bsuir.spp.bean.document.SearchPackageStatement;
+import by.bsuir.spp.bean.Passport;
+import by.bsuir.spp.bean.document.*;
+import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.dao.SearchStatementDao;
+import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
 import by.bsuir.spp.exception.dao.DaoException;
+import by.bsuir.spp.exception.dao.connectionpool.ConnectionPoolException;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,26 +35,126 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
 
     @Override
     public List<SearchPackageStatement> getAllSearchStatements() {
-        return null;
+        List<SearchPackageStatement> statementList = new ArrayList<>();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_ALL_SEARCH_STATEMENT)) {
+            while (resultSet.next()) {
+                SearchPackageStatement searchPackageStatement = new SearchPackageStatement();
+                searchPackageStatement.setId(resultSet.getInt(1));
+                searchPackageStatement.setAddress(resultSet.getString(2));
+                searchPackageStatement.setPhoneNumber(resultSet.getInt(3));
+                Passport passport = new Passport();
+                passport.setPassportId(resultSet.getInt(4));
+                searchPackageStatement.setPassport(passport);
+                searchPackageStatement.setPetitionContent(resultSet.getString(5));
+                by.bsuir.spp.bean.document.Package packagee = new Package();
+                packagee.setIdPackage(resultSet.getInt(6));
+                searchPackageStatement.setPostPackage(packagee);
+                searchPackageStatement.setCurrentDate(resultSet.getDate(7));
+                searchPackageStatement.setPostManagerName(resultSet.getString(8));
+
+                statementList.add(searchPackageStatement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return statementList;
     }
 
     @Override
     public Integer create(SearchPackageStatement newInstance) throws DaoException {
-        return null;
+        int id = 0;
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(INSERT_SEARCH_STATEMENT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, newInstance.getAddress());
+            statement.setInt(2, newInstance.getPhoneNumber());
+            statement.setInt(3, newInstance.getPassport().getPassportId());
+            statement.setString(4, newInstance.getPetitionContent());
+            statement.setInt(5, newInstance.getPostPackage().getIdPackage());
+            statement.setDate(6, new Date(newInstance.getCurrentDate().getTime()));
+            statement.setString(7, newInstance.getPostManagerName());
+            statement.execute();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    id = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     @Override
     public SearchPackageStatement read(Integer id) throws DaoException {
-        return null;
+        SearchPackageStatement packageStatement = null;
+
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_SEARCH_STATEMENT_BY_ID)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    packageStatement = new SearchPackageStatement();
+                    packageStatement.setId(id);
+                    packageStatement.setAddress(resultSet.getString(2));
+                    packageStatement.setPhoneNumber(resultSet.getInt(3));
+                    Passport passport = new Passport();
+                    packageStatement.setId(resultSet.getInt(4));
+                    packageStatement.setPassport(passport);
+                    packageStatement.setPetitionContent(resultSet.getString(5));
+                    Package packagee = new Package();
+                    packagee.setIdPackage(resultSet.getInt(6));
+                    packageStatement.setPostPackage(packagee);
+                    packageStatement.setCurrentDate(resultSet.getDate(7));
+                    packageStatement.setPostManagerName(resultSet.getString(8));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return packageStatement;
     }
 
     @Override
     public void update(SearchPackageStatement obj) throws DaoException {
-
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_SEARCH_STATEMENT_BY_ID)) {
+            statement.setString(1, obj.getAddress());
+            statement.setInt(2, obj.getPhoneNumber());
+            statement.setInt(3, obj.getPassport().getPassportId());
+            statement.setString(4, obj.getPetitionContent());
+            statement.setInt(5, obj.getPostPackage().getIdPackage());
+            statement.setDate(6, new Date(obj.getCurrentDate().getTime()));
+            statement.setString(7, obj.getPostManagerName());
+            statement.setInt(1, obj.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(SearchPackageStatement obj) throws DaoException {
-
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(DELETE_SEARCH_STATEMENT_BY_ID)) {
+            statement.setInt(1, obj.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -57,5 +57,10 @@
         <input type="hidden" name="command" value="load_advertisements">
         <input type="submit" value="load advertisements">
     </form>
+
+    <form action="controller" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_prepayment_books">
+        <input type="submit" value="load statements of prepayment books">
+    </form>
   </body>
 </html>

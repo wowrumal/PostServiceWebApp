@@ -4,8 +4,8 @@ import by.bsuir.spp.bean.document.PrepaymentBookStatement;
 import by.bsuir.spp.dao.PrepaymentBookDao;
 import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
 import by.bsuir.spp.exception.dao.DaoException;
+import by.bsuir.spp.exception.dao.connectionpool.ConnectionPoolException;
 
-import java.beans.Statement;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +23,11 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
         return instance;
     }
 
-    private static final String INSERT_PREPAYMENT_BOOK_QUERY = "INSERT into `prepayment_book` (clientName, clientNumber, unpdaidCost, organisationHeadName, bookkeeperName, date) "+
-            "values (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_PREPAYMENT_BOOK_QUERY = "INSERT into `prepayment_book` (clientName, clientNumber, unpdaidCost, organizationHeadName, bookkeeperName, `date`, passportId) "+
+            "values (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_PREPAYMENT_BOOK_BY_ID = "select * from `prepayment_book` where id=?";
     private static final String DELETE_PREPAYMENT_BOOK_BY_ID = "delete from `prepayment_book` where id=?";
-    private static final String UPDATE_PREPAYMENT_BOOK_BY_ID = "update `prepayment_book` set clientName=?, clientNumber=?, unpdaidCost=?, organisationHeadName=?, bookkeeperName=?, date=? "+
+    private static final String UPDATE_PREPAYMENT_BOOK_BY_ID = "update `prepayment_book` set clientName=?, clientNumber=?, unpdaidCost=?, organisationHeadName=?, bookkeeperName=?,`date`=? "+
             "where id=?";
     private static final String SELECT_ALL_PREPAYMENT_BOOK = "select * from `prepayment_book`";
 
@@ -36,7 +36,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
 
         List<PrepaymentBookStatement> prepaymentBookStatements = new ArrayList<>();
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PREPAYMENT_BOOK);
             ResultSet resultSet = statement.executeQuery()) {
 
@@ -49,11 +49,14 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
                 prepaymentBookStatement.setOrganizationHeadName(resultSet.getString(5));
                 prepaymentBookStatement.setBookkeeperName(resultSet.getString(6));
                 prepaymentBookStatement.setDate(resultSet.getDate(7));
+                prepaymentBookStatement.setPassportId(resultSet.getInt(8));
 
                 prepaymentBookStatements.add(prepaymentBookStatement);
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
 
@@ -64,7 +67,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
     public Integer create(PrepaymentBookStatement newInstance) throws DaoException {
         int id = 0;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection =  ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT_PREPAYMENT_BOOK_QUERY, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, newInstance.getClientName());
@@ -73,6 +76,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
             statement.setString(4, newInstance.getOrganizationHeadName());
             statement.setString(5, newInstance.getBookkeeperName());
             statement.setDate(6, new Date(newInstance.getDate().getTime()));
+            statement.setInt(7, newInstance.getPassportId());
             statement.execute();
 
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -81,6 +85,8 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
 
@@ -92,7 +98,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
 
         PrepaymentBookStatement prepaymentBookStatement = null;
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_PREPAYMENT_BOOK_BY_ID)) {
 
             statement.setInt(1, id);
@@ -106,11 +112,14 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
                     prepaymentBookStatement.setOrganizationHeadName(resultSet.getString(5));
                     prepaymentBookStatement.setBookkeeperName(resultSet.getString(6));
                     prepaymentBookStatement.setDate(resultSet.getDate(7));
+                    prepaymentBookStatement.setPassportId(resultSet.getInt(8));
                 }
 
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
 
@@ -120,7 +129,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
     @Override
     public void update(PrepaymentBookStatement obj) throws DaoException {
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection =  ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_PREPAYMENT_BOOK_BY_ID)) {
 
             statement.setString(1, obj.getClientName());
@@ -134,19 +143,23 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void delete(PrepaymentBookStatement obj) throws DaoException {
 
-        try(Connection connection = (Connection) ConnectionPoolImpl.getInstance();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_PREPAYMENT_BOOK_BY_ID)) {
 
             statement.setInt(1, obj.getStatementNumber());
             statement.execute();
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
             e.printStackTrace();
         }
     }

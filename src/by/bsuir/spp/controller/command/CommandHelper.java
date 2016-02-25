@@ -4,7 +4,9 @@ import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
 import by.bsuir.spp.controller.command.impl._package.*;
 import by.bsuir.spp.controller.command.impl.advertisement.*;
 import by.bsuir.spp.controller.command.impl.passport.*;
+import by.bsuir.spp.controller.command.impl.prepaymentbook.*;
 import by.bsuir.spp.controller.command.impl.receipt.*;
+import by.bsuir.spp.controller.command.impl.searchstatement.*;
 import by.bsuir.spp.controller.command.impl.user.*;
 
 import java.util.HashMap;
@@ -47,6 +49,20 @@ public class CommandHelper {
         availableCommands.put(CommandName.DELETE_ADVERTISEMENT, new DeleteAdvertisementCommand());
         availableCommands.put(CommandName.SELECT_ADVERTISEMENT, new SelectAdvertisementCommand());
         availableCommands.put(CommandName.UPDATE_ADVERTISEMENT, new UpdateAdvertisementCommand());
+
+        availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_PREPAYMENT_BOOK, new PrepareDataForPrepaymentBookCreationCommand());
+        availableCommands.put(CommandName.ADD_PREPAYMENT_BOOK, new AddPrepaymentBookCommand());
+        availableCommands.put(CommandName.SELECT_PREPAYMENT_BOOK, new SelectPrepaymentBookCommand());
+        availableCommands.put(CommandName.LOAD_PREPAYMENT_BOOKS, new LoadPrepaymentBooksCommand());
+        availableCommands.put(CommandName.UPDATE_PREPAYMENT_BOOK, new UpdatePrepaymentBookCommand());
+        availableCommands.put(CommandName.DELETE_PREPAYMENT_BOOK, new DeletePrepaymentBookCommand());
+
+        availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_SEARCH_STATEMENT, new PrepareDataForSearchStatementCreation());
+        availableCommands.put(CommandName.ADD_SEARCH_STATEMENT, new AddSearchStatementCommand());
+        availableCommands.put(CommandName.SELECT_SEARCH_STATEMENT, new SelectSearchStatementCommand());
+        availableCommands.put(CommandName.UPDATE_SEARCH_STATEMENT, new UpdateSearchStatementCommand());
+        availableCommands.put(CommandName.DELETE_SEARCH_STATEMENT, new DeleteSearchStatementCommand());
+        availableCommands.put(CommandName.LOAD_SEARCH_STATEMENTS, new LoadSearchStatementsCommand());
     }
 
     public static Command getCommand(String commandName) {
