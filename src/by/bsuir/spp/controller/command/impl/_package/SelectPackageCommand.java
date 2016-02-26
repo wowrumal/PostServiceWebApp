@@ -30,7 +30,7 @@ public class SelectPackageCommand implements Command {
         }
 
         if(myPackage != null) {
-            request.setAttribute(RequestParameterName.PACKAGE_ID, packageId);
+            request.setAttribute(RequestParameterName.PACKAGE, myPackage);
         }
 
         return JspPageName.VIEW_PACKAGE;

@@ -17,8 +17,8 @@
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
   <c:if test="${not empty packagee}">
     <input type="hidden" name="command" value="update_package">
-    <h2>Passport ID:</h2>
-    <input type="text" readonly name="package_id" value="${packagee.packageId}">
+    <h2>Package ID:</h2>
+    <input type="number" readonly name="package_id" value="${packagee.idPackage}">
   </c:if>
 
   <c:if test="${empty packagee}">
@@ -26,25 +26,25 @@
   </c:if>
 
   <h2>Package type:</h2>
-  <input type="text" name="type" value="${packagee.type}" placeholder="">
+  <input type="text" name="package_type" value="${packagee.type}" placeholder="">
 
   <h2>Date:</h2>
-  <input type="date" name="date" value="${packagee.date}">
+  <input type="date" name="package_date" value="${packagee.date}">
 
   <h2>Sender name:</h2>
-  <input type="text" name="senderName" value="${packagee.senderName}" placeholder="">
+  <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="">
 
   <h2>Getter name:</h2>
-  <input type="text" name="getterName" value="${packagee.getterName}" placeholder="">
+  <input type="text" name="package_getter_name" value="${packagee.getterName}" placeholder="">
 
   <h2>Address:</h2>
-  <input type="text" name="address" value="${packagee.address}" placeholder="">
+  <input type="text" name="package_address" value="${packagee.address}" placeholder="">
 
   <h2>Post index:</h2>
-  <input type="number" name="postIndex" value="${packagee.postIndex}" placeholder="">
+  <input type="number" name="package_post_index" value="${packagee.postIndex}" placeholder="">
 
   <h2>Barcode:</h2>
-  <input type="text" name="barcode" value="${packagee.barcode}" placeholder="">
+  <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="">
 
   <input type="submit" value="apply">
 </form>
