@@ -8,6 +8,7 @@ public final class RequestParameterName {
     public static final String DB_CONTENT = "db_content";
 
     //package data
+    public static final String PACKAGE = "packagee";
     public static final String PACKAGES = "packages";
     public static final String PACKAGE_ID = "package_id";
     public static final String PACKAGE_TYPE = "package_type";

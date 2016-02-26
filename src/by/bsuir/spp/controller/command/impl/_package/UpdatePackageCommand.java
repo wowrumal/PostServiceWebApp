@@ -21,7 +21,7 @@ public class UpdatePackageCommand implements Command {
 
        Package myPackage = new Package();
 
-        myPackage.setIdPackage(Integer.parseInt(RequestParameterName.PACKAGE_ID));
+        myPackage.setIdPackage(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
         myPackage.setType(request.getParameter(RequestParameterName.PACKAGE_TYPE));
 
         try {

@@ -21,7 +21,7 @@ public class MySqlPackageDao implements PackageDao {
 
     public static MySqlPackageDao getInstance() { return instance;}
 
-    private static final String INSERT_PACKAGE_QUERY = "insert into `package` ('type', 'date', senderName, getterName, address, postIndex, barcode) "+
+    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterName, address, postIndex, barcode) "+
                                                         "values (?,?,?,?,?,?,?)";
     private static final String SELECT_ALL_PACKAGE = "select * from `package`";
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
