@@ -13,6 +13,16 @@
     <title></title>
 </head>
 <body>
+
+    <form action="controller" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_passports">
+        <input type="submit" value="back">
+    </form>
+
+    <form action="index.jsp">
+        <input type="submit" value="home">
+    </form>
+
     <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
         <c:if test="${not empty passport}">
             <input type="hidden" name="command" value="update_passport">

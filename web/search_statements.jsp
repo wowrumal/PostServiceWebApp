@@ -13,6 +13,11 @@
     <title></title>
 </head>
 <body>
+
+    <form action="index.jsp">
+        <input type="submit" value="home">
+    </form>
+
     <table align="center" border="2">
         <tr>
             <th>Petition</th>
