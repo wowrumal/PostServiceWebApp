@@ -13,66 +13,66 @@
     <title></title>
 </head>
 <body>
-    <form action="controller" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="load_advertisements">
-        <input type="submit" value="back">
-    </form>
+<form action="controller" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="command" value="load_advertisements">
+    <input type="submit" value="back">
+</form>
 
-    <form action="index.jsp">
-        <input type="submit" value="home">
-    </form>
+<form action="index.jsp">
+    <input type="submit" value="home">
+</form>
 
-    <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
-        <h2>Package ID:</h2>
-        <c:if test="${not empty advertisement}">
-            <input type="hidden" name="command" value="update_advertisement">
-        </c:if>
+<form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
+    <h2>Package ID:</h2>
+    <c:if test="${not empty advertisement}">
+        <input type="hidden" name="command" value="update_advertisement">
+    </c:if>
 
-        <c:if test="${empty advertisement}">
-            <input type="hidden" name="command" value="add_advertisement">
-        </c:if>
+    <c:if test="${empty advertisement}">
+        <input type="hidden" name="command" value="add_advertisement">
+    </c:if>
 
-        <p>
-            <select size="1" name="package_id">
-                <c:choose>
-                    <c:when test="${not empty advertisement}">
-                        <option selected>${advertisement.postPackage.idPackage}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="id" items="${package_ids}">
-                            <option>${id}</option>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-        </p>
+    <p>
+        <select size="1" name="package_id">
+            <c:choose>
+                <c:when test="${not empty advertisement}">
+                    <option selected>${advertisement.postPackage.idPackage}</option>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="id" items="${package_ids}">
+                        <option>${id}</option>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </select>
+    </p>
 
-        <h2>Destination address:</h2>
-        <input type="text" name="package_address" value="${advertisement.addressForGetting}">
+    <h2>Destination address:</h2>
+    <input type="text" name="package_address" value="${advertisement.addressForGetting}">
 
-        <h2>Weight:</h2>
-        <input type="text" name="weight" value="${advertisement.weight}">
+    <h2>Weight:</h2>
+    <input type="text" name="weight" value="${advertisement.weight}">
 
-        <h2>Cost:</h2>
-        <input type="text" name="cost" value="${advertisement.cost}">
+    <h2>Cost:</h2>
+    <input type="text" name="cost" value="${advertisement.cost}">
 
-        <h2>Passport ID:</h2>
-        <p>
-            <select size="1" name="passport_id">
-                <c:choose>
-                    <c:when test="${not empty advertisement}">
-                        <option selected>${advertisement.passport.passportId}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="id" items="${passport_ids}">
-                            <option>${id}</option>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-        </p>
+    <h2>Passport ID:</h2>
+    <p>
+        <select size="1" name="passport_id">
+            <c:choose>
+                <c:when test="${not empty advertisement}">
+                    <option selected>${advertisement.passport.passportId}</option>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="id" items="${passport_ids}">
+                        <option>${id}</option>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </select>
+    </p>
 
-        <input type="submit" value="apply">
-    </form>
+    <input type="submit" value="apply">
+</form>
 </body>
 </html>
