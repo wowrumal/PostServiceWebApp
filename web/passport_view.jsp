@@ -1,52 +1,56 @@
 <%--
   Created by IntelliJ IDEA.
-  User: stas-
-  Date: 2/20/2016
-  Time: 11:50 PM
+  User: Кирилл
+  Date: 2/22/2016
+  Time: 12:33 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title></title>
 </head>
 <body>
 
-    <form action="controller" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="load_passports">
-        <input type="submit" value="back">
-    </form>
+<form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
+    <c:if test="${not empty packagee}">
+        <input type="hidden" name="command" value="update_package">
+        <h2>Package ID:</h2>
+        <input type="number" readonly name="package_id" value="${packagee.idPackage}">
+    </c:if>
 
-    <form action="index.jsp">
-        <input type="submit" value="home">
-    </form>
+    <c:if test="${empty packagee}">
+        <input type="hidden" name="command" value="add_package">
+    </c:if>
 
-    <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
-        <c:if test="${not empty passport}">
-            <input type="hidden" name="command" value="update_passport">
-            <h2>Passport ID:</h2>
-            <input type="text" readonly name="passport_id" value="${passport.passportId}">
-        </c:if>
+    <h2>Package type:</h2>
+    <input type="text" name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
 
-        <c:if test="${empty passport}">
-            <input type="hidden" name="command" value="add_passport">
-        </c:if>
+    <h2>Date:</h2>
+    <input type="date" name="package_date" value="${packagee.date}" >
 
-        <h2>Passport number:</h2>
-        <input type="text" name="passport_number" value="${passport.passportNumber}" placeholder="KH2080553">
+    <h2>Sender name:</h2>
+    <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
-        <h2>Address:</h2>
-        <input type="text" name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1">
+    <h2>Getter name:</h2>
+    <input type="text" name="package_getter_name" value="${packagee.getterName}" placeholder="Цивако К.А." maxlength="45">
 
-        <h2>Issuing institution:</h2>
-        <input type="text" name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно">
+    <h2>Address:</h2>
+    <input type="text" name="package_address" value="${packagee.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
-        <h2>Date of issue:</h2>
-        <input type="date" name="issuing_date" value="${passport.issueDate}">
+    <h2>Post index:</h2>
+    <input type="number" name="package_post_index" value="${packagee.postIndex}" placeholder="33524" maxlength="7">
 
-        <input type="submit" value="apply">
-    </form>
+    <h2>Barcode:</h2>
+    <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="4789623" maxlength="10">
+
+    <input type="submit" value="apply">
+</form>
+
+</body>
+</html>
+
 </body>
 </html>

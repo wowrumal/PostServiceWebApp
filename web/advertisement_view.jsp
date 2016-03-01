@@ -48,13 +48,13 @@
     </p>
 
     <h2>Destination address:</h2>
-    <input type="text" name="package_address" value="${advertisement.addressForGetting}">
+    <input type="text" name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
     <h2>Weight:</h2>
-    <input type="text" name="weight" value="${advertisement.weight}">
+    <input type="text" name="weight" value="${advertisement.weight}" placeholder="1000" maxlength="10">
 
     <h2>Cost:</h2>
-    <input type="text" name="cost" value="${advertisement.cost}">
+    <input type="text" name="cost" value="${advertisement.cost}" placeholder="300000" maxlength="10">
 
     <h2>Passport ID:</h2>
     <p>
