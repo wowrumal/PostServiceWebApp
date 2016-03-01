@@ -26,25 +26,25 @@
   </c:if>
 
   <h2>Package type:</h2>
-  <input type="text" name="package_type" value="${packagee.type}" placeholder="">
+  <input type="text" name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
 
   <h2>Date:</h2>
-  <input type="date" name="package_date" value="${packagee.date}">
+  <input type="date" name="package_date" value="${packagee.date}" >
 
   <h2>Sender name:</h2>
-  <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="">
+  <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
   <h2>Getter name:</h2>
-  <input type="text" name="package_getter_name" value="${packagee.getterName}" placeholder="">
+  <input type="text" name="package_getter_name" value="${packagee.getterName}" placeholder="Цивако К.А." maxlength="45">
 
   <h2>Address:</h2>
-  <input type="text" name="package_address" value="${packagee.address}" placeholder="">
+  <input type="text" name="package_address" value="${packagee.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
   <h2>Post index:</h2>
-  <input type="number" name="package_post_index" value="${packagee.postIndex}" placeholder="">
+  <input type="number" name="package_post_index" value="${packagee.postIndex}" placeholder="33524" maxlength="7">
 
   <h2>Barcode:</h2>
-  <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="">
+  <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="4789623" maxlength="10">
 
   <input type="submit" value="apply">
 </form>
