@@ -27,17 +27,19 @@ public class MySqlUserDao implements UserDao {
     }
 
     private static final String SELECT_USER_BY_ID = "select * from `user` where id=?";
-    private static final String INSERT_USER_QUERY = "insert into `user` (login, `password`, firstName, middleName, secondName, passportID, userType) " +
-                                                    "values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_USER_QUERY = "insert into `user` (login, `password`, firstName, middleName, secondName, passportID) " +
+                                                    "values (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_USER_BY_ID = "delete from `user` where id=?";
     private static final String SELECT_ALL_USERS = "select * from `user`";
     private static final String UPDATE_USER_BY_ID = "update `user` set login=?, password=?, firstName=?, middleName=?, secondName=?, userType=? "+
                                                     "where id=?";
     private static final String SELECT_IDS = "select id FROM `user`";
+    private static final String SQL_CHECK_USER = "select * FROM user WHERE login = ? AND `password` =?";
+    private static final String SQL_CHECK_LOGIN = "select * FROM user WHERE login = ?";
 
     @Override
     public Integer create(User newInstance) throws DaoException {
-        int id = 0;
+        int id = -1;
 
         try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT_USER_QUERY, Statement.RETURN_GENERATED_KEYS)) {
@@ -47,17 +49,14 @@ public class MySqlUserDao implements UserDao {
             statement.setString(4, newInstance.getMiddleName());
             statement.setString(5, newInstance.getSecondName());
             statement.setInt(6, newInstance.getPassport().getPassportId());
-            statement.setInt(7, newInstance.getUserRole().ordinal());
             statement.execute();
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     id = resultSet.getInt(1);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Create user error", e);
         }
 
         return id;
@@ -183,5 +182,50 @@ public class MySqlUserDao implements UserDao {
         }
 
         return ids;
+    }
+
+    @Override
+    public User checkUser(User user) {
+        User actualUser = null;
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_CHECK_USER);) {
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+
+            try(ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    actualUser = new User();
+                    actualUser.setId(resultSet.getInt(1));
+                    actualUser.setFirstName(resultSet.getString(4));
+                    actualUser.setMiddleName(resultSet.getString(5));
+                    actualUser.setSecondName(resultSet.getString(6));
+
+                    Passport passport = new Passport();
+                    passport.setPassportId(resultSet.getInt(7));
+                    actualUser.setPassport(passport);
+                    actualUser.setUserRole(UserType.values()[resultSet.getInt(8)]);
+                }
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return actualUser;
+    }
+
+    @Override
+    public boolean checkLogin(String login) {
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_CHECK_LOGIN);) {
+            statement.setString(1, login);
+            try(ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return false;
+                }
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

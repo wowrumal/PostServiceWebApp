@@ -80,4 +80,7 @@ public final class RequestParameterName {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String PETITION_CONTENT = "petition_content";
     public static final String POST_MANAGER_NAME = "post_manager_name";
+
+
+    public static final String MESSAGE = "message";
 }

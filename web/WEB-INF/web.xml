@@ -29,4 +29,10 @@
     <listener>
         <listener-class>by.bsuir.spp.listener.ConnectionProviderListener</listener-class>
     </listener>
+
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+
 </web-app>

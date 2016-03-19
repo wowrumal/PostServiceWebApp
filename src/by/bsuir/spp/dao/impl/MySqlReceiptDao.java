@@ -16,6 +16,7 @@ public class MySqlReceiptDao implements ReceiptDao {
     private static final String SELECT_RECEIPT_BY_ID = "select * from receipt where id=?";
     private static final String SELECT_ALL_RECEIPT = "select * from receipt";
     private static final String DELETE_BY_ID = "delete from receipt where id=?";
+    private static final String SELECT_RECEIPTS_BY_USER_ID = "select * from receipt where idUser=?";
 
 
     private static final MySqlReceiptDao instance = new MySqlReceiptDao();
@@ -44,6 +45,35 @@ public class MySqlReceiptDao implements ReceiptDao {
                 receipt.setUserId(resultSet.getInt(6));
                 receipt.setServiceName(resultSet.getString(7));
                 receipts.add(receipt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return receipts;
+    }
+
+    @Override
+    public List<Receipt> getUserReceipts(int userId) {
+        List<Receipt> receipts = new ArrayList<>();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_RECEIPTS_BY_USER_ID))
+        {
+            statement.setInt(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Receipt receipt = new Receipt();
+                    receipt.setReceiptId(resultSet.getInt(1));
+                    receipt.setClientName(resultSet.getString(2));
+                    receipt.setPaymentData(resultSet.getString(3));
+                    receipt.setCost(resultSet.getInt(4));
+                    receipt.setDate(new java.util.Date(resultSet.getDate(5).getTime()));
+                    receipt.setUserId(resultSet.getInt(6));
+                    receipt.setServiceName(resultSet.getString(7));
+                    receipts.add(receipt);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

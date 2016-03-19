@@ -10,4 +10,6 @@ import java.util.List;
 public interface SearchStatementDao extends GenericDao<SearchPackageStatement, Integer> {
 
     List<SearchPackageStatement> getAllSearchStatements();
+
+    List<SearchPackageStatement> getSearchStatementByPassportId(int passportId);
 }

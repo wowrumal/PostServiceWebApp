@@ -10,4 +10,5 @@ import java.util.List;
 public interface AdvertisementDao extends GenericDao<Advertisement, Integer> {
 
     List<Advertisement> getAllAdvertisement();
+    List<Advertisement> getAdvertisementsByPassportId(int passportId);
 }

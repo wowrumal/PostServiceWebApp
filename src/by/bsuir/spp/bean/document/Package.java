@@ -15,6 +15,15 @@ public class Package implements Serializable {
     private String getterName;
     private String address;
     private int postIndex;
+    private int passportId;
+
+    public int getPassportId() {
+        return passportId;
+    }
+
+    public void setPassportId(int passportId) {
+        this.passportId = passportId;
+    }
 
     public int getIdPackage() {
         return idPackage;

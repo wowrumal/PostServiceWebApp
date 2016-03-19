@@ -9,4 +9,8 @@ public interface UserDao extends GenericDao<User, Integer> {
     List<User> getAllUsers();
 
     List<Integer> getUserIds();
+
+    User checkUser(User user);
+
+    boolean checkLogin(String login);
 }

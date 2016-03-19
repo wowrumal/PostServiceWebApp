@@ -16,11 +16,11 @@
 <body>
 
 <form action="controller" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="command" value="load_search_statements">
+    <input type="hidden" name="command" value="get_user_search_statements">
     <input type="submit" value="back">
 </form>
 
-<form action="index.jsp">
+<form action="home.jsp">
     <input type="submit" value="home">
 </form>
 

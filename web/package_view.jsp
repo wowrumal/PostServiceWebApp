@@ -14,11 +14,18 @@
 </head>
 <body>
 
+<form action="controller" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="command" value="get_packages_for_user">
+    <input type="submit" value="back">
+</form>
+
+<form action="index.jsp">
+    <input type="submit" value="home">
+</form>
+
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
   <c:if test="${not empty packagee}">
     <input type="hidden" name="command" value="update_package">
-    <h2>Package ID:</h2>
-    <input type="number" readonly name="package_id" value="${packagee.idPackage}">
   </c:if>
 
   <c:if test="${empty packagee}">

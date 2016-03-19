@@ -15,12 +15,8 @@
 <body>
 
     <form action="controller" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="load_receipts">
+        <input type="hidden" name="command" value="get_user_receipts">
         <input type="submit" value="back">
-    </form>
-
-    <form action="index.jsp">
-        <input type="submit" value="home">
     </form>
 
     <form action="controller" accept-charset="UTF-8" method="post">
@@ -46,7 +42,7 @@
         <h2>Date:</h2>
         <input type="date" name="receipt_date" value="${receipt.date}">
 
-        <h2>User ID:</h2>
+        <%--<h2>User ID:</h2>
         <p>
             <select size="1" name="user_id">
                 <c:forEach var="id" items="${user_ids}">
@@ -60,7 +56,7 @@
                     </c:choose>
                 </c:forEach>
             </select>
-        </p>
+        </p>--%>
 
         <input type="submit" value="apply">
     </form>

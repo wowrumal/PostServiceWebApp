@@ -1,5 +1,6 @@
 package by.bsuir.spp.controller.command.impl.receipt;
 
+import by.bsuir.spp.bean.User;
 import by.bsuir.spp.bean.document.Receipt;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.RequestParameterName;
@@ -18,7 +19,7 @@ public class AddReceiptCommand implements Command {
         ReceiptDao receiptDao = MySqlReceiptDao.getInstance();
 
         Receipt receipt = new Receipt();
-        receipt.setUserId(Integer.parseInt(request.getParameter(RequestParameterName.USER_ID)));
+        receipt.setUserId(((User)request.getSession().getAttribute(RequestParameterName.USER)).getId());
         receipt.setClientName(request.getParameter(RequestParameterName.RECEIPT_CLIENTNAME));
         receipt.setCost(Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_COST)));
         receipt.setPaymentData(request.getParameter(RequestParameterName.RECEIPT_PAYMENT_DATA));
@@ -36,6 +37,6 @@ public class AddReceiptCommand implements Command {
             e.printStackTrace();
         }
 
-        return new LoadReceiptsCommand().execute(request);
+        return new GetUserReceiptsCommand().execute(request);
     }
 }

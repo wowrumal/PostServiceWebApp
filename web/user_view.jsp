@@ -26,9 +26,8 @@
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty user}">
+        <input type="hidden" name="user_id" value="${user.id}">
         <input type="hidden" name="command" value="update_user">
-        <h2>User ID:</h2>
-        <input type="text" readonly name="user_id" value="${user.id}">
     </c:if>
 
     <c:if test="${empty user}">
@@ -39,7 +38,7 @@
     <input type="text" name="login_field" value="${user.login}">
 
     <h2>password:</h2>
-    <input type="text" name="password" value="${user.password}">
+    <input type="password" name="password" value="${user.password}">
 
     <h2>Second name:</h2>
     <input type="text" name="sec_name" value="${user.secondName}" placeholder="Иванов">

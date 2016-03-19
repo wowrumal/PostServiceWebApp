@@ -29,6 +29,7 @@ public class MySqlAdvertisementDao implements AdvertisementDao {
     private static final String INSERT_ADVERTISEMENT_QUERY = "insert into `advertisement` (idPackage, weight, cost, idPassport, addressForGetting) "+
             "values (?,?,?,?,?)";
     private static final String SELECT_ALL_ADVERTISEMENT = "select * from `advertisement`";
+    private static final String SELECT_ADVERTISEMENTS_BY_PASSPORT_ID = "select * from `advertisement` WHERE idPassport = ?";
     private static final String SELECT_ADVERTISEMENT_BY_ID = "select * from `advertisement` where idPackage=?";
     private static final String DELETE_ADVERTISEMENT_BY_ID = "delete from `advertisement` where idPackage=?";
     private static final String UPDATE_ADVERTISEMENT_BY_ID = "update `advertisement` set weight=?, cost=?, addressForGetting=? "+
@@ -64,6 +65,42 @@ public class MySqlAdvertisementDao implements AdvertisementDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return advertisements;
+    }
+
+    @Override
+    public List<Advertisement> getAdvertisementsByPassportId(int passportId) {
+        List<Advertisement> advertisements = new ArrayList<>();
+
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_ADVERTISEMENTS_BY_PASSPORT_ID)) {
+            statement.setInt(1, passportId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next())
+                {
+                    Advertisement advertisement = new Advertisement();
+
+                    Package myPackage = new Package();
+                    myPackage.setIdPackage(resultSet.getInt(1));
+                    advertisement.setPostPackage(myPackage);
+
+                    advertisement.setWeight(resultSet.getInt(2));
+                    advertisement.setCost(resultSet.getInt(3));
+
+                    Passport passport = new Passport();
+                    passport.setPassportId(resultSet.getInt(4));
+                    advertisement.setPassport(passport);
+
+                    advertisement.setAddressForGetting(resultSet.getString(5));
+
+                    advertisements.add(advertisement);
+                }
+            }
+
+        } catch (SQLException | ConnectionPoolException e) {
             e.printStackTrace();
         }
 

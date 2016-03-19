@@ -20,7 +20,7 @@ public class UpdateUserCommand implements Command {
 
         user.setId(Integer.parseInt(request.getParameter(RequestParameterName.USER_ID)));
         user.setLogin(request.getParameter(RequestParameterName.LOGIN_FIELD));
-        user.setPassword(DigestUtils.md2Hex(request.getParameter(RequestParameterName.PASSWORD)));
+        user.setPassword(DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD)));
         user.setFirstName(request.getParameter(RequestParameterName.FIRST_NAME));
         user.setSecondName(request.getParameter(RequestParameterName.SEC_NAME));
         user.setMiddleName(request.getParameter(RequestParameterName.MIDDLE_NAME));

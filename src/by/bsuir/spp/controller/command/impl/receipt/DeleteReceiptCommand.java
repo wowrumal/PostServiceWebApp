@@ -10,7 +10,7 @@ import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeleteReceipCommand implements Command {
+public class DeleteReceiptCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         int idReceipt = Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_ID));

@@ -11,4 +11,5 @@ public interface PackageDao extends GenericDao<Package, Integer> {
 
     List<Package> getAllPackages();
     List<Integer> getPackageIds();
+    List<Package> getPackagesByPassportId(int passportId);
 }

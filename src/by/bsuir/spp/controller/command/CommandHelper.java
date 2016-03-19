@@ -1,5 +1,7 @@
 package by.bsuir.spp.controller.command;
 
+import by.bsuir.spp.controller.command.impl.LoginCommand;
+import by.bsuir.spp.controller.command.impl.RegistrationCommand;
 import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
 import by.bsuir.spp.controller.command.impl._package.*;
 import by.bsuir.spp.controller.command.impl.advertisement.*;
@@ -23,6 +25,7 @@ public class CommandHelper {
         availableCommands.put(CommandName.DELETE_PACKAGE, new DeletePackageCommand());
         availableCommands.put(CommandName.SELECT_PACKAGE, new SelectPackageCommand());
         availableCommands.put(CommandName.UPDATE_PACKAGE, new UpdatePackageCommand());
+        availableCommands.put(CommandName.GET_PACKAGES_FOR_USER, new GetPackagesForUserCommand());
 
         availableCommands.put(CommandName.LOAD_PASSPORTS, new LoadPassportsCommand());
         availableCommands.put(CommandName.UPDATE_PASSPORT, new UpdatePassportCommand());
@@ -41,7 +44,8 @@ public class CommandHelper {
         availableCommands.put(CommandName.ADD_RECEIPT, new AddReceiptCommand());
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_RECEIPT, new PrepareDataForReceiptCreationCommand());
         availableCommands.put(CommandName.SELECT_RECEIPT, new SelectReceiptCommand());
-        availableCommands.put(CommandName.DELETE_RECEIPT, new DeleteReceipCommand());
+        availableCommands.put(CommandName.DELETE_RECEIPT, new DeleteReceiptCommand());
+        availableCommands.put(CommandName.GET_USER_RECEIPTS, new GetUserReceiptsCommand());
 
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_ADVERTISEMENT, new PrepareDataForAdvertisementCreationCommand());
         availableCommands.put(CommandName.LOAD_ADVERTISEMENTS, new LoadAdvertisementsCommand());
@@ -49,6 +53,7 @@ public class CommandHelper {
         availableCommands.put(CommandName.DELETE_ADVERTISEMENT, new DeleteAdvertisementCommand());
         availableCommands.put(CommandName.SELECT_ADVERTISEMENT, new SelectAdvertisementCommand());
         availableCommands.put(CommandName.UPDATE_ADVERTISEMENT, new UpdateAdvertisementCommand());
+        availableCommands.put(CommandName.GET_USER_ADVERTISEMENTS, new GetUserAdvertisementsCommand());
 
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_PREPAYMENT_BOOK, new PrepareDataForPrepaymentBookCreationCommand());
         availableCommands.put(CommandName.ADD_PREPAYMENT_BOOK, new AddPrepaymentBookCommand());
@@ -63,6 +68,10 @@ public class CommandHelper {
         availableCommands.put(CommandName.UPDATE_SEARCH_STATEMENT, new UpdateSearchStatementCommand());
         availableCommands.put(CommandName.DELETE_SEARCH_STATEMENT, new DeleteSearchStatementCommand());
         availableCommands.put(CommandName.LOAD_SEARCH_STATEMENTS, new LoadSearchStatementsCommand());
+        availableCommands.put(CommandName.GET_USER_SEARCH_STATEMENTS, new GetUserSearchStatementsCommand());
+
+        availableCommands.put(CommandName.LOGIN_COMMAND, new LoginCommand());
+        availableCommands.put(CommandName.REGISTRATION_COMMAND, new RegistrationCommand());
     }
 
     public static Command getCommand(String commandName) {

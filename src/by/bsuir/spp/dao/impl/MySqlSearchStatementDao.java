@@ -28,6 +28,7 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
     private static final String INSERT_SEARCH_STATEMENT_QUERY = "INSERT into `search_statement` (address, phoneNumber, passportID, petitionContent, packageID, currentDate, managerName) "+
             "values (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_SEARCH_STATEMENT_BY_ID = "select * from `search_statement` where id=?";
+    private static final String SELECT_SEARCH_STATEMENT_BY_PASSPORT_ID = "select * from `search_statement` where passportID=?";
     private static final String DELETE_SEARCH_STATEMENT_BY_ID = "delete from `search_statement` where id=?";
     private static final String UPDATE_SEARCH_STATEMENT_BY_ID = "update `search_statement` set address=?, phoneNumber=?, passportID=?, petitionContent=?, packageID=?, currentDate=?, managerName=? "+
             "where id=?";
@@ -56,6 +57,42 @@ public class MySqlSearchStatementDao implements SearchStatementDao {
 
                 statementList.add(searchPackageStatement);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return statementList;
+    }
+
+    @Override
+    public List<SearchPackageStatement> getSearchStatementByPassportId(int passportId) {
+        List<SearchPackageStatement> statementList = new ArrayList<>();
+        try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_SEARCH_STATEMENT_BY_PASSPORT_ID);)
+        {
+            statement.setInt(1, passportId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    SearchPackageStatement searchPackageStatement = new SearchPackageStatement();
+                    searchPackageStatement.setId(resultSet.getInt("id"));
+                    searchPackageStatement.setAddress(resultSet.getString("address"));
+                    searchPackageStatement.setPhoneNumber(resultSet.getString("phoneNumber"));
+                    Passport passport = new Passport();
+                    passport.setPassportId(resultSet.getInt("passportID"));
+                    searchPackageStatement.setPassport(passport);
+                    searchPackageStatement.setPetitionContent(resultSet.getString("petitionContent"));
+                    by.bsuir.spp.bean.document.Package packagee = new Package();
+                    packagee.setIdPackage(resultSet.getInt("packageID"));
+                    searchPackageStatement.setPostPackage(packagee);
+                    searchPackageStatement.setCurrentDate(resultSet.getDate("currentDate"));
+                    searchPackageStatement.setPostManagerName(resultSet.getString("managerName"));
+
+                    statementList.add(searchPackageStatement);
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ConnectionPoolException e) {

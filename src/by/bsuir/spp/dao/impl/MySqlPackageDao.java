@@ -21,10 +21,11 @@ public class MySqlPackageDao implements PackageDao {
 
     public static MySqlPackageDao getInstance() { return instance;}
 
-    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterName, address, postIndex, barcode) "+
-                                                        "values (?,?,?,?,?,?,?)";
+    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterName, address, postIndex, barcode, passportId) "+
+                                                        "values (?,?,?,?,?,?,?,?)";
     private static final String SELECT_ALL_PACKAGE = "select * from `package`";
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
+    private static final String SELECT_PACKAGE_BY_PASSPORT_ID = "select * from `package` where passportId=?";
     private static final String DELETE_PACKAGE_BY_ID = "delete from `package` where id=?";
     private static final String UPDATE_PACKAGE_BY_ID = "update `package` set type=?, date=?, senderName=?, getterName=?, address=?, postIndex=?, barcode=? "+
                                                         "where id=?";
@@ -45,6 +46,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setString(5, newInstance.getAddress());
             statement.setInt(6, newInstance.getPostIndex());
             statement.setInt(7, newInstance.getBarCode());
+            statement.setInt(8, newInstance.getPassportId());
             statement.execute();
 
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -83,6 +85,7 @@ public class MySqlPackageDao implements PackageDao {
                     myPackage.setAddress(resultSet.getString(6));
                     myPackage.setPostIndex(resultSet.getInt(7));
                     myPackage.setBarCode(resultSet.getInt(8));
+                    myPackage.setPassportId(resultSet.getInt(9));
                 }
             }
         } catch (SQLException e) {
@@ -145,7 +148,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setBarCode(resultSet.getInt(8));
-
+                myPackage.setPassportId(resultSet.getInt(9));
                 packages.add(myPackage);
             }
 
@@ -174,5 +177,33 @@ public class MySqlPackageDao implements PackageDao {
         }
 
         return ids;
+    }
+
+    @Override
+    public List<Package> getPackagesByPassportId(int passportId) {
+        List<Package> packages = new ArrayList<>();
+
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PACKAGE_BY_PASSPORT_ID)) {
+            preparedStatement.setInt(1, passportId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Package myPackage = new Package();
+                myPackage.setIdPackage(resultSet.getInt(1));
+                myPackage.setType(resultSet.getString(2));
+                myPackage.setDate(resultSet.getDate(3));
+                myPackage.setSenderName(resultSet.getString(4));
+                myPackage.setGetterName(resultSet.getString(5));
+                myPackage.setAddress(resultSet.getString(6));
+                myPackage.setPostIndex(resultSet.getInt(7));
+                myPackage.setBarCode(resultSet.getInt(8));
+                myPackage.setPassportId(resultSet.getInt(9));
+                packages.add(myPackage);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return packages;
     }
 }
