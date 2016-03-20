@@ -3,7 +3,7 @@ package by.bsuir.spp.controller.constant;
 public final class JspPageName {
     private JspPageName(){}
 
-    public static final String INDEX = "index.jsp";
+    public static final String INDEX = "home_admin.jsp";
     public static final String PACKAGES = "packages.jsp";
     public static final String VIEW_PACKAGE = "package_view.jsp";
     public static final String PASSPORTS = "passports.jsp";
@@ -27,4 +27,5 @@ public final class JspPageName {
     public static final String USER_RECEIPTS = "user_receipts.jsp";
     public static final String USER_ADVERTISEMENTS = "user_advertisements.jsp";
     public static final String USER_SEARCHSTATEMENTS = "user_searchstatements.jsp";
+    public static final String USER_PREPAYMENT_BOOKS = "user_prepayment_books.jsp";
 }

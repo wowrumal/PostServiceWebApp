@@ -18,7 +18,21 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        resp.setHeader("Cache-Control", "no-cache, no-store");
+        resp.setHeader("Pragma", "no-cache");
+
+        String commandName = req.getParameter(RequestParameterName.COMMAND_NAME);
+        Command command = CommandHelper.getCommand(commandName);
+        String page = null;
+        try {
+            page = command.execute(req);
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
+        if (page != null) {
+            resp.sendRedirect(page);
+        }
+
     }
 
     @Override

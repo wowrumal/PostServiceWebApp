@@ -19,15 +19,25 @@
     <input type="submit" value="back">
 </form>
 
-<form action="index.jsp">
-    <input type="submit" value="home">
-</form>
+<c:choose>
+    <c:when test="${user.userRole == 'ADMIN'}">
+        <form action="home_admin.jsp">
+            <input type="submit" value="home">
+        </form>
+    </c:when>
+
+    <c:otherwise>
+        <form action="home_manager.jsp">
+            <input type="submit" value="home">
+        </form>
+    </c:otherwise>
+</c:choose>
+
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty passport}">
         <input type="hidden" name="command" value="update_passport">
-        <h2>Passport ID:</h2>
-        <input type="text" readonly name="passport_id" value="${passport.passportId}">
+        <input type="hidden" readonly name="passport_id" value="${passport.passportId}">
     </c:if>
 
     <c:if test="${empty passport}">

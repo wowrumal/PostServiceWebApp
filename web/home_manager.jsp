@@ -12,5 +12,10 @@
 </head>
 <body>
 WELCOME MANAGER , ${user.firstName}!!!
+
+<form action="controller" method="get" enctype="multipart/form-data">
+  <input type="hidden" name="command" value="logout_command">
+  <input type="submit" value="выход">
+</form>
 </body>
 </html>

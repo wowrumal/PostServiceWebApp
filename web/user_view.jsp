@@ -20,7 +20,7 @@
     <input type="submit" value="back">
 </form>
 
-<form action="index.jsp">
+<form action="home_admin.jsp">
     <input type="submit" value="home">
 </form>
 
@@ -65,7 +65,7 @@
         </select>
     </p>
     <h3>Don't have a passport yet?</h3>
-    <a href="passport_view.jsp">add passport</a>
+    <a href="../passport/passport_view.jsp">add passport</a>
     <h2>Role:</h2>
     <p>
         <select size="1" name="user_role">

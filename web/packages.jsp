@@ -15,7 +15,7 @@
 <body>
 
 
-    <form action="index.jsp">
+    <form action="../home_admin.jsp">
         <input type="submit" value="home">
     </form>
 
@@ -54,10 +54,6 @@
     </tr>
     </c:forEach>
   </table>
-
-  <form action="package_view.jsp">
-    <input type="submit" value="add package">
-  </form>
 
 </body>
 </html>

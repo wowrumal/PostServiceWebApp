@@ -44,7 +44,7 @@ public class AddSearchStatementCommand implements Command {
             e.printStackTrace();
         }
 
-        return new LoadSearchStatementsCommand().execute(request);
+        return new GetUserSearchStatementsCommand().execute(request);
 
     }
 }

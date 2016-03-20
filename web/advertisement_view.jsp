@@ -13,23 +13,43 @@
     <title></title>
 </head>
 <body>
-<form action="controller" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="command" value="get_user_advertisements">
-    <input type="submit" value="back">
-</form>
 
-<form action="index.jsp">
-    <input type="submit" value="home">
-</form>
+<c:choose>
+    <c:when test="${user.userRole == 'ADMIN'}">
+        <form action="controller" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="command" value="load_advertisements">
+            <input type="submit" value="back">
+        </form>
+
+        <form action="home_admin.jsp">
+            <input type="submit" value="home">
+        </form>
+    </c:when>
+
+    <c:when test="${user.userRole == 'CLIENT'}">
+        <form action="controller" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="command" value="get_user_advertisement">
+            <input type="submit" value="back">
+        </form>
+
+        <form action="home.jsp">
+            <input type="submit" value="home">
+        </form>
+    </c:when>
+
+    <c:otherwise>
+        <form action="controller" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="command" value="load_advertisements">
+            <input type="submit" value="back">
+        </form>
+
+        <form action="home_manager.jsp">
+            <input type="submit" value="home">
+        </form>
+    </c:otherwise>
+</c:choose>
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
-    <c:if test="${not empty advertisement}">
-        <input type="hidden" name="command" value="update_advertisement">
-    </c:if>
-
-    <c:if test="${empty advertisement}">
-        <input type="hidden" name="command" value="add_advertisement">
-    </c:if>
 
     <h2>Destination address:</h2>
     <input type="text" name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
@@ -40,7 +60,18 @@
     <h2>Cost:</h2>
     <input type="text" name="cost" value="${advertisement.cost}" placeholder="300000" maxlength="10">
 
-    <input type="submit" value="apply">
+    <c:if test="${(user.userRole == 'POST_MANAGER') || (user.userRole == 'ADMIN')}">
+        <c:if test="${not empty advertisemente}">
+            <input type="hidden" name="PACKAGE_ID" value="${advertisement.postPackage.idPackage}">
+            <input type="hidden" name="command" value="update_advertisement">
+            <input type="submit" value="update">
+        </c:if>
+    </c:if>
+
+    <c:if test="${empty advertisement}">
+        <input type="hidden" name="command" value="add_package">
+        <input type="submit" value="add_advertisement">
+    </c:if>
 </form>
 </body>
 </html>

@@ -4,9 +4,12 @@ import by.bsuir.spp.bean.User;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
+import by.bsuir.spp.dao.PassportDao;
 import by.bsuir.spp.dao.UserDao;
+import by.bsuir.spp.dao.impl.MySqlPassportDao;
 import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
+import by.bsuir.spp.exception.dao.DaoException;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,48 +20,53 @@ public class LoginCommand implements Command {
 
         String page;
 
-        if (validateParams(request)) {
-            UserDao userDao = MySqlUserDao.getInstance();
+        try {
+            if (validateParams(request)) {
+                UserDao userDao = MySqlUserDao.getInstance();
+                PassportDao passportDao = MySqlPassportDao.getInstance();
 
-            String login = request.getParameter(RequestParameterName.LOGIN_FIELD);
-            String password = DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD));
+                String login = request.getParameter(RequestParameterName.LOGIN_FIELD);
+                String password = DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD));
 
-            User user = new User();
-            user.setLogin(login);
-            user.setPassword(password);
+                User user = new User();
+                user.setLogin(login);
+                user.setPassword(password);
 
-            User loggedUser = userDao.checkUser(user);
+                User loggedUser = userDao.checkUser(user);
 
-            if (loggedUser == null) {
-                return JspPageName.LOGIN_PAGE + "?" + RequestParameterName.MESSAGE + "=invalid";
+                if (loggedUser == null) {
+                    return JspPageName.LOGIN_PAGE + "?" + RequestParameterName.MESSAGE + "=invalid";
+                }
+                else {
+                    loggedUser.setPassport(passportDao.read(loggedUser.getPassport().getPassportId()));
+                    switch (loggedUser.getUserRole()) {
+                        case ADMIN: {
+                            page = JspPageName.HOME_ADMIN_PAGE;
+                            break;
+                        }
+                        case CLIENT: {
+                            page = JspPageName.HOME_PAGE;
+                            break;
+                        }
+
+                        case POST_MANAGER: {
+                            page = JspPageName.HOME_MANAGER_PAGE;
+                            break;
+                        }
+                        default: {
+                            page = JspPageName.HOME_PAGE;
+                        }
+                    }
+
+                    request.getSession().setAttribute(RequestParameterName.USER, loggedUser);
+                }
             }
             else {
-                switch (loggedUser.getUserRole()) {
-                    case ADMIN: {
-                        page = JspPageName.HOME_ADMIN_PAGE;
-                        break;
-                    }
-                    case CLIENT: {
-                        page = JspPageName.HOME_PAGE;
-                        break;
-                    }
-
-                    case POST_MANAGER: {
-                        page = JspPageName.HOME_MANAGER_PAGE;
-                        break;
-                    }
-                    default: {
-                        page = JspPageName.HOME_PAGE;
-                    }
-                }
-
-                request.getSession().setAttribute(RequestParameterName.USER, loggedUser);
+                page = JspPageName.LOGIN_PAGE + "?" + RequestParameterName.MESSAGE + "=invalid";
             }
+        } catch (DaoException e) {
+            page = JspPageName.LOGIN_PAGE;
         }
-        else {
-            page = JspPageName.LOGIN_PAGE + "?" + RequestParameterName.MESSAGE + "=invalid";
-        }
-
 
 
         return page;

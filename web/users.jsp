@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <form action="index.jsp">
+    <form action="home_admin.jsp">
         <input type="submit" value="home">
     </form>
 

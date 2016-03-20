@@ -36,6 +36,6 @@ public class AddPrepaymentBookCommand implements Command {
             e.printStackTrace();
         }
 
-        return new LoadPrepaymentBooksCommand().execute(request);
+        return new GetUserPrepaymentBooksCommand().execute(request);
     }
 }

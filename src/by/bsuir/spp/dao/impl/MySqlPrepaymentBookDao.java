@@ -30,6 +30,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
     private static final String UPDATE_PREPAYMENT_BOOK_BY_ID = "update `prepayment_book` set clientName=?, clientNumber=?, unpdaidCost=?, organisationHeadName=?, bookkeeperName=?,`date`=? "+
             "where id=?";
     private static final String SELECT_ALL_PREPAYMENT_BOOK = "select * from `prepayment_book`";
+    private static final String SELECT_PREPAYMENT_BOOK_BY_PASSPORT_ID = "select * FROM prepayment_book WHERE passportID = ?";
 
     @Override
     public List<PrepaymentBookStatement> getAllPrepaymentBooks() {
@@ -57,6 +58,35 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return prepaymentBookStatements;
+    }
+
+    @Override
+    public List<PrepaymentBookStatement> getPrepaymentBooksByPassportId(int passportId) {
+        List<PrepaymentBookStatement> prepaymentBookStatements = new ArrayList<>();
+
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_PREPAYMENT_BOOK_BY_PASSPORT_ID)) {
+            statement.setInt(1, passportId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    PrepaymentBookStatement bookStatement = new PrepaymentBookStatement();
+                    bookStatement.setStatementNumber(resultSet.getInt(1));
+                    bookStatement.setClientName(resultSet.getString(2));
+                    bookStatement.setClientNumber(resultSet.getInt(3));
+                    bookStatement.setUnpaidCost(resultSet.getInt(4));
+                    bookStatement.setOrganizationHeadName(resultSet.getString(5));
+                    bookStatement.setBookkeeperName(resultSet.getString(6));
+                    bookStatement.setDate(resultSet.getDate(7));
+                    bookStatement.setPassportId(resultSet.getInt(8));
+
+                    prepaymentBookStatements.add(bookStatement);
+                }
+            }
+        } catch (SQLException | ConnectionPoolException e) {
             e.printStackTrace();
         }
 

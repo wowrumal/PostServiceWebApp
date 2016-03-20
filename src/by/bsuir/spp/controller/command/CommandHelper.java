@@ -1,6 +1,7 @@
 package by.bsuir.spp.controller.command;
 
 import by.bsuir.spp.controller.command.impl.LoginCommand;
+import by.bsuir.spp.controller.command.impl.LogoutCommand;
 import by.bsuir.spp.controller.command.impl.RegistrationCommand;
 import by.bsuir.spp.controller.command.impl.TestDataBaseCommand;
 import by.bsuir.spp.controller.command.impl._package.*;
@@ -61,6 +62,7 @@ public class CommandHelper {
         availableCommands.put(CommandName.LOAD_PREPAYMENT_BOOKS, new LoadPrepaymentBooksCommand());
         availableCommands.put(CommandName.UPDATE_PREPAYMENT_BOOK, new UpdatePrepaymentBookCommand());
         availableCommands.put(CommandName.DELETE_PREPAYMENT_BOOK, new DeletePrepaymentBookCommand());
+        availableCommands.put(CommandName.GET_USER_PREPAYMENT_BOOKS, new GetUserPrepaymentBooksCommand());
 
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_SEARCH_STATEMENT, new PrepareDataForSearchStatementCreation());
         availableCommands.put(CommandName.ADD_SEARCH_STATEMENT, new AddSearchStatementCommand());
@@ -72,6 +74,7 @@ public class CommandHelper {
 
         availableCommands.put(CommandName.LOGIN_COMMAND, new LoginCommand());
         availableCommands.put(CommandName.REGISTRATION_COMMAND, new RegistrationCommand());
+        availableCommands.put(CommandName.LOGOUT_COMMAND, new LogoutCommand());
     }
 
     public static Command getCommand(String commandName) {

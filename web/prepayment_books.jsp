@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <form action="index.jsp">
+    <form action="home_admin.jsp">
         <input type="submit" value="home">
     </form>
 
@@ -55,9 +55,5 @@
         </c:forEach>
     </table>
 
-    <form action="controller" enctype="multipart/form-data" method="post">
-        <input type="hidden" name="command" value="prepare_data_for_creation_prepayment_book">
-        <input type="submit" value="add prepayment book statement">
-    </form>
 </body>
 </html>

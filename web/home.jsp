@@ -41,12 +41,18 @@
 
         <li>
             <form action="controller" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_user_search_statements">
+                <input type="hidden" name="command" value="get_user_prepayment_books">
                 <input type="submit" value="Заявления оформления авансовой книги">
             </form>
         </li>
     </ul>
 </div>
 WELCOME SIMPLE USER , ${user.firstName}!!!
+
+<form action="controller" method="get" enctype="multipart/form-data">
+    <input type="hidden" name="command" value="logout_command">
+    <input type="submit" value="выход">
+</form>
+
 </body>
 </html>

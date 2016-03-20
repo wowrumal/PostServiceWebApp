@@ -14,23 +14,43 @@
 </head>
 <body>
 
-<form action="controller" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="command" value="get_packages_for_user">
-    <input type="submit" value="back">
-</form>
+<c:choose>
+  <c:when test="${user.userRole == 'ADMIN'}">
+    <form action="controller" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="command" value="load_packages">
+      <input type="submit" value="back">
+    </form>
 
-<form action="index.jsp">
-    <input type="submit" value="home">
-</form>
+    <form action="home_admin.jsp">
+      <input type="submit" value="home">
+    </form>
+  </c:when>
+
+  <c:when test="${user.userRole == 'CLIENT'}">
+    <form action="controller" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="command" value="get_packages_for_user">
+      <input type="submit" value="back">
+    </form>
+
+    <form action="home.jsp">
+      <input type="submit" value="home">
+    </form>
+  </c:when>
+
+  <c:otherwise>
+    <form action="controller" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="command" value="load_packages">
+      <input type="submit" value="back">
+    </form>
+
+    <form action="home_manager.jsp">
+      <input type="submit" value="home">
+    </form>
+  </c:otherwise>
+</c:choose>
+
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
-  <c:if test="${not empty packagee}">
-    <input type="hidden" name="command" value="update_package">
-  </c:if>
-
-  <c:if test="${empty packagee}">
-    <input type="hidden" name="command" value="add_package">
-  </c:if>
 
   <h2>Package type:</h2>
   <input type="text" name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
@@ -53,11 +73,20 @@
   <h2>Barcode:</h2>
   <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="4789623" maxlength="10">
 
-  <input type="submit" value="apply">
+  <c:if test="${user.userRole == 'ADMIN'}">
+    <c:if test="${not empty packagee}">
+      <input type="hidden" name="package_id" value="${packagee.idPackage}">
+      <input type="hidden" name="command" value="update_package">
+      <input type="submit" value="update">
+    </c:if>
+  </c:if>
+
+  <c:if test="${empty packagee}">
+    <input type="hidden" name="command" value="add_package">
+    <input type="submit" value="create package">
+  </c:if>
 </form>
 
 </body>
 </html>
 
-</body>
-</html>

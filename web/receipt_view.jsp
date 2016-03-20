@@ -14,18 +14,44 @@
 </head>
 <body>
 
-    <form action="controller" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="get_user_receipts">
-        <input type="submit" value="back">
-    </form>
+    <c:choose>
+        <c:when test="${user.userRole == 'ADMIN'}">
+            <form action="controller" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="command" value="load_receipts">
+                <input type="submit" value="back">
+            </form>
+
+            <form action="home_admin.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:when>
+
+        <c:when test="${user.userRole == 'CLIENT'}">
+            <form action="controller" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="command" value="get_user_receipts">
+                <input type="submit" value="back">
+            </form>
+
+            <form action="home.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:when>
+
+        <c:otherwise>
+            <form action="controller" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="command" value="load_receipts">
+                <input type="submit" value="back">
+            </form>
+
+            <form action="home_manager.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:otherwise>
+    </c:choose>
+
 
     <form action="controller" accept-charset="UTF-8" method="post">
         <input type="hidden" name="command" value="add_receipt">
-
-        <c:if test="${not empty receipt}">
-            <h2>Receipt ID:</h2>
-            <input type="text" readonly value="${receipt.receiptId}">
-        </c:if>
 
         <h2>Client name:</h2>
         <input type="text" name="receipt_clientname" value="${receipt.clientName}">
@@ -57,8 +83,10 @@
                 </c:forEach>
             </select>
         </p>--%>
+        <c:if test="${empty receipt}">
+            <input type="submit" value="add">
+        </c:if>
 
-        <input type="submit" value="apply">
     </form>
 </body>
 </html>

@@ -10,4 +10,5 @@ import java.util.List;
 public interface PrepaymentBookDao extends GenericDao<PrepaymentBookStatement, Integer> {
 
     List<PrepaymentBookStatement> getAllPrepaymentBooks();
+    List<PrepaymentBookStatement> getPrepaymentBooksByPassportId(int passportId);
 }
