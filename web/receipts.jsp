@@ -26,7 +26,6 @@
             <th>Payment data</th>
             <th>Cost</th>
             <th>Date</th>
-            <th>User id</th>
         </tr>
         <c:forEach var="receipt" items="${receipts}">
             <tr>
@@ -35,7 +34,6 @@
                 <td>${receipt.paymentData}</td>
                 <td>${receipt.cost}</td>
                 <td>${receipt.date}</td>
-                <td>${receipt.userId}</td>
                 <td>
                     <form action="controller" enctype="multipart/form-data" method="post">
                         <input type="hidden" name="command" value="select_receipt">

@@ -62,7 +62,28 @@
   <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
   <h2>Getter name:</h2>
-  <input type="text" name="package_getter_name" value="${packagee.getterName}" placeholder="Цивако К.А." maxlength="45">
+  <p>
+    <select size="1" name="package_getter_name">
+
+        <c:choose>
+            <c:when test="${empty users}">
+                <option selected value="${packagee.getterUser.id}">${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</option>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="getter_user" items="${users}">
+                    <c:choose>
+                        <c:when test="${packagee.getterUser.id==getter_user.id}">
+                            <option selected value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    </select>
+  </p>
 
   <h2>Address:</h2>
   <input type="text" name="package_address" value="${packagee.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">

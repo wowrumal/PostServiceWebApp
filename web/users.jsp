@@ -31,7 +31,7 @@
                 <td>${user.login}</td>
                 <td>${user.password}</td>
                 <td>${user.secondName} ${user.firstName} ${user.middleName}</td>
-                <td>${user.passport.passportId}</td>
+                <td>${user.passport.passportNumber}</td>
                 <td>${user.userRole}</td>
                 <td>
                     <form action="controller" enctype="multipart/form-data" method="post">

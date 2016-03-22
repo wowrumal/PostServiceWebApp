@@ -1,5 +1,7 @@
 package by.bsuir.spp.bean.document;
 
+import by.bsuir.spp.bean.User;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +14,7 @@ public class Package implements Serializable {
     private int barCode;
     private Date date;
     private String senderName;
-    private String getterName;
+    private User getterUser;
     private String address;
     private int postIndex;
     private int passportId;
@@ -65,12 +67,12 @@ public class Package implements Serializable {
         this.senderName = senderName;
     }
 
-    public String getGetterName() {
-        return getterName;
+    public User getGetterUser() {
+        return getterUser;
     }
 
-    public void setGetterName(String getterName) {
-        this.getterName = getterName;
+    public void setGetterUser(User getterUser) {
+        this.getterUser = getterUser;
     }
 
     public String getAddress() {

@@ -24,7 +24,7 @@ public class SelectUserCommand implements Command {
         }
 
         if (user != null) {
-            request.setAttribute(RequestParameterName.USER, user);
+            request.setAttribute(RequestParameterName.USERR, user);
         }
         return new PrepareDataForUserCreationCommand().execute(request);
 

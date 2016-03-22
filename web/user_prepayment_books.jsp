@@ -45,11 +45,11 @@
           <input type="hidden" name="prepayment_book_number" value="${book.statementNumber}">
           <input type="submit" value="open">
         </form>
-        <form action="controller" enctype="multipart/form-data" method="post">
+        <%--<form action="controller" enctype="multipart/form-data" method="post">
           <input type="hidden" name="command" value="delete_prepayment_book">
           <input type="hidden" name="prepayment_book_number" value="${book.statementNumber}">
           <input type="submit" value="delete">
-        </form>
+        </form>--%>
       </td>
     </tr>
   </c:forEach>

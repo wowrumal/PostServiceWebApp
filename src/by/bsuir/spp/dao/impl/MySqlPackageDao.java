@@ -1,5 +1,6 @@
 package by.bsuir.spp.dao.impl;
 
+import by.bsuir.spp.bean.User;
 import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.dao.PackageDao;
 import by.bsuir.spp.dao.connectionpool.impl.ConnectionPoolImpl;
@@ -21,7 +22,7 @@ public class MySqlPackageDao implements PackageDao {
 
     public static MySqlPackageDao getInstance() { return instance;}
 
-    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterName, address, postIndex, barcode, passportId) "+
+    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterUserId, address, postIndex, barcode, passportId) "+
                                                         "values (?,?,?,?,?,?,?,?)";
     private static final String SELECT_ALL_PACKAGE = "select * from `package`";
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
@@ -42,7 +43,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setString(1, newInstance.getType());
             statement.setDate(2, new Date(newInstance.getDate().getTime()));
             statement.setString(3, newInstance.getSenderName());
-            statement.setString(4, newInstance.getGetterName());
+            statement.setInt(4, newInstance.getGetterUser().getId());
             statement.setString(5, newInstance.getAddress());
             statement.setInt(6, newInstance.getPostIndex());
             statement.setInt(7, newInstance.getBarCode());
@@ -81,7 +82,7 @@ public class MySqlPackageDao implements PackageDao {
                     myPackage.setType(resultSet.getString(2));
                     myPackage.setDate(resultSet.getDate(3));
                     myPackage.setSenderName(resultSet.getString(4));
-                    myPackage.setGetterName(resultSet.getString(5));
+                    myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
                     myPackage.setAddress(resultSet.getString(6));
                     myPackage.setPostIndex(resultSet.getInt(7));
                     myPackage.setBarCode(resultSet.getInt(8));
@@ -104,7 +105,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setString(1, obj.getType());
             statement.setDate(2, new Date(obj.getDate().getTime()));
             statement.setString(3, obj.getSenderName());
-            statement.setString(4, obj.getGetterName());
+            statement.setInt(4, obj.getGetterUser().getId());
             statement.setString(5, obj.getAddress());
             statement.setInt(6, obj.getPostIndex());
             statement.setInt(7, obj.getBarCode());
@@ -144,7 +145,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setType(resultSet.getString(2));
                 myPackage.setDate(resultSet.getDate(3));
                 myPackage.setSenderName(resultSet.getString(4));
-                myPackage.setGetterName(resultSet.getString(5));
+                myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setBarCode(resultSet.getInt(8));
@@ -193,7 +194,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setType(resultSet.getString(2));
                 myPackage.setDate(resultSet.getDate(3));
                 myPackage.setSenderName(resultSet.getString(4));
-                myPackage.setGetterName(resultSet.getString(5));
+                myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setBarCode(resultSet.getInt(8));

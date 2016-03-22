@@ -2,6 +2,8 @@ package by.bsuir.spp.controller;
 
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.command.CommandHelper;
+import by.bsuir.spp.controller.command.impl.LogoutCommand;
+import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.exception.controller.command.CommandException;
 
@@ -20,19 +22,23 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setHeader("Cache-Control", "no-cache, no-store");
         resp.setHeader("Pragma", "no-cache");
-
-        String commandName = req.getParameter(RequestParameterName.COMMAND_NAME);
-        Command command = CommandHelper.getCommand(commandName);
         String page = null;
-        try {
-            page = command.execute(req);
-        } catch (CommandException e) {
-            e.printStackTrace();
-        }
-        if (page != null) {
+        String commandName = req.getParameter(RequestParameterName.COMMAND_NAME);
+        if (commandName == null) {
+            page = JspPageName.LOGIN_PAGE;
             resp.sendRedirect(page);
         }
-
+        else {
+            Command command = CommandHelper.getCommand(commandName);
+            try {
+                page = command.execute(req);
+            } catch (CommandException e) {
+                e.printStackTrace();
+            }
+            if (page != null) {
+                resp.sendRedirect(page);
+            }
+        }
     }
 
     @Override
@@ -42,7 +48,14 @@ public class Controller extends HttpServlet {
         String page = null;
 
         try {
-            page = command.execute(req);
+            if (command == null) {
+                new LogoutCommand().execute(req);
+                resp.sendRedirect(JspPageName.LOGIN_PAGE);
+                return;
+            }
+            else {
+                page = command.execute(req);
+            }
         } catch (CommandException e) {
             e.printStackTrace();
         }

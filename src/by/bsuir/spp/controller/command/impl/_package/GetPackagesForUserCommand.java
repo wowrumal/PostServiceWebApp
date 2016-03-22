@@ -6,7 +6,9 @@ import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PackageDao;
+import by.bsuir.spp.dao.UserDao;
 import by.bsuir.spp.dao.impl.MySqlPackageDao;
+import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,12 @@ public class GetPackagesForUserCommand implements Command {
         try {
             int passportId = ((User)request.getSession().getAttribute(RequestParameterName.USER)).getPassport().getPassportId();
             PackageDao packageDao = MySqlPackageDao.getInstance();
+            UserDao userDao = MySqlUserDao.getInstance();
             List<Package> packages = packageDao.getPackagesByPassportId(passportId);
+            for (Package pack : packages) {
+                pack.setGetterUser(userDao.read(pack.getGetterUser().getId()));
+            }
+
             request.setAttribute(RequestParameterName.PACKAGES, packages);
 
             page = JspPageName.USER_PACKAGES;

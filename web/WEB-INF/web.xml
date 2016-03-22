@@ -35,7 +35,13 @@
         <init-param>
             <param-name>user_pages</param-name>
             <param-value>
-                /home.jsp,/user_receipts.jsp,/advertisement_view.jsp,/package_view.jsp,/prepayment_book_view.jsp,/receipt_view.jsp,/search_statement_view.jsp,/user_advertisements.jsp,/user_packages.jsp,/user_prepayment_books.jsp,/user_searchstatements.jsp
+                /favicon.ico,/home.jsp,/user_receipts.jsp,/advertisement_view.jsp,/package_view.jsp,/prepayment_book_view.jsp,/receipt_view.jsp,/search_statement_view.jsp,/user_advertisements.jsp,/user_packages.jsp,/user_prepayment_books.jsp,/user_searchstatements.jsp
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>admin_pages</param-name>
+            <param-value>
+                /favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_admin.jsp,/package_view.jsp,/packages.jsp,/passport_view.jsp,/passports.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp,/user_view.jsp,/users.jsp
             </param-value>
         </init-param>
     </filter>

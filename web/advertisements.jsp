@@ -20,19 +20,19 @@
 
     <table align="center" border="2">
         <tr>
-            <th>Package ID</th>
+            <th>Package type</th>
             <th>Destination address</th>
             <th>Weight</th>
             <th>Cost</th>
-            <th>Recipient (Passport ID)</th>
+            <th>Passport number</th>
         </tr>
         <c:forEach var="advertisement" items="${advertisements}">
             <tr>
-                <td>${advertisement.postPackage.idPackage}</td>
+                <td>${advertisement.postPackage.type}</td>
                 <td>${advertisement.addressForGetting}</td>
                 <td>${advertisement.weight}</td>
                 <td>${advertisement.cost}</td>
-                <td>${advertisement.passport.passportId}</td>
+                <td>${advertisement.passport.passportNumber}</td>
                 <td>
                     <form action="controller" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="command" value="select_advertisement">

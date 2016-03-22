@@ -4,7 +4,9 @@ import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PackageDao;
+import by.bsuir.spp.dao.UserDao;
 import by.bsuir.spp.dao.impl.MySqlPackageDao;
+import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
 import by.bsuir.spp.exception.dao.DaoException;
 
@@ -20,11 +22,12 @@ public class SelectPackageCommand implements Command {
         int packageId = Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID));
 
         PackageDao packageDao = MySqlPackageDao.getInstance();
+        UserDao userDao = MySqlUserDao.getInstance();
         by.bsuir.spp.bean.document.Package myPackage = null;
 
         try {
             myPackage = packageDao.read(packageId);
-
+            myPackage.setGetterUser(userDao.read(myPackage.getGetterUser().getId()));
         } catch (DaoException e) {
             e.printStackTrace();
         }

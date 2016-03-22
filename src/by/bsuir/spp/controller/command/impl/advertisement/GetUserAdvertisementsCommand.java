@@ -7,8 +7,10 @@ import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.AdvertisementDao;
 import by.bsuir.spp.dao.PackageDao;
+import by.bsuir.spp.dao.PassportDao;
 import by.bsuir.spp.dao.impl.MySqlAdvertisementDao;
 import by.bsuir.spp.dao.impl.MySqlPackageDao;
+import by.bsuir.spp.dao.impl.MySqlPassportDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +25,13 @@ public class GetUserAdvertisementsCommand implements Command {
         try {
             AdvertisementDao advertisementDao = MySqlAdvertisementDao.getInstance();
             PackageDao packageDao = MySqlPackageDao.getInstance();
+            PassportDao passportDao = MySqlPassportDao.getInstance();
             int passportId = ((User)request.getSession().getAttribute(RequestParameterName.USER)).getPassport().getPassportId();
             List<Advertisement> advertisements = advertisementDao.getAdvertisementsByPassportId(passportId);
 
             for (Advertisement advertisement : advertisements) {
                 advertisement.setPostPackage(packageDao.read(advertisement.getPostPackage().getIdPackage()));
+                advertisement.setPassport(passportDao.read(advertisement.getPassport().getPassportId()));
             }
 
             request.setAttribute(RequestParameterName.ADVERTISEMENTS, advertisements);

@@ -26,7 +26,7 @@
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty user}">
-        <input type="hidden" name="user_id" value="${user.id}">
+        <input type="hidden" name="user_id" value="${userr.id}">
         <input type="hidden" name="command" value="update_user">
     </c:if>
 
@@ -35,30 +35,37 @@
     </c:if>
 
     <h2>login:</h2>
-    <input type="text" name="login_field" value="${user.login}">
+    <input type="text" name="login_field" value="${userr.login}">
 
     <h2>password:</h2>
-    <input type="password" name="password" value="${user.password}">
+    <input type="password" name="password" value="${userr.password}">
 
     <h2>Second name:</h2>
-    <input type="text" name="sec_name" value="${user.secondName}" placeholder="Иванов">
+    <input type="text" name="sec_name" value="${userr.secondName}" placeholder="Иванов">
 
     <h2>First name:</h2>
-    <input type="text" name="first_name" value="${user.firstName}" placeholder="Иван">
+    <input type="text" name="first_name" value="${userr.firstName}" placeholder="Иван">
 
     <h2>Middle name:</h2>
-    <input type="text" name="middle_name" value="${user.middleName}" placeholder="Иванович">
+    <input type="text" name="middle_name" value="${userr.middleName}" placeholder="Иванович">
 
-    <h2>Passport ID:</h2>
+    <h2>Passport number:</h2>
     <p>
         <select size="1" name="passport_id">
             <c:choose>
-                <c:when test="${not empty user}">
-                    <option selected>${user.passport.passportId}</option>
+                <c:when test="${empty passports}">
+                    <option selected>${userr.passport.passportNumber}</option>
                 </c:when>
                 <c:otherwise>
-                    <c:forEach var="id" items="${passport_ids}">
-                        <option>${id}</option>
+                    <c:forEach var="passport" items="${passports}">
+                        <c:choose>
+                            <c:when test="${userr.passport.passportId==passport.passportId}">
+                                <option selected value="${passport.passportId}">${passport.passportNumber}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${passport.passportId}">${passport.passportNumber}</option>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
@@ -71,7 +78,7 @@
         <select size="1" name="user_role">
             <c:forEach var="role" items="${user_roles}">
                 <c:choose>
-                    <c:when test="${user.userRole==role}">
+                    <c:when test="${userr.userRole==role}">
                         <option selected>${role}</option>
                     </c:when>
                     <c:otherwise>

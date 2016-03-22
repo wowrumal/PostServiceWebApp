@@ -29,7 +29,7 @@ public class AddPackageCommand implements Command {
         }
 
         myPackage.setSenderName(request.getParameter(RequestParameterName.PACKAGE_SENDER_NAME));
-        myPackage.setGetterName(request.getParameter(RequestParameterName.PACKAGE_GETTER_NAME));
+        myPackage.setGetterUser(new User(){{setId(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_GETTER_NAME)));}});
         myPackage.setAddress(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
         myPackage.setPostIndex(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX)));
         myPackage.setBarCode(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE)));

@@ -34,7 +34,7 @@
       <td>${packagee.type}</td>
       <td>${packagee.date}</td>
       <td>${packagee.senderName}</td>
-      <td>${packagee.getterName}</td>
+      <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
       <td>${packagee.address}</td>
       <td>${packagee.postIndex}</td>
       <td>${packagee.barCode}</td>
@@ -49,7 +49,8 @@
   </c:forEach>
 </table>
 
-<form action="package_view.jsp">
+<form action="controller" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
   <input type="submit" value="add package">
 </form>
 

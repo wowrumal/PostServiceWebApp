@@ -35,13 +35,13 @@
       <td>${packagee.type}</td>
       <td>${packagee.date}</td>
       <td>${packagee.senderName}</td>
-      <td>${packagee.getterName}</td>
+      <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
       <td>${packagee.address}</td>
       <td>${packagee.postIndex}</td>
       <td>${packagee.barCode}</td>
       <td>
         <form action="controller" enctype="multipart/form-data" method="post">
-          <input type="hidden" name="command" value="select_package">
+          <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
           <input type="hidden" name="package_id" value="${packagee.idPackage}">
           <input type="submit" value="open">
         </form>
