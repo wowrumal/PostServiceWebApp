@@ -4,6 +4,7 @@ public final class RequestParameterName {
     private RequestParameterName(){}
 
     public static final String COMMAND_NAME = "command";
+    public static final String SUB_COMMAND = "sub_command";
 
     public static final String DB_CONTENT = "db_content";
 
@@ -20,6 +21,8 @@ public final class RequestParameterName {
     public static final String PACKAGE_BARCODE = "package_barcode";
 
     public static final String PACKAGE_IDS = "package_ids";
+    public static final String NEW_PACKAGE_IDS = "new_package_ids";
+
     //user data
     public static final String USER = "user";
     public static final String USERR = "userr";

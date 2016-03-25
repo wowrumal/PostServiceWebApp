@@ -22,7 +22,7 @@ public class PrepareDataForAdvertisementCreationCommand implements Command {
 
         List<Integer> packageIds = packageDao.getPackageIds();
         List<Integer> passportIds = passportDao.getIdPassports();
-
+        request.setAttribute(RequestParameterName.PACKAGE_ID, Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
         request.setAttribute(RequestParameterName.PASSPORT_IDS, passportIds);
         request.setAttribute(RequestParameterName.PACKAGE_IDS, packageIds);
 

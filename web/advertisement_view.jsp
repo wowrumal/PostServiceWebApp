@@ -69,8 +69,9 @@
     </c:if>
 
     <c:if test="${empty advertisement}">
-        <input type="hidden" name="command" value="add_package">
+        <input type="hidden" name="command" value="add_advertisement">
         <input type="submit" value="add_advertisement">
+        <input type="hidden" name="package_id" value="${package_id}">
     </c:if>
 </form>
 </body>

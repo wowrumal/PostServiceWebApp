@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title></title>
@@ -15,9 +16,18 @@
 <body>
 
 
-    <form action="../home_admin.jsp">
-        <input type="submit" value="home">
+<c:choose>
+  <c:when test="${user.userRole == 'ADMIN'}">
+    <form action="home_admin.jsp">
+      <input type="submit" value="home">
     </form>
+  </c:when>
+  <c:otherwise>
+    <form action="home_manager.jsp">
+      <input type="submit" value="home">
+    </form>
+  </c:otherwise>
+</c:choose>
 
   <table align="center" border="2">
     <tr>
@@ -50,6 +60,17 @@
           <input type="hidden" name="package_id" value="${packagee.idPackage}">
           <input type="submit" value="delete">
         </form>
+        <c:if test="${(user.userRole == 'POST_MANAGER')}">
+          <c:forEach var="pack_id" items="${new_package_ids}">
+            <c:if test="${pack_id == packagee.idPackage}">
+              <form action="controller" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_ADVERTISEMENT">
+                <input type="hidden" name="package_id" value="${packagee.idPackage}">
+                <input type="submit" value="create advertisement">
+              </form>
+            </c:if>
+          </c:forEach>
+        </c:if>
       </td>
     </tr>
     </c:forEach>

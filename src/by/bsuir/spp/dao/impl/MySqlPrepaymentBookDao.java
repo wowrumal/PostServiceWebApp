@@ -27,7 +27,7 @@ public class MySqlPrepaymentBookDao implements PrepaymentBookDao {
             "values (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_PREPAYMENT_BOOK_BY_ID = "select * from `prepayment_book` where id=?";
     private static final String DELETE_PREPAYMENT_BOOK_BY_ID = "delete from `prepayment_book` where id=?";
-    private static final String UPDATE_PREPAYMENT_BOOK_BY_ID = "update `prepayment_book` set clientName=?, clientNumber=?, unpdaidCost=?, organisationHeadName=?, bookkeeperName=?,`date`=? "+
+    private static final String UPDATE_PREPAYMENT_BOOK_BY_ID = "update `prepayment_book` set clientName=?, clientNumber=?, unpdaidCost=?, organizationHeadName=?, bookkeeperName=?,`date`=? "+
             "where id=?";
     private static final String SELECT_ALL_PREPAYMENT_BOOK = "select * from `prepayment_book`";
     private static final String SELECT_PREPAYMENT_BOOK_BY_PASSPORT_ID = "select * FROM prepayment_book WHERE passportID = ?";

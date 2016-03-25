@@ -29,6 +29,7 @@ public class LoadPackagesCommand implements Command {
         }
         request.setAttribute(RequestParameterName.PACKAGES, packages);
 
+        new GetNewPackagesCommand().execute(request);
         return JspPageName.PACKAGES;
     }
 }

@@ -60,22 +60,25 @@
     <h2>Phone:</h2>
     <input type="text" name="phone_number" value="${search_statement.phoneNumber}" placeholder="375291234567" maxlength="13">
 
-    <h2>Package:</h2>
-    <select size="1" name="package_id">
-        <c:forEach var="packagee" items="${packages}">
-            <c:choose>
-                <c:when test="${search_statement.postPackage.idPackage==packagee.idPackage}">
-                    <option selected value="${packagee.idPackage}">${packagee.type} - ${packagee.date}</option>
-                </c:when>
-                <c:otherwise>
-                    <option value="${packagee.idPackage}">${packagee.type} - ${packagee.date}</option>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-    </select>
+    <c:if test="${user.userRole == 'CLIENT'}">
+        <h2>Package:</h2>
+        <select size="1" name="package_id">
+            <c:forEach var="packagee" items="${packages}">
+                <c:choose>
+                    <c:when test="${search_statement.postPackage.idPackage==packagee.idPackage}">
+                        <option selected value="${packagee.idPackage}">${packagee.type} - ${packagee.date}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${packagee.idPackage}">${packagee.type} - ${packagee.date}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
+    </c:if>
 
     <c:if test="${user.userRole != 'CLIENT'}">
         <input type="hidden" readonly name="passport_id" value="${search_statement.passport.passportId}">
+        <input type="hidden" name="package_id" value="${search_statement.postPackage.idPackage}">
     </c:if>
 
     <c:if test="${user.userRole == 'CLIENT'}">

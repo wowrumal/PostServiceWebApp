@@ -14,28 +14,33 @@
 </head>
 <body>
 
-    <form action="home_admin.jsp">
-        <input type="submit" value="home">
-    </form>
+    <c:choose>
+        <c:when test="${user.userRole == 'ADMIN'}">
+            <form action="home_admin.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:when>
+        <c:otherwise>
+            <form action="home_manager.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:otherwise>
+    </c:choose>
 
     <table align="center" border="2">
         <tr>
-            <th>Statement number</th>
             <th>Client name</th>
             <th>Client number</th>
             <th>Unpaid cost</th>
-            <th>Passport ID</th>
             <th>Head of organization</th>
             <th>Bookkeeper</th>
             <th>Date</th>
         </tr>
         <c:forEach var="book" items="${prepayment_books}">
             <tr>
-                <td>${book.statementNumber}</td>
                 <td>${book.clientName}</td>
                 <td>${book.clientNumber}</td>
                 <td>${book.unpaidCost}</td>
-                <td>${book.passportId}</td>
                 <td>${book.organizationHeadName}</td>
                 <td>${book.bookkeeperName}</td>
                 <td>${book.date}</td>

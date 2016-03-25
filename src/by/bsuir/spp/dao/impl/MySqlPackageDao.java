@@ -33,6 +33,10 @@ public class MySqlPackageDao implements PackageDao {
 
     private static final String SELECT_PACKAGE_IDS = "select id from package";
 
+    private static final String INSERT_NEW_PACKAGE = "insert into new_package (package_id) VALUES (?)";
+    private static final String SELECT_NEW_PACKAGE_IDS = "select package_id FROM new_package";
+    private static final String DELETE_NEW_PACKAGE_ID = "delete FROM new_package WHERE package_id=?";
+
     @Override
     public Integer create(by.bsuir.spp.bean.document.Package newInstance) throws DaoException {
         int id = 0;
@@ -206,5 +210,45 @@ public class MySqlPackageDao implements PackageDao {
         }
 
         return packages;
+    }
+
+    @Override
+    public void addPackageToNewPackages(int idPackage) {
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(INSERT_NEW_PACKAGE)) {
+            statement.setInt(1, idPackage);
+            statement.execute();
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteNewPackage(int idPackage) {
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(DELETE_NEW_PACKAGE_ID);) {
+            statement.setInt(1, idPackage);
+            statement.execute();
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Integer> getNewPackageIds() {
+        List<Integer> packageIds = new ArrayList<>();
+
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_NEW_PACKAGE_IDS)) {
+
+            while (resultSet.next()) {
+                packageIds.add(resultSet.getInt(1));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return packageIds;
     }
 }

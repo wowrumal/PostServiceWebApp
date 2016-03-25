@@ -37,9 +37,6 @@
     <h2>login:</h2>
     <input type="text" name="login_field" value="${userr.login}">
 
-    <h2>password:</h2>
-    <input type="password" name="password" value="${userr.password}">
-
     <h2>Second name:</h2>
     <input type="text" name="sec_name" value="${userr.secondName}" placeholder="Иванов">
 

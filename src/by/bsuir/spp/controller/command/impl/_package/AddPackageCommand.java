@@ -39,11 +39,14 @@ public class AddPackageCommand implements Command {
         int packageId = 0;
         try{
             packageId = packageDao.create(myPackage);
+            packageDao.addPackageToNewPackages(packageId);
         } catch (DaoException e) {
             e.printStackTrace();
         }
 
         request.setAttribute(RequestParameterName.PACKAGE_ID, packageId);
+
+
 
         return new GetPackagesForUserCommand().execute(request);
     }

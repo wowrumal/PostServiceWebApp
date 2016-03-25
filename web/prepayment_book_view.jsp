@@ -87,12 +87,13 @@
                 <input type="submit" value="update">
             </c:if>
         </c:when>
+        <c:otherwise>
+            <c:if test="${empty prepayment_book}">
+                <input type="hidden" name="command" value="add_prepayment_book">
+                <input type="submit" value="add">
+            </c:if>
+        </c:otherwise>
     </c:choose>
-
-    <c:if test="${empty prepayment_book}">
-        <input type="hidden" name="command" value="add_prepayment_book">
-        <input type="submit" value="add">
-    </c:if>
 
 </form>
 </body>

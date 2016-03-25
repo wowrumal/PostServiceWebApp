@@ -32,7 +32,7 @@ public class UpdatePrepaymentBookCommand implements Command {
 
         PrepaymentBookDao prepaymentBookDao = MySqlPrepaymentBookDao.getInstance();
         try {
-            prepaymentBookDao.create(prepaymentBookStatement);
+            prepaymentBookDao.update(prepaymentBookStatement);
         } catch (DaoException e) {
             e.printStackTrace();
         }

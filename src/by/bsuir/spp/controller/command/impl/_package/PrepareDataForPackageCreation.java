@@ -2,6 +2,8 @@ package by.bsuir.spp.controller.command.impl._package;
 
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.command.impl.user.LoadUsersCommand;
+import by.bsuir.spp.controller.constant.JspPageName;
+import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.exception.controller.command.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,9 @@ public class PrepareDataForPackageCreation implements Command {
         Command command = new LoadUsersCommand();
         command.execute(request);
         //return JspPageName.VIEW_PACKAGE;
+        if (request.getParameter(RequestParameterName.SUB_COMMAND) != null) {
+            return JspPageName.VIEW_PACKAGE;
+        }
         return new SelectPackageCommand().execute(request);
     }
 }

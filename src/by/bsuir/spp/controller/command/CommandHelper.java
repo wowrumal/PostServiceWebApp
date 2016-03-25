@@ -27,6 +27,7 @@ public class CommandHelper {
         availableCommands.put(CommandName.SELECT_PACKAGE, new SelectPackageCommand());
         availableCommands.put(CommandName.UPDATE_PACKAGE, new UpdatePackageCommand());
         availableCommands.put(CommandName.GET_PACKAGES_FOR_USER, new GetPackagesForUserCommand());
+        availableCommands.put(CommandName.GET_NEW_PACKAGES, new GetNewPackagesCommand());
 
         availableCommands.put(CommandName.LOAD_PASSPORTS, new LoadPassportsCommand());
         availableCommands.put(CommandName.UPDATE_PASSPORT, new UpdatePassportCommand());

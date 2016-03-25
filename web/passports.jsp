@@ -15,9 +15,18 @@
 <body>
 
 
-    <form action="home_admin.jsp">
-        <input type="submit" value="home">
-    </form>
+    <c:choose>
+        <c:when test="${user.userRole == 'ADMIN'}">
+            <form action="home_admin.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:when>
+        <c:otherwise>
+            <form action="home_manager.jsp">
+                <input type="submit" value="home">
+            </form>
+        </c:otherwise>
+    </c:choose>
 
     <table align="center" border="2">
         <tr>

@@ -19,6 +19,7 @@ public class SessionFilter implements Filter {
     private List<String> exceptUrls;
     private List<String> userUrls;
     private List<String> adminUrls;
+    private List<String> managerUrls;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -38,6 +39,12 @@ public class SessionFilter implements Filter {
         adminUrls = new ArrayList<>();
         while (tokenizer.hasMoreTokens()) {
             adminUrls.add(tokenizer.nextToken());
+        }
+
+        tokenizer = new StringTokenizer(filterConfig.getInitParameter("manager_pages"), ",");
+        managerUrls = new ArrayList<>();
+        while (tokenizer.hasMoreTokens()) {
+            managerUrls.add(tokenizer.nextToken());
         }
     }
 
@@ -70,6 +77,7 @@ public class SessionFilter implements Filter {
                             break;
                         }
                         case POST_MANAGER: {
+                            allowedRequest = managerUrls.contains(url);
                             break;
                         }
                     }

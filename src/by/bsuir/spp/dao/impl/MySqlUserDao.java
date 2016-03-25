@@ -31,7 +31,7 @@ public class MySqlUserDao implements UserDao {
                                                     "values (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_USER_BY_ID = "delete from `user` where id=?";
     private static final String SELECT_ALL_USERS = "select * from `user`";
-    private static final String UPDATE_USER_BY_ID = "update `user` set login=?, password=?, firstName=?, middleName=?, secondName=?, userType=? "+
+    private static final String UPDATE_USER_BY_ID = "update `user` set login=?, firstName=?, middleName=?, secondName=?, userType=? "+
                                                     "where id=?";
     private static final String SELECT_IDS = "select id FROM `user`";
     private static final String SQL_CHECK_USER = "select * FROM user WHERE login = ? AND `password` =?";
@@ -102,12 +102,11 @@ public class MySqlUserDao implements UserDao {
         try(Connection connection = ConnectionPoolImpl.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_BY_ID)) {
             statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getFirstName());
-            statement.setString(4, user.getMiddleName());
-            statement.setString(5, user.getSecondName());
-            statement.setInt(6, user.getUserRole().ordinal());
-            statement.setInt(7, user.getId());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getMiddleName());
+            statement.setString(4, user.getSecondName());
+            statement.setInt(5, user.getUserRole().ordinal());
+            statement.setInt(6, user.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

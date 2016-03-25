@@ -9,7 +9,6 @@ import by.bsuir.spp.dao.UserDao;
 import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
 import by.bsuir.spp.exception.dao.DaoException;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +19,6 @@ public class UpdateUserCommand implements Command {
 
         user.setId(Integer.parseInt(request.getParameter(RequestParameterName.USER_ID)));
         user.setLogin(request.getParameter(RequestParameterName.LOGIN_FIELD));
-        user.setPassword(DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD)));
         user.setFirstName(request.getParameter(RequestParameterName.FIRST_NAME));
         user.setSecondName(request.getParameter(RequestParameterName.SEC_NAME));
         user.setMiddleName(request.getParameter(RequestParameterName.MIDDLE_NAME));

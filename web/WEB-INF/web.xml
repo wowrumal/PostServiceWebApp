@@ -44,6 +44,10 @@
                 /favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_admin.jsp,/package_view.jsp,/packages.jsp,/passport_view.jsp,/passports.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp,/user_view.jsp,/users.jsp
             </param-value>
         </init-param>
+        <init-param>
+            <param-name>manager_pages</param-name>
+            <param-value>/favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_manager.jsp,/package_view.jsp,/packages.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>

@@ -51,6 +51,7 @@
 
 <form action="controller" method="post" enctype="multipart/form-data">
   <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
+  <input type="hidden" name="sub_command" value="create_package">
   <input type="submit" value="add package">
 </form>
 

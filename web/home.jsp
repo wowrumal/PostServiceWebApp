@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: stas-
@@ -29,7 +30,7 @@
         <li>
             <form action="controller" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="command" value="get_user_advertisements">
-                <input type="submit" value="Мои извещения">
+                <input type="submit" value="Мои извещения[${fn:length(advertisements)}]">
             </form>
         </li>
         <li>
