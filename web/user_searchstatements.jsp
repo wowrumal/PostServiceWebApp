@@ -10,21 +10,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-  <title></title>
+  <title>Заявления</title>
 </head>
 <body>
 
 <form action="home.jsp">
-  <input type="submit" value="home">
+  <input type="submit" value="домой">
 </form>
-
+<h1>Завяления поиска посылки</h1>
 <table align="center" border="2">
   <tr>
-    <th>Petition</th>
-    <th>Address</th>
-    <th>Phone</th>
-    <th>Manager</th>
-    <th>Date</th>
+    <th>Содержание завления</th>
+    <th>Адресс</th>
+    <th>Телефон</th>
+    <th>Менеджер</th>
+    <th>Дата</th>
   </tr>
   <c:forEach var="statement" items="${search_statements}">
     <tr>
@@ -34,10 +34,10 @@
       <td>${statement.postManagerName}</td>
       <td>${statement.currentDate}</td>
       <td>
-        <form action="controller" enctype="multipart/form-data" method="post">
+        <form action="controller" enctype="multipart/form-data" method="get">
           <input type="hidden" name="command" value="select_search_statement">
           <input type="hidden" name="search_statement_id" value="${statement.id}">
-          <input type="submit" value="open">
+          <input type="submit" value="просмотреть">
         </form>
 <%--        <form action="controller" enctype="multipart/form-data" method="post">
           <input type="hidden" name="command" value="delete_search_statement">
@@ -49,9 +49,9 @@
   </c:forEach>
 </table>
 
-<form action="controller" enctype="multipart/form-data" method="post">
+<form action="controller" enctype="multipart/form-data" method="get">
   <input type="hidden" name="command" value="prepare_data_for_creation_search_statement">
-  <input type="submit" value="add statement of search package">
+  <input type="submit" value="оформить новое заявление">
 </form>
 </body>
 </html>

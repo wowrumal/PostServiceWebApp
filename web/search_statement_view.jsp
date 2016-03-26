@@ -10,59 +10,59 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title></title>
+    <title>Завление поиска посылки</title>
 </head>
 
 <body>
 
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">
-        <form action="controller" method="post" enctype="multipart/form-data">
+        <form action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="LOAD_SEARCH_STATEMENTS">
-            <input type="submit" value="back">
+            <input type="submit" value="назад">
         </form>
 
         <form action="home_admin.jsp">
-            <input type="submit" value="home">
+            <input type="submit" value="домой">
         </form>
     </c:when>
 
     <c:when test="${user.userRole == 'CLIENT'}">
-        <form action="controller" method="post" enctype="multipart/form-data">
+        <form action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="get_user_search_statements">
-            <input type="submit" value="back">
+            <input type="submit" value="назад">
         </form>
 
         <form action="home.jsp">
-            <input type="submit" value="home">
+            <input type="submit" value="домой">
         </form>
     </c:when>
 
     <c:otherwise>
-        <form action="controller" method="post" enctype="multipart/form-data">
+        <form action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="LOAD_SEARCH_STATEMENTS">
-            <input type="submit" value="back">
+            <input type="submit" value="назад">
         </form>
 
         <form action="home_manager.jsp">
-            <input type="submit" value="home">
+            <input type="submit" value="домой">
         </form>
     </c:otherwise>
 </c:choose>
 
 <form action="controller" accept-charset="UTF-8" method="post">
-    <h2>Petition content:</h2>
+    <h2>Содержание завления:</h2>
     <textarea name="petition_content" placeholder="Утеряна посылка">${search_statement.petitionContent}</textarea>
 
-    <h2>Address:</h2>
+    <h2>Адресс:</h2>
     <input type="text" name="search_statement_address" value="${search_statement.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
-    <h2>Phone:</h2>
+    <h2>Телефон:</h2>
     <input type="text" name="phone_number" value="${search_statement.phoneNumber}" placeholder="375291234567" maxlength="13">
 
     <c:if test="${user.userRole == 'CLIENT'}">
-        <h2>Package:</h2>
-        <select size="1" name="package_id">
+        <h2>Посылка:</h2>
+        <select required size="1" name="package_id">
             <c:forEach var="packagee" items="${packages}">
                 <c:choose>
                     <c:when test="${search_statement.postPackage.idPackage==packagee.idPackage}">
@@ -85,17 +85,17 @@
         <input type="hidden" readonly name="passport_id" value="${user.passport.passportId}">
     </c:if>
 
-    <h2>Manager:</h2>
+    <h2>Менеджер:</h2>
     <input type="text" name="post_manager_name" value="${search_statement.postManagerName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
-    <h2>Date:</h2>
+    <h2>Дата:</h2>
     <input type="date" name="date" value="${search_statement.currentDate}">
 
     <c:choose>
         <c:when test="${user.userRole == 'CLIENT'}">
             <c:if test="${empty search_statement}">
                 <input type="hidden" name="command" value="add_search_statement">
-                <input type="submit" value="add">
+                <input type="submit" value="добавить">
             </c:if>
         </c:when>
 
@@ -103,7 +103,7 @@
             <c:if test="${not empty search_statement}">
                 <input type="hidden" name="command" value="update_search_statement">
                 <input type="hidden" readonly name="search_statement_id" value="${search_statement.id}">
-                <input type="submit" value="update">
+                <input type="submit" value="обновить">
             </c:if>
         </c:otherwise>
     </c:choose>

@@ -11,19 +11,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title></title>
+    <title>Пользователь</title>
 </head>
 <body>
 
-<form action="controller" method="post" enctype="multipart/form-data">
+<form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_users">
-    <input type="submit" value="back">
+    <input type="submit" value="назад">
 </form>
 
 <form action="home_admin.jsp">
-    <input type="submit" value="home">
+    <input type="submit" value="домой">
 </form>
-
+<h1>Пользователь</h1>
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty user}">
         <input type="hidden" name="user_id" value="${userr.id}">
@@ -34,21 +34,21 @@
         <input type="hidden" name="command" value="add_user">
     </c:if>
 
-    <h2>login:</h2>
-    <input type="text" name="login_field" value="${userr.login}">
+    <h2>Логин:</h2>
+    <input type="text" required name="login_field" value="${userr.login}">
 
-    <h2>Second name:</h2>
-    <input type="text" name="sec_name" value="${userr.secondName}" placeholder="Иванов">
+    <h2>Фамилия:</h2>
+    <input type="text" required name="sec_name" value="${userr.secondName}" placeholder="Иванов">
 
-    <h2>First name:</h2>
-    <input type="text" name="first_name" value="${userr.firstName}" placeholder="Иван">
+    <h2>Имя:</h2>
+    <input type="text" required name="first_name" value="${userr.firstName}" placeholder="Иван">
 
-    <h2>Middle name:</h2>
-    <input type="text" name="middle_name" value="${userr.middleName}" placeholder="Иванович">
+    <h2>Отчество:</h2>
+    <input type="text" required name="middle_name" value="${userr.middleName}" placeholder="Иванович">
 
-    <h2>Passport number:</h2>
+    <h2>Номер паспорта:</h2>
     <p>
-        <select size="1" name="passport_id">
+        <select required size="1" name="passport_id">
             <c:choose>
                 <c:when test="${empty passports}">
                     <option selected>${userr.passport.passportNumber}</option>
@@ -68,11 +68,10 @@
             </c:choose>
         </select>
     </p>
-    <h3>Don't have a passport yet?</h3>
-    <a href="../passport/passport_view.jsp">add passport</a>
-    <h2>Role:</h2>
+
+    <h2>Уроень доступа:</h2>
     <p>
-        <select size="1" name="user_role">
+        <select required size="1" name="user_role">
             <c:forEach var="role" items="${user_roles}">
                 <c:choose>
                     <c:when test="${userr.userRole==role}">
@@ -86,7 +85,7 @@
         </select>
     </p>
 
-    <input type="submit" value="apply">
+    <input type="submit" value="применить">
 </form>
 </body>
 </html>

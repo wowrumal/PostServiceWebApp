@@ -10,30 +10,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title></title>
+    <title>Паспорта</title>
 </head>
 <body>
-
 
     <c:choose>
         <c:when test="${user.userRole == 'ADMIN'}">
             <form action="home_admin.jsp">
-                <input type="submit" value="home">
+                <input type="submit" value="домой">
             </form>
         </c:when>
         <c:otherwise>
             <form action="home_manager.jsp">
-                <input type="submit" value="home">
+                <input type="submit" value="домой">
             </form>
         </c:otherwise>
     </c:choose>
-
+<h1>Паспорта</h1>
     <table align="center" border="2">
         <tr>
-            <th>Passport number</th>
-            <th>Address</th>
-            <th>Issuing institution</th>
-            <th>Date of issue</th>
+            <th>Номер паспорта</th>
+            <th>Адресс</th>
+            <th>Выдан</th>
+            <th>Срок действия</th>
         </tr>
         <c:forEach var="passport" items="${passports}">
             <tr>
@@ -42,7 +41,7 @@
                 <td>${passport.issuingInstitution}</td>
                 <td>${passport.issueDate}</td>
                 <td>
-                    <form action="controller" enctype="multipart/form-data" method="post">
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="select_passport">
                         <input type="hidden" name="passport_id" value="${passport.passportId}">
                         <input type="submit" value="open">
@@ -56,8 +55,8 @@
             </tr>
         </c:forEach>
     </table>
-    <form action="passport_view.jsp">
-        <input type="submit" value="add passport">
-    </form>
+   <%-- <form action="passport_view.jsp">
+        <input type="submit" value="добавить паспорт">
+    </form>--%>
 </body>
 </html>

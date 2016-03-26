@@ -11,33 +11,32 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title></title>
+    <title>Посылки</title>
 </head>
 <body>
-
-
+<h1>Список посылок</h1>
 <c:choose>
   <c:when test="${user.userRole == 'ADMIN'}">
     <form action="home_admin.jsp">
-      <input type="submit" value="home">
+      <input type="submit" value="домой">
     </form>
   </c:when>
   <c:otherwise>
     <form action="home_manager.jsp">
-      <input type="submit" value="home">
+      <input type="submit" value="домой">
     </form>
   </c:otherwise>
 </c:choose>
 
   <table align="center" border="2">
     <tr>
-      <th>Type</th>
-      <th>Date</th>
-      <th>Sender Name</th>
-      <th>Getter Name</th>
-      <th>Address</th>
-      <th>Post Index</th>
-      <th>Barcode</th>
+      <th>Тип посыли</th>
+      <th>Дата</th>
+      <th>Отправитель</th>
+      <th>Получатель</th>
+      <th>Адресс</th>
+      <th>Почтовый индекс</th>
+      <th>Код</th>
     </tr>
 
     <c:forEach var="packagee" items="${packages}">
@@ -50,23 +49,23 @@
       <td>${packagee.postIndex}</td>
       <td>${packagee.barCode}</td>
       <td>
-        <form action="controller" enctype="multipart/form-data" method="post">
+        <form action="controller" enctype="multipart/form-data" method="get">
           <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
           <input type="hidden" name="package_id" value="${packagee.idPackage}">
-          <input type="submit" value="open">
+          <input type="submit" value="просмотреть">
         </form>
         <form action="controller" enctype="multipart/form-data" method="post">
           <input type="hidden" name="command" value="delete_package">
           <input type="hidden" name="package_id" value="${packagee.idPackage}">
-          <input type="submit" value="delete">
+          <input type="submit" value="удалить">
         </form>
         <c:if test="${(user.userRole == 'POST_MANAGER')}">
           <c:forEach var="pack_id" items="${new_package_ids}">
             <c:if test="${pack_id == packagee.idPackage}">
-              <form action="controller" enctype="multipart/form-data" method="post">
+              <form action="controller" enctype="multipart/form-data" method="get">
                 <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_ADVERTISEMENT">
                 <input type="hidden" name="package_id" value="${packagee.idPackage}">
-                <input type="submit" value="create advertisement">
+                <input type="submit" value="создать извещение">
               </form>
             </c:if>
           </c:forEach>

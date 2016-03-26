@@ -2,6 +2,7 @@ package by.bsuir.spp.filter;
 
 import by.bsuir.spp.bean.User;
 import by.bsuir.spp.bean.UserType;
+import by.bsuir.spp.controller.command.CommandName;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 
@@ -53,11 +54,21 @@ public class SessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+
         String url = request.getServletPath();
         boolean allowedRequest = false;
         if (exceptUrls.contains(url)) {
             allowedRequest = true;
         }
+
+        if (request.getParameter(RequestParameterName.COMMAND_NAME) != null) {
+            if (request.getParameter(RequestParameterName.COMMAND_NAME).toUpperCase().equals(CommandName.LOGIN_COMMAND.toString()) ||
+                    request.getParameter(RequestParameterName.COMMAND_NAME).equals(CommandName.REGISTRATION_COMMAND.toString())) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
 
         if (!allowedRequest) {
             allowedRequest = true;
@@ -83,14 +94,17 @@ public class SessionFilter implements Filter {
                     }
                     if (!allowedRequest) {
                         response.sendRedirect(JspPageName.LOGIN_PAGE);
+                        return;
                     }
                 }
                 else {
                     response.sendRedirect(JspPageName.LOGIN_PAGE);
+                    return;
                 }
             }
             else {
                 response.sendRedirect(JspPageName.LOGIN_PAGE);
+                return;
             }
         }
 

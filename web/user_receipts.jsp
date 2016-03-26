@@ -10,22 +10,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-  <title></title>
+  <title>Мои чеки</title>
 </head>
 <body>
 
 
 <form action="home.jsp">
-  <input type="submit" value="home">
+  <input type="submit" value="домой">
 </form>
 
 <table align="center" border="2">
   <tr>
-    <th>Client name</th>
-    <th>Service:</th>
-    <th>Payment data</th>
-    <th>Cost</th>
-    <th>Date</th>
+    <th>Имя плательщика</th>
+    <th>Услуга:</th>
+    <th>Данные оплаты</th>
+    <th>Стоимость</th>
+    <th>Дата</th>
   </tr>
   <c:forEach var="receipt" items="${receipts}">
     <tr>
@@ -35,19 +35,19 @@
       <td>${receipt.cost}</td>
       <td>${receipt.date}</td>
       <td>
-        <form action="controller" enctype="multipart/form-data" method="post">
+        <form action="controller" enctype="multipart/form-data" method="get">
           <input type="hidden" name="command" value="select_receipt">
           <input type="hidden" name="receipt_id" value="${receipt.receiptId}">
-          <input type="submit" value="open">
+          <input type="submit" value="просмотреть">
         </form>
       </td>
     </tr>
   </c:forEach>
 </table>
 
-<form action="controller" enctype="multipart/form-data" method="post">
+<form action="controller" enctype="multipart/form-data" method="get">
   <input type="hidden" name="command" value="prepare_data_for_creation_receipt">
-  <input type="submit" value="add receipt">
+  <input type="submit" value="оплатить услугу">
 </form>
 </body>
 </html>

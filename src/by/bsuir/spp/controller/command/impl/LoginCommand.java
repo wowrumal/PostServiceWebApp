@@ -3,7 +3,6 @@ package by.bsuir.spp.controller.command.impl;
 import by.bsuir.spp.bean.User;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.command.impl._package.GetNewPackagesCommand;
-import by.bsuir.spp.controller.command.impl.advertisement.GetUserAdvertisementsCommand;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PassportDao;
@@ -48,7 +47,7 @@ public class LoginCommand implements Command {
                             break;
                         }
                         case CLIENT: {
-                            new GetUserAdvertisementsCommand().execute(request);
+                            //new GetUserAdvertisementsCommand().execute(request);
                             page = JspPageName.HOME_PAGE;
                             break;
                         }

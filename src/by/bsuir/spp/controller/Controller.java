@@ -20,7 +20,7 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setHeader("Cache-Control", "no-cache, no-store");
+        /*resp.setHeader("Cache-Control", "no-cache, no-store");
         resp.setHeader("Pragma", "no-cache");
         String page = null;
         String commandName = req.getParameter(RequestParameterName.COMMAND_NAME);
@@ -38,7 +38,28 @@ public class Controller extends HttpServlet {
             if (page != null) {
                 resp.sendRedirect(page);
             }
+        }*/
+
+        String commandName = req.getParameter(RequestParameterName.COMMAND_NAME);
+        Command command = CommandHelper.getCommand(commandName);
+        String page = null;
+
+        try {
+            if (command == null || command.getClass() == LogoutCommand.class) {
+                new LogoutCommand().execute(req);
+                resp.sendRedirect(JspPageName.LOGIN_PAGE);
+                return;
+            }
+            else {
+                page = command.execute(req);
+            }
+        } catch (CommandException e) {
+            e.printStackTrace();
         }
+
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
+        dispatcher.forward(req, resp);
     }
 
     @Override

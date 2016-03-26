@@ -10,9 +10,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title></title>
+    <title>Вход</title>
 </head>
 <body>
+<h1>Вход:</h1>
 <form method="POST" action="controller">
   <input type="hidden" name="command" value="login_command">
 

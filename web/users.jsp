@@ -10,21 +10,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title></title>
+    <title>Пользователи</title>
 </head>
 <body>
 
     <form action="home_admin.jsp">
-        <input type="submit" value="home">
+        <input type="submit" value="домой">
     </form>
 
     <table align="center" border="2">
         <tr>
-            <th>Login</th>
-            <th>Password</th>
-            <th>Name</th>
-            <th>Passport ID</th>
-            <th>Role</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+            <th>Имя</th>
+            <th>Паспорт</th>
+            <th>Роль</th>
         </tr>
         <c:forEach var="user" items="${users}">
             <tr>
@@ -34,23 +34,23 @@
                 <td>${user.passport.passportNumber}</td>
                 <td>${user.userRole}</td>
                 <td>
-                    <form action="controller" enctype="multipart/form-data" method="post">
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="select_user">
                         <input type="hidden" name="user_id" value="${user.id}">
-                        <input type="submit" value="open">
+                        <input type="submit" value="просмотреть">
                     </form>
-                    <form action="controller" enctype="multipart/form-data" method="post">
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="delete_user">
                         <input type="hidden" name="user_id" value="${user.id}">
-                        <input type="submit" value="delete">
+                        <input type="submit" value="удалить">
                     </form>
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <form action="controller" enctype="multipart/form-data" method="post">
+    <form action="controller" enctype="multipart/form-data" method="get">
         <input type="hidden" name="command" value="prepare_data_for_creation_user">
-        <input type="submit" value="add user">
+        <input type="submit" value="добавить пользователя">
     </form>
 </body>
 </html>

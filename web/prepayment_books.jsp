@@ -10,31 +10,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title></title>
+    <title>Завяления авансовых книг</title>
 </head>
 <body>
 
     <c:choose>
         <c:when test="${user.userRole == 'ADMIN'}">
             <form action="home_admin.jsp">
-                <input type="submit" value="home">
+                <input type="submit" value="домой">
             </form>
         </c:when>
         <c:otherwise>
             <form action="home_manager.jsp">
-                <input type="submit" value="home">
+                <input type="submit" value="домой">
             </form>
         </c:otherwise>
     </c:choose>
-
+    <h1>Список заявлений на восстановление авансовых книг</h1>
     <table align="center" border="2">
         <tr>
-            <th>Client name</th>
-            <th>Client number</th>
-            <th>Unpaid cost</th>
-            <th>Head of organization</th>
-            <th>Bookkeeper</th>
-            <th>Date</th>
+            <th>Имя клиента</th>
+            <th>Номер клиента</th>
+            <th>Средства на счету</th>
+            <th>Глава организации</th>
+            <th>Бухгалтер</th>
+            <th>Дата</th>
         </tr>
         <c:forEach var="book" items="${prepayment_books}">
             <tr>
@@ -45,15 +45,15 @@
                 <td>${book.bookkeeperName}</td>
                 <td>${book.date}</td>
                 <td>
-                    <form action="controller" enctype="multipart/form-data" method="post">
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="select_prepayment_book">
                         <input type="hidden" name="prepayment_book_number" value="${book.statementNumber}">
-                        <input type="submit" value="open">
+                        <input type="submit" value="просмотреть">
                     </form>
-                    <form action="controller" enctype="multipart/form-data" method="post">
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="delete_prepayment_book">
                         <input type="hidden" name="prepayment_book_number" value="${book.statementNumber}">
-                        <input type="submit" value="delete">
+                        <input type="submit" value="удалить">
                     </form>
                 </td>
             </tr>

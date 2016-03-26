@@ -10,23 +10,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-  <title></title>
+  <title>Мои посылки</title>
 </head>
 <body>
 
 <form action="home.jsp">
-  <input type="submit" value="home">
+  <input type="submit" value="домой">
 </form>
-
+<h1>Мои посылки</h1>
 <table align="center" border="2">
   <tr>
-    <th>Type</th>
-    <th>Date</th>
-    <th>Sender Name</th>
-    <th>Getter Name</th>
-    <th>Address</th>
-    <th>Post Index</th>
-    <th>Barcode</th>
+    <th>Тип посыли</th>
+    <th>Дата</th>
+    <th>Отправитель</th>
+    <th>Получатель</th>
+    <th>Адресс</th>
+    <th>Почтовый индекс</th>
+    <th>Код</th>
   </tr>
 
   <c:forEach var="packagee" items="${packages}">
@@ -39,10 +39,10 @@
       <td>${packagee.postIndex}</td>
       <td>${packagee.barCode}</td>
       <td>
-        <form action="controller" enctype="multipart/form-data" method="post">
+        <form action="controller" enctype="multipart/form-data" method="get">
           <input type="hidden" name="command" value="select_package">
           <input type="hidden" name="package_id" value="${packagee.idPackage}">
-          <input type="submit" value="open">
+          <input type="submit" value="просмотреть">
         </form>
       </td>
     </tr>
@@ -52,7 +52,7 @@
 <form action="controller" method="post" enctype="multipart/form-data">
   <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
   <input type="hidden" name="sub_command" value="create_package">
-  <input type="submit" value="add package">
+  <input type="submit" value="добавить посылку">
 </form>
 
 </body>

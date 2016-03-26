@@ -10,30 +10,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title></title>
+    <title>Паспорт</title>
 </head>
 <body>
 
-<form action="controller" method="post" enctype="multipart/form-data">
+<form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_passports">
-    <input type="submit" value="back">
+    <input type="submit" value="назад">
 </form>
 
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">
         <form action="home_admin.jsp">
-            <input type="submit" value="home">
+            <input type="submit" value="домой">
         </form>
     </c:when>
 
     <c:otherwise>
         <form action="home_manager.jsp">
-            <input type="submit" value="home">
+            <input type="submit" value="домой">
         </form>
     </c:otherwise>
 </c:choose>
 
-
+<h1>Паспорт</h1>
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty passport}">
         <input type="hidden" name="command" value="update_passport">
@@ -44,19 +44,19 @@
         <input type="hidden" name="command" value="add_passport">
     </c:if>
 
-    <h2>Passport number:</h2>
+    <h2>Номер паспорта:</h2>
     <input type="text" name="passport_number" value="${passport.passportNumber}" placeholder="KH2080553">
 
-    <h2>Address:</h2>
+    <h2>Адресс:</h2>
     <input type="text" name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1">
 
-    <h2>Issuing institution:</h2>
+    <h2>Выдан:</h2>
     <input type="text" name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно">
 
-    <h2>Date of issue:</h2>
+    <h2>Действителен до:</h2>
     <input type="date" name="issuing_date" value="${passport.issueDate}">
 
-    <input type="submit" value="apply">
+    <input type="submit" value="применить">
 </form>
 </body>
 </html>

@@ -10,41 +10,41 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-  <title></title>
+  <title>Посылка</title>
 </head>
 <body>
-
+<h1>Посылка</h1>
 <c:choose>
   <c:when test="${user.userRole == 'ADMIN'}">
-    <form action="controller" method="post" enctype="multipart/form-data">
+    <form action="controller" method="get" enctype="multipart/form-data">
       <input type="hidden" name="command" value="load_packages">
-      <input type="submit" value="back">
+      <input type="submit" value="назад">
     </form>
 
     <form action="home_admin.jsp">
-      <input type="submit" value="home">
+      <input type="submit" value="домой">
     </form>
   </c:when>
 
   <c:when test="${user.userRole == 'CLIENT'}">
-    <form action="controller" method="post" enctype="multipart/form-data">
+    <form action="controller" method="get" enctype="multipart/form-data">
       <input type="hidden" name="command" value="get_packages_for_user">
-      <input type="submit" value="back">
+      <input type="submit" value="назад">
     </form>
 
     <form action="home.jsp">
-      <input type="submit" value="home">
+      <input type="submit" value="домой">
     </form>
   </c:when>
 
   <c:otherwise>
-    <form action="controller" method="post" enctype="multipart/form-data">
+    <form action="controller" method="get" enctype="multipart/form-data">
       <input type="hidden" name="command" value="load_packages">
-      <input type="submit" value="back">
+      <input type="submit" value="назад">
     </form>
 
     <form action="home_manager.jsp">
-      <input type="submit" value="home">
+      <input type="submit" value="домой">
     </form>
   </c:otherwise>
 </c:choose>
@@ -52,16 +52,16 @@
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
-  <h2>Package type:</h2>
+  <h2>Тип посылки:</h2>
   <input type="text" name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
 
-  <h2>Date:</h2>
+  <h2>Дата:</h2>
   <input type="date" name="package_date" value="${packagee.date}" >
 
-  <h2>Sender name:</h2>
+  <h2>ОТправитель:</h2>
   <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
-  <h2>Getter name:</h2>
+  <h2>Получатель:</h2>
   <p>
     <select size="1" name="package_getter_name">
 
@@ -85,26 +85,26 @@
     </select>
   </p>
 
-  <h2>Address:</h2>
+  <h2>Адресс посылки:</h2>
   <input type="text" name="package_address" value="${packagee.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
-  <h2>Post index:</h2>
+  <h2>Почтовый индекс:</h2>
   <input type="number" name="package_post_index" value="${packagee.postIndex}" placeholder="33524" maxlength="7">
 
-  <h2>Barcode:</h2>
+  <h2>Код:</h2>
   <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="4789623" maxlength="10">
 
   <c:if test="${user.userRole == 'ADMIN'}">
     <c:if test="${not empty packagee}">
       <input type="hidden" name="package_id" value="${packagee.idPackage}">
       <input type="hidden" name="command" value="update_package">
-      <input type="submit" value="update">
+      <input type="submit" value="обновить">
     </c:if>
   </c:if>
 
   <c:if test="${empty packagee}">
     <input type="hidden" name="command" value="add_package">
-    <input type="submit" value="create package">
+    <input type="submit" value="создать">
   </c:if>
 </form>
 
