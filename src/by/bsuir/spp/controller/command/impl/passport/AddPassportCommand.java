@@ -15,27 +15,62 @@ import java.text.SimpleDateFormat;
 public class AddPassportCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        Passport passport = new Passport();
-        passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
-        passport.setPassportNumber(request.getParameter(RequestParameterName.PASSPORT_NUMBER));
-        passport.setIssuingInstitution(request.getParameter(RequestParameterName.INSTITUTION));
+
+        if (validateParams(request)) {
+
+
+            Passport passport = new Passport();
+            passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
+            passport.setPassportNumber(request.getParameter(RequestParameterName.PASSPORT_NUMBER));
+            passport.setIssuingInstitution(request.getParameter(RequestParameterName.INSTITUTION));
+            try {
+                passport.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            PassportDao passportDao = MySqlPassportDao.getInstance();
+            int passportId = 0;
+            try {
+                passportId = passportDao.create(passport);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+
+            request.setAttribute(RequestParameterName.PASSPORT_ID, passportId);
+
+            return new LoadPassportsCommand().execute(request);
+        }
+        else {
+            return new LoadPassportsCommand().execute(request);
+        }
+    }
+
+    private boolean validateParams(HttpServletRequest request) {
+
+        if (getRequestParam(request, RequestParameterName.PASSPORT_NUMBER) == null ||
+                getRequestParam(request, RequestParameterName.PASSPORT_ADDRESS) == null ||
+                getRequestParam(request, RequestParameterName.INSTITUTION) == null ||
+                getRequestParam(request, RequestParameterName.ISSUING_DATE) == null) {
+            return false;
+        }
+
+        if (getRequestParam(request, RequestParameterName.PASSPORT_NUMBER).length() > 45 ||
+                getRequestParam(request, RequestParameterName.PASSPORT_ADDRESS).length() > 45 ||
+                getRequestParam(request, RequestParameterName.INSTITUTION).length() >45) {
+            return false;
+        }
+
         try {
-            passport.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
+            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.ISSUING_DATE));
         } catch (ParseException e) {
-            e.printStackTrace();
+            return false;
         }
 
-        PassportDao passportDao = MySqlPassportDao.getInstance();
-        int passportId = 0;
-        try {
-            passportId = passportDao.create(passport);
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+        return true;
+    }
 
-        request.setAttribute(RequestParameterName.PASSPORT_ID, passportId);
-
-        return new LoadPassportsCommand().execute(request);
-
+    private String getRequestParam(HttpServletRequest request, String parameterName) {
+        return request.getParameter(parameterName);
     }
 }
