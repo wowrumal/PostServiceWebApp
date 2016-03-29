@@ -17,23 +17,50 @@ public class UpdateAdvertisementCommand implements Command {
     public String execute(HttpServletRequest request) throws CommandException {
         AdvertisementDao advertisementDao = MySqlAdvertisementDao.getInstance();
 
-        Advertisement advertisement = new Advertisement();
-        advertisement.setCost(Integer.parseInt(request.getParameter(RequestParameterName.COST)));
-        advertisement.setAddressForGetting(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
-        advertisement.setWeight(Integer.parseInt(request.getParameter(RequestParameterName.WEIGHT)));
-        by.bsuir.spp.bean.document.Package packagee = new Package();
-        packagee.setIdPackage(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
-        Passport passport = new Passport();
-        passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
-        advertisement.setPassport(passport);
-        advertisement.setPostPackage(packagee);
+        if (validateParam(request)) {
 
-        try {
-            advertisementDao.update(advertisement);
-        } catch (DaoException e) {
-            e.printStackTrace();
+            Advertisement advertisement = new Advertisement();
+            advertisement.setCost(Integer.parseInt(request.getParameter(RequestParameterName.COST)));
+            advertisement.setAddressForGetting(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
+            advertisement.setWeight(Integer.parseInt(request.getParameter(RequestParameterName.WEIGHT)));
+            by.bsuir.spp.bean.document.Package packagee = new Package();
+            packagee.setIdPackage(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
+            Passport passport = new Passport();
+            passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
+            advertisement.setPassport(passport);
+            advertisement.setPostPackage(packagee);
+
+            try {
+                advertisementDao.update(advertisement);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+
+            return new LoadAdvertisementsCommand().execute(request);
+        }
+        else {
+            return new SelectAdvertisementCommand().execute(request);
+        }
+    }
+
+    private boolean validateParam(HttpServletRequest request) {
+
+        if (getRequestParam(request, RequestParameterName.WEIGHT) == null ||
+                getRequestParam(request, RequestParameterName.COST) == null ||
+                getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME) == null) {
+            return false;
         }
 
-        return new LoadAdvertisementsCommand().execute(request);
+        if (getRequestParam(request, RequestParameterName.WEIGHT).length() > 11 ||
+                getRequestParam(request, RequestParameterName.COST).length() > 45 ||
+                getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME).length() > 45) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private String getRequestParam(HttpServletRequest request, String parameterName) {
+        return request.getParameter(parameterName);
     }
 }

@@ -26,31 +26,59 @@ public class AddAdvertisementCommand implements Command {
         UserDao userDao = MySqlUserDao.getInstance();
         PassportDao passportDao = MySqlPassportDao.getInstance();
 
-        Advertisement advertisement = new Advertisement();
-        advertisement.setCost(Integer.parseInt(request.getParameter(RequestParameterName.COST)));
-        advertisement.setAddressForGetting(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
-        advertisement.setWeight(Integer.parseInt(request.getParameter(RequestParameterName.WEIGHT)));
+        if (validateParam(request)) {
 
-        int packageId = Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID));
-        Package packagee = null;
-        Passport passport = null;
-        try {
-            packagee = packageDao.read(packageId);
-            passport = passportDao.read(userDao.read(packagee.getGetterUser().getId()).getPassport().getPassportId());
-        } catch (DaoException e) {
-            e.printStackTrace();
+            Advertisement advertisement = new Advertisement();
+            advertisement.setCost(Integer.parseInt(request.getParameter(RequestParameterName.COST)));
+            advertisement.setAddressForGetting(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
+            advertisement.setWeight(Integer.parseInt(request.getParameter(RequestParameterName.WEIGHT)));
+
+            int packageId = Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID));
+            Package packagee = null;
+            Passport passport = null;
+            try {
+                packagee = packageDao.read(packageId);
+                passport = passportDao.read(userDao.read(packagee.getGetterUser().getId()).getPassport().getPassportId());
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+            advertisement.setPassport(passport);
+            advertisement.setPostPackage(packagee);
+
+            try {
+                advertisementDao.create(advertisement);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+
+            packageDao.deleteNewPackage(packageId);
+
+            return new LoadAdvertisementsCommand().execute(request);
         }
-        advertisement.setPassport(passport);
-        advertisement.setPostPackage(packagee);
-
-        try {
-            advertisementDao.create(advertisement);
-        } catch (DaoException e) {
-            e.printStackTrace();
+        else {
+            return new PrepareDataForAdvertisementCreationCommand().execute(request);
         }
-
-        packageDao.deleteNewPackage(packageId);
-
-        return new LoadAdvertisementsCommand().execute(request);
     }
+
+    private boolean validateParam(HttpServletRequest request) {
+
+        if (getRequestParam(request, RequestParameterName.WEIGHT) == null ||
+                getRequestParam(request, RequestParameterName.COST) == null ||
+                getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME) == null) {
+            return false;
+        }
+
+        if (getRequestParam(request, RequestParameterName.WEIGHT).length() > 11 ||
+                getRequestParam(request, RequestParameterName.COST).length() > 45 ||
+                getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME).length() > 45) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private String getRequestParam(HttpServletRequest request, String parameterName) {
+        return request.getParameter(parameterName);
+    }
+
 }
