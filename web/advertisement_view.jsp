@@ -14,12 +14,17 @@
 </head>
 <body>
 <h1>Извещение о посылке</h1>
+
+<FORM>
+    <INPUT Type="button" VALUE="назад" onClick="history.go(-1);return true;">
+</FORM>
+
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">
-        <form action="controller" method="get" enctype="multipart/form-data">
+        <%--<form action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="load_advertisements">
             <input type="submit" value="назад">
-        </form>
+        </form>--%>
 
         <form action="home_admin.jsp">
             <input type="submit" value="домой">
@@ -27,10 +32,10 @@
     </c:when>
 
     <c:when test="${user.userRole == 'CLIENT'}">
-        <form action="controller" method="get" enctype="multipart/form-data">
+        <%--<form action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="get_user_advertisements">
             <input type="submit" value="назад">
-        </form>
+        </form>--%>
 
         <form action="home.jsp">
             <input type="submit" value="домой">
@@ -38,10 +43,10 @@
     </c:when>
 
     <c:otherwise>
-        <form action="controller" method="get" enctype="multipart/form-data">
+        <%--<form action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="load_advertisements">
             <input type="submit" value="назад">
-        </form>
+        </form>--%>
 
         <form action="home_manager.jsp">
             <input type="submit" value="домой">
