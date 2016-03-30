@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 
 public class RegistrationCommand implements Command {
 
+    private static final String SALT = "Random$SaltValue#WithSpecialCharacters12@$@4&#%^$*";
+
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         String page;
@@ -47,7 +49,7 @@ public class RegistrationCommand implements Command {
 
                 user.setFirstName(getRequestParam(request, RequestParameterName.FIRST_NAME));
                 user.setLogin(getRequestParam(request, RequestParameterName.LOGIN_FIELD));
-                user.setPassword(DigestUtils.md5Hex(getRequestParam(request, RequestParameterName.PASSWORD)));
+                user.setPassword(DigestUtils.md5Hex(getRequestParam(request, RequestParameterName.PASSWORD) + SALT));
                 user.setSecondName(getRequestParam(request, RequestParameterName.SEC_NAME));
                 user.setMiddleName(getRequestParam(request, RequestParameterName.MIDDLE_NAME));
                 user.setPassport(passport);

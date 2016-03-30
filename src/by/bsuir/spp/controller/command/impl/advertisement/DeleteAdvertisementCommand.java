@@ -1,8 +1,10 @@
 package by.bsuir.spp.controller.command.impl.advertisement;
 
+import by.bsuir.spp.bean.User;
 import by.bsuir.spp.bean.document.*;
 import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.AdvertisementDao;
 import by.bsuir.spp.dao.impl.MySqlAdvertisementDao;
@@ -27,6 +29,20 @@ public class DeleteAdvertisementCommand implements Command {
             e.printStackTrace();
         }
 
-        return new LoadAdvertisementsCommand().execute(request);
+        switch (((User)request.getSession().getAttribute(RequestParameterName.USER)).getUserRole()) {
+            case ADMIN: {
+                return new LoadAdvertisementsCommand().execute(request);
+            }
+            case CLIENT: {
+                return new GetUserAdvertisementsCommand().execute(request);
+            }
+            case POST_MANAGER:
+            {
+                return new LoadAdvertisementsCommand().execute(request);
+            }
+
+        }
+
+        return JspPageName.LOGIN_PAGE;
     }
 }

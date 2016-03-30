@@ -50,10 +50,20 @@
             </param-value>
         </init-param>
         <init-param>
+            <param-name>user_commands</param-name>
+            <param-value>
+                add_package,select_package,prepare_data_for_creation_package,add_receipt,prepare_data_for_creation_receipt,select_receipt,get_packages_for_user,get_user_receipts,get_user_advertisements,get_user_search_statements,get_user_prepayment_books,login_command,registration_command,logout_command,prepare_data_for_creation_search_statement,add_search_statement,select_search_statement,prepare_data_for_creation_prepayment_book,add_prepayment_book,select_prepayment_book,select_advertisement,prepare_data_for_creation_receipt,add_receipt,select_receipt</param-value>
+        </init-param>
+        <init-param>
             <param-name>admin_pages</param-name>
             <param-value>
                 /controller,/favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_admin.jsp,/package_view.jsp,/packages.jsp,/passport_view.jsp,/passports.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp,/user_view.jsp,/users.jsp
             </param-value>
+        </init-param>
+        <init-param>
+            <param-name>manager_commands</param-name>
+            <param-value>
+                load_packages,delete_package,select_package,get_new_packages,load_receipts,select_receipt,delete_receipt,load_advertisements,add_advertisement,prepare_data_for_creation_advertisement,delete_adverisement,update_advertisement,select_advertisement,load_prepayment_books,select_prepayment_book,delete_prepayment_book,load_search_statements,select_search_statement,delete_search_statement,login_command,registration_command,logout_command</param-value>
         </init-param>
         <init-param>
             <param-name>manager_pages</param-name>

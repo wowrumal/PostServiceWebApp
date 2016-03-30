@@ -52,27 +52,29 @@
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
     <h2>Адресс доставки:</h2>
-    <input type="text" name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    <input type="text" required name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
     <h2>Вес:</h2>
-    <input type="number" name="weight" value="${advertisement.weight}" placeholder="1000" maxlength="10">
+    <input type="number" min="1" required name="weight" value="${advertisement.weight}" placeholder="1000" maxlength="10">
 
     <h2>Стоимость доставки:</h2>
-    <input type="number" name="cost" value="${advertisement.cost}" placeholder="300000" maxlength="10">
+    <input type="number" min="1" required name="cost" value="${advertisement.cost}" placeholder="300000" maxlength="10">
 
-    <c:if test="${(user.userRole == 'POST_MANAGER') || (user.userRole == 'ADMIN')}">
-        <c:if test="${not empty advertisemente}">
-            <input type="hidden" name="PACKAGE_ID" value="${advertisement.postPackage.idPackage}">
+    <c:choose>
+        <c:when test="${user.userRole == 'POST_MANAGER'}">
+            <c:if test="${empty advertisement}">
+                <input type="hidden" name="command" value="add_advertisement">
+                <input type="submit" value="создать">
+                <input type="hidden" name="package_id" value="${package_id}">
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <input type="hidden" name="package_id" value="${advertisement.postPackage.idPackage}">
+            <input type="hidden" name="passport_id" value="${advertisement.passport.passportId}">
             <input type="hidden" name="command" value="update_advertisement">
             <input type="submit" value="обновить">
-        </c:if>
-    </c:if>
-
-    <c:if test="${empty advertisement}">
-        <input type="hidden" name="command" value="add_advertisement">
-        <input type="submit" value="создать">
-        <input type="hidden" name="package_id" value="${package_id}">
-    </c:if>
+        </c:otherwise>
+    </c:choose>
 </form>
 </body>
 </html>

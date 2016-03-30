@@ -54,19 +54,19 @@
         <input type="hidden" name="command" value="add_receipt">
 
         <h2>Имя плательщика:</h2>
-        <input type="text" name="receipt_clientname" value="${receipt.clientName}">
+        <input required type="text" name="receipt_clientname" value="${receipt.clientName}" maxlength="45">
 
         <h2>Услуга:</h2>
-        <input type="text" name="receipt_service" value="${receipt.serviceName}">
+        <input required type="text" name="receipt_service" value="${receipt.serviceName}" maxlength="45">
 
         <h2>Данные оплаты:</h2>
-        <input type="text" name="receipt_payment_data" value="${receipt.paymentData}">
+        <input required type="text" name="receipt_payment_data" value="${receipt.paymentData}" maxlength="100">
 
         <h2>Стоимость:</h2>
-        <input type="number" name="receipt_cost" value="${receipt.cost}">
+        <input required type="number" min="1" name="receipt_cost" value="${receipt.cost}" maxlength="10">
 
         <h2>Дата:</h2>
-        <input type="date" name="receipt_date" value="${receipt.date}">
+        <input required type="date" name="receipt_date" value="${receipt.date}">
 
         <%--<h2>User ID:</h2>
         <p>

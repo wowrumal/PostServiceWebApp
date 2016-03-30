@@ -53,17 +53,17 @@
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
   <h2>Тип посылки:</h2>
-  <input type="text" name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
+  <input type="text" required name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
 
   <h2>Дата:</h2>
-  <input type="date" name="package_date" value="${packagee.date}" >
+  <input type="date" required name="package_date" value="${packagee.date}" >
 
   <h2>ОТправитель:</h2>
-  <input type="text" name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю." maxlength="45">
+  <input type="text" required name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
   <h2>Получатель:</h2>
   <p>
-    <select size="1" name="package_getter_name">
+    <select required size="1" name="package_getter_name">
 
         <c:choose>
             <c:when test="${empty users}">
@@ -86,13 +86,13 @@
   </p>
 
   <h2>Адресс посылки:</h2>
-  <input type="text" name="package_address" value="${packagee.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+  <input required type="text" name="package_address" value="${packagee.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
   <h2>Почтовый индекс:</h2>
-  <input type="number" name="package_post_index" value="${packagee.postIndex}" placeholder="33524" maxlength="7">
+  <input required type="number" min="1" name="package_post_index" value="${packagee.postIndex}" placeholder="33524" maxlength="7">
 
   <h2>Код:</h2>
-  <input type="number" name="package_barcode" value="${packagee.barCode}" placeholder="4789623" maxlength="10">
+  <input required type="number" min="1" name="package_barcode" value="${packagee.barCode}" placeholder="4789623" maxlength="10">
 
   <c:if test="${user.userRole == 'ADMIN'}">
     <c:if test="${not empty packagee}">

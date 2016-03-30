@@ -52,13 +52,13 @@
 
 <form action="controller" accept-charset="UTF-8" method="post">
     <h2>Содержание завления:</h2>
-    <textarea name="petition_content" placeholder="Утеряна посылка">${search_statement.petitionContent}</textarea>
+    <textarea required name="petition_content" placeholder="Утеряна посылка">${search_statement.petitionContent}</textarea>
 
     <h2>Адресс:</h2>
-    <input type="text" name="search_statement_address" value="${search_statement.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    <input required type="text" name="search_statement_address" value="${search_statement.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
     <h2>Телефон:</h2>
-    <input type="text" name="phone_number" value="${search_statement.phoneNumber}" placeholder="375291234567" maxlength="13">
+    <input required type="text" name="phone_number" value="${search_statement.phoneNumber}" placeholder="375291234567" maxlength="13">
 
     <c:if test="${user.userRole == 'CLIENT'}">
         <h2>Посылка:</h2>
@@ -86,10 +86,10 @@
     </c:if>
 
     <h2>Менеджер:</h2>
-    <input type="text" name="post_manager_name" value="${search_statement.postManagerName}" placeholder="Стасюкевич С.Ю." maxlength="45">
+    <input required type="text" name="post_manager_name" value="${search_statement.postManagerName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
     <h2>Дата:</h2>
-    <input type="date" name="date" value="${search_statement.currentDate}">
+    <input required type="date" name="date" value="${search_statement.currentDate}">
 
     <c:choose>
         <c:when test="${user.userRole == 'CLIENT'}">

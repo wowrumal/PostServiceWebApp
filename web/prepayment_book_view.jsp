@@ -52,10 +52,10 @@
 <form action="controller" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 
     <h2>Имя клиента:</h2>
-    <input type="text" name="client_name" value="${prepayment_book.clientName}" placeholder="Полищук Д.А." maxlength="45">
+    <input type="text" required name="client_name" value="${prepayment_book.clientName}" placeholder="Полищук Д.А." maxlength="45">
 
     <h2>Номер клиента:</h2>
-    <input type="text" name="client_number" value="${prepayment_book.clientNumber}" placeholder="28" maxlength="7">
+    <input type="text" required name="client_number" value="${prepayment_book.clientNumber}" placeholder="28" maxlength="7">
 
     <c:choose>
         <c:when test="${user.userRole == 'CLIENT'}">
@@ -67,16 +67,16 @@
     </c:choose>
 
     <h2>Средства на счету:</h2>
-    <input type="number" name="unpaid_cost" value="${prepayment_book.unpaidCost}" placeholder="50000" maxlength="10">
+    <input type="number" min="1" required name="unpaid_cost" value="${prepayment_book.unpaidCost}" placeholder="50000" maxlength="10">
 
     <h2>Глава организации:</h2>
-    <input type="text" name="organization_head_name" value="${prepayment_book.organizationHeadName}" placeholder="Стасюкевич С.Ю." maxlength="45">
+    <input type="text" required name="organization_head_name" value="${prepayment_book.organizationHeadName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
     <h2>Бухгалтер:</h2>
-    <input type="text" name="bookkeeper_name" value="${prepayment_book.bookkeeperName}" placeholder="Цивако К.А." maxlength="45">
+    <input type="text" required name="bookkeeper_name" value="${prepayment_book.bookkeeperName}" placeholder="Цивако К.А." maxlength="45">
 
     <h2>Дата:</h2>
-    <input type="date" name="date" value="${prepayment_book.date}">
+    <input type="date" required name="date" value="${prepayment_book.date}">
 
 
     <c:choose>

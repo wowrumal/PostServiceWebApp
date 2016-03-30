@@ -66,6 +66,13 @@ public class UpdatePrepaymentBookCommand implements Command {
         }
 
         try {
+            Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER));
+            Integer.parseInt(request.getParameter(RequestParameterName.UNPAID_COST));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        try {
             new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.DATE));
         } catch (ParseException e) {
             return false;

@@ -60,9 +60,12 @@
         </c:forEach>
     </table>
 
-    <form action="controller" enctype="multipart/form-data" method="get">
-        <input type="hidden" name="command" value="prepare_data_for_creation_advertisement">
-        <input type="submit" value="создать извещение">
-    </form>
+    <%--<c:if test="${user.userRole == 'POST_MANAGER'}">
+        <form action="controller" enctype="multipart/form-data" method="get">
+            <input type="hidden" name="command" value="prepare_data_for_creation_advertisement">
+            <input type="submit" value="создать извещение">
+        </form>
+    </c:if>--%>
+
 </body>
 </html>

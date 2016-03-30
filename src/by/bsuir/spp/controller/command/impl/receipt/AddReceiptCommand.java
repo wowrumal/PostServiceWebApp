@@ -64,6 +64,12 @@ public class AddReceiptCommand implements Command {
         }
 
         try {
+            Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_COST));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        try {
             new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.RECEIPT_DATE));
         } catch (ParseException e) {
             return false;

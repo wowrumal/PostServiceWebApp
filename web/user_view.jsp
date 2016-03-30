@@ -38,13 +38,13 @@
     <input type="text" required name="login_field" value="${userr.login}">
 
     <h2>Фамилия:</h2>
-    <input type="text" required name="sec_name" value="${userr.secondName}" placeholder="Иванов">
+    <input type="text" required name="sec_name" value="${userr.secondName}" placeholder="Иванов" maxlength="15">
 
     <h2>Имя:</h2>
-    <input type="text" required name="first_name" value="${userr.firstName}" placeholder="Иван">
+    <input type="text" required name="first_name" value="${userr.firstName}" placeholder="Иван" maxlength="15">
 
     <h2>Отчество:</h2>
-    <input type="text" required name="middle_name" value="${userr.middleName}" placeholder="Иванович">
+    <input type="text" required name="middle_name" value="${userr.middleName}" placeholder="Иванович" maxlength="15">
 
     <h2>Номер паспорта:</h2>
     <p>

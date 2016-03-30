@@ -16,6 +16,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements Command {
+
+    private static final String SALT = "Random$SaltValue#WithSpecialCharacters12@$@4&#%^$*";
+
+
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
 
@@ -27,7 +31,7 @@ public class LoginCommand implements Command {
                 PassportDao passportDao = MySqlPassportDao.getInstance();
 
                 String login = request.getParameter(RequestParameterName.LOGIN_FIELD);
-                String password = DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD));
+                String password = DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD) + SALT);
 
                 User user = new User();
                 user.setLogin(login);

@@ -46,14 +46,19 @@ public class UpdateAdvertisementCommand implements Command {
     private boolean validateParam(HttpServletRequest request) {
 
         if (getRequestParam(request, RequestParameterName.WEIGHT) == null ||
-                getRequestParam(request, RequestParameterName.COST) == null ||
-                getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME) == null) {
+                getRequestParam(request, RequestParameterName.COST) == null) {
             return false;
         }
 
-        if (getRequestParam(request, RequestParameterName.WEIGHT).length() > 11 ||
-                getRequestParam(request, RequestParameterName.COST).length() > 45 ||
-                getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME).length() > 45) {
+        if (getRequestParam(request, RequestParameterName.WEIGHT).length() > 6 ||
+                getRequestParam(request, RequestParameterName.COST).length() > 6) {
+            return false;
+        }
+
+        try {
+            Integer.parseInt(request.getParameter(RequestParameterName.WEIGHT));
+            Integer.parseInt(request.getParameter(RequestParameterName.COST));
+        } catch (NumberFormatException e) {
             return false;
         }
 

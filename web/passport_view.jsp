@@ -45,16 +45,16 @@
     </c:if>
 
     <h2>Номер паспорта:</h2>
-    <input type="text" name="passport_number" value="${passport.passportNumber}" placeholder="KH2080553">
+    <input type="text" required name="passport_number" value="${passport.passportNumber}" placeholder="KH2080553" maxlength="12">
 
     <h2>Адресс:</h2>
-    <input type="text" name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1">
+    <input type="text" required name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
     <h2>Выдан:</h2>
-    <input type="text" name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно">
+    <input type="text" required name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно" maxlength="45">
 
     <h2>Действителен до:</h2>
-    <input type="date" name="issuing_date" value="${passport.issueDate}">
+    <input type="date" required name="issuing_date" value="${passport.issueDate}">
 
     <input type="submit" value="применить">
 </form>

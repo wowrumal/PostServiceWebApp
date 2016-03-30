@@ -53,7 +53,7 @@ public class UpdatePassportCommand implements Command {
 
         if (getRequestParam(request, RequestParameterName.PASSPORT_NUMBER).length() > 45 ||
                 getRequestParam(request, RequestParameterName.PASSPORT_ADDRESS).length() > 45 ||
-                getRequestParam(request, RequestParameterName.INSTITUTION).length() >45) {
+                getRequestParam(request, RequestParameterName.INSTITUTION).length() >200) {
             return false;
         }
 

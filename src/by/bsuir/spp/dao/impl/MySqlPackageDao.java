@@ -28,7 +28,7 @@ public class MySqlPackageDao implements PackageDao {
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
     private static final String SELECT_PACKAGE_BY_PASSPORT_ID = "select * from `package` where passportId=?";
     private static final String DELETE_PACKAGE_BY_ID = "delete from `package` where id=?";
-    private static final String UPDATE_PACKAGE_BY_ID = "update `package` set type=?, date=?, senderName=?, getterName=?, address=?, postIndex=?, barcode=? "+
+    private static final String UPDATE_PACKAGE_BY_ID = "update `package` set type=?, date=?, senderName=?, getterUserId=?, address=?, postIndex=?, barcode=? "+
                                                         "where id=?";
 
     private static final String SELECT_PACKAGE_IDS = "select id from package";

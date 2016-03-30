@@ -58,10 +58,17 @@ public class AddPrepaymentBookCommand implements Command {
         }
 
         if (getRequestParam(request, RequestParameterName.CLIENT_NAME).length() > 45 ||
-                getRequestParam(request, RequestParameterName.CLIENT_NUMBER).length() > 11 ||
-                getRequestParam(request, RequestParameterName.UNPAID_COST).length() > 45 ||
+                getRequestParam(request, RequestParameterName.CLIENT_NUMBER).length() > 7 ||
+                getRequestParam(request, RequestParameterName.UNPAID_COST).length() > 6 ||
                 getRequestParam(request, RequestParameterName.ORGANIZATION_HEAD_NAME).length() > 45 ||
                 getRequestParam(request, RequestParameterName.BOOKKEEPER_NAME).length() > 45) {
+            return false;
+        }
+
+        try {
+            Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER));
+            Integer.parseInt(request.getParameter(RequestParameterName.UNPAID_COST));
+        } catch (NumberFormatException e) {
             return false;
         }
 

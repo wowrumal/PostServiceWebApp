@@ -74,8 +74,15 @@ public class AddPackageCommand implements Command {
                 getRequestParam(request, RequestParameterName.PACKAGE_SENDER_NAME).length() > 45 ||
                 getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME).length() > 45 ||
                 getRequestParam(request, RequestParameterName.PACKAGE_ADDRESS).length() > 45 ||
-                getRequestParam(request, RequestParameterName.PACKAGE_POST_INDEX).length() > 45 ||
-                getRequestParam(request, RequestParameterName.PACKAGE_BARCODE).length() > 45) {
+                getRequestParam(request, RequestParameterName.PACKAGE_POST_INDEX).length() > 6 ||
+                getRequestParam(request, RequestParameterName.PACKAGE_BARCODE).length() > 6) {
+            return false;
+        }
+
+        try {
+            Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX));
+            Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE));
+        } catch (NumberFormatException e) {
             return false;
         }
 
