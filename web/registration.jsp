@@ -18,7 +18,7 @@
     <input type="hidden" name="command" value="REGISTRATION_COMMAND">
 
     <label>Логин:</label>
-    <input type="text" required maxlength="44" name="login_field" placeholder="user123">
+    <input type="text" value="${user.login}" required maxlength="44" name="login_field" placeholder="user123">
     <br>
 
     <label>Пароль:</label>
@@ -26,15 +26,15 @@
     <br>
 
     <label>Фамилия:</label>
-    <input type="text" required maxlength="44" name="sec_name" placeholder="Иванов">
+    <input type="text" value="${user.secondName}" required maxlength="44" name="sec_name" placeholder="Иванов">
     <br>
 
     <label>Имя:</label>
-    <input type="text" required maxlength="44" name="first_name" placeholder="Иван">
+    <input type="text" value="${user.firstName}" required maxlength="44" name="first_name" placeholder="Иван">
     <br>
 
     <label>Отчество:</label>
-    <input type="text" required maxlength="44" name="middle_name" placeholder="Иванович">
+    <input type="text" value="${user.middleName}" required maxlength="44" name="middle_name" placeholder="Иванович">
     <br>
 
     <h2>Пасспортные данные</h2>
@@ -49,7 +49,7 @@
     <input type="text" name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно">
 
     <h2>Дата выдачи:</h2>
-    <input type="date" name="issuing_date" value="${passport.issueDate}">
+    <input required type="date" name="issuing_date" value="${passport.issueDate}">
     <br>
     <br>
     <input type="submit" value="зарегистрироваться">

@@ -19,6 +19,7 @@ public final class RequestParameterName {
     public static final String PACKAGE_ADDRESS = "package_address";
     public static final String PACKAGE_POST_INDEX = "package_post_index";
     public static final String PACKAGE_BARCODE = "package_barcode";
+    public static final String PACKAGE_TYPES = "package_types";
 
     public static final String PACKAGE_IDS = "package_ids";
     public static final String NEW_PACKAGE_IDS = "new_package_ids";

@@ -22,13 +22,13 @@ public class MySqlPackageDao implements PackageDao {
 
     public static MySqlPackageDao getInstance() { return instance;}
 
-    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterUserId, address, postIndex, barcode, passportId) "+
-                                                        "values (?,?,?,?,?,?,?,?)";
+    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterUserId, address, postIndex, passportId) "+
+                                                        "values (?,?,?,?,?,?,?)";
     private static final String SELECT_ALL_PACKAGE = "select * from `package`";
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
     private static final String SELECT_PACKAGE_BY_PASSPORT_ID = "select * from `package` where passportId=?";
     private static final String DELETE_PACKAGE_BY_ID = "delete from `package` where id=?";
-    private static final String UPDATE_PACKAGE_BY_ID = "update `package` set type=?, date=?, senderName=?, getterUserId=?, address=?, postIndex=?, barcode=? "+
+    private static final String UPDATE_PACKAGE_BY_ID = "update `package` set type=?, date=?, senderName=?, getterUserId=?, address=?, postIndex=? "+
                                                         "where id=?";
 
     private static final String SELECT_PACKAGE_IDS = "select id from package";
@@ -50,8 +50,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setInt(4, newInstance.getGetterUser().getId());
             statement.setString(5, newInstance.getAddress());
             statement.setInt(6, newInstance.getPostIndex());
-            statement.setInt(7, newInstance.getBarCode());
-            statement.setInt(8, newInstance.getPassportId());
+            statement.setInt(7, newInstance.getPassportId());
             statement.execute();
 
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -89,8 +88,7 @@ public class MySqlPackageDao implements PackageDao {
                     myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
                     myPackage.setAddress(resultSet.getString(6));
                     myPackage.setPostIndex(resultSet.getInt(7));
-                    myPackage.setBarCode(resultSet.getInt(8));
-                    myPackage.setPassportId(resultSet.getInt(9));
+                    myPackage.setPassportId(resultSet.getInt(8));
                 }
             }
         } catch (SQLException e) {
@@ -112,8 +110,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setInt(4, obj.getGetterUser().getId());
             statement.setString(5, obj.getAddress());
             statement.setInt(6, obj.getPostIndex());
-            statement.setInt(7, obj.getBarCode());
-            statement.setInt(8, obj.getIdPackage());
+            statement.setInt(7, obj.getIdPackage());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,8 +149,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
-                myPackage.setBarCode(resultSet.getInt(8));
-                myPackage.setPassportId(resultSet.getInt(9));
+                myPackage.setPassportId(resultSet.getInt(8));
                 packages.add(myPackage);
             }
 
@@ -201,8 +197,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
-                myPackage.setBarCode(resultSet.getInt(8));
-                myPackage.setPassportId(resultSet.getInt(9));
+                myPackage.setPassportId(resultSet.getInt(8));
                 packages.add(myPackage);
             }
         } catch (SQLException | ConnectionPoolException e) {

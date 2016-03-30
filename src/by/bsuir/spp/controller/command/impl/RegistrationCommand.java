@@ -56,10 +56,14 @@ public class RegistrationCommand implements Command {
 
                 if (!userDao.checkLogin(user.getLogin())) {
                     page = JspPageName.REGISTRATION + "?" + RequestParameterName.MESSAGE + "=login_exist";
+                    request.getSession().setAttribute(RequestParameterName.USER, user);
+                    request.getSession().setAttribute(RequestParameterName.PASSPORT, passport);
                 }
                 else {
                     int userId = userDao.create(user);
                     user.setId(userId);
+                    request.getSession().removeAttribute(RequestParameterName.USER);
+                    request.getSession().removeAttribute(RequestParameterName.PASSPORT);
                     page = JspPageName.LOGIN_PAGE;
                 }
 
