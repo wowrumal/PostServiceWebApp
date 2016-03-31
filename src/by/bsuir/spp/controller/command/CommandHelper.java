@@ -77,6 +77,8 @@ public class CommandHelper {
         availableCommands.put(CommandName.REGISTRATION_COMMAND, new RegistrationCommand());
         availableCommands.put(CommandName.LOGOUT_COMMAND, new LogoutCommand());
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_PACKAGE, new PrepareDataForPackageCreation());
+
+        availableCommands.put(CommandName.PAYMENT_COMMAND, PaymentCommand.getInstance());
     }
 
     public static Command getCommand(String commandName) {

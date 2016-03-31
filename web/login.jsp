@@ -32,6 +32,6 @@
   </c:if>
 </form>
 
-<a href="registration.jsp">Зарегестрироваться</a>
+<a href="registration.jsp">Зарегистрироваться</a>
 </body>
 </html>

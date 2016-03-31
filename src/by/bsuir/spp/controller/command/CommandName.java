@@ -61,5 +61,6 @@ public enum CommandName {
     GET_USER_SEARCH_STATEMENTS,
     GET_USER_PREPAYMENT_BOOKS,
 
+    PAYMENT_COMMAND
 
 }

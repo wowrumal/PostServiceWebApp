@@ -107,7 +107,9 @@
                                         value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
                             </c:when>
                             <c:otherwise>
-                                <option value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
+                                <c:if test="${user.id != getter_user.id}">
+                                    <option value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
+                                </c:if>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
@@ -116,7 +118,7 @@
         </select>
     </p>
 
-    <h2>Адресс посылки:</h2>
+    <h2>Адрес посылки:</h2>
     <input required type="text" id="pack_address" name="package_address" value="${packagee.address}"
            placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 

@@ -26,7 +26,7 @@
             </form>
         </c:otherwise>
     </c:choose>
-    <h1>Завяления поиска посылки</h1>
+    <h1>Заявления поиска посылки</h1>
     <table align="center" border="2">
         <tr>
             <th>Содержание завления</th>

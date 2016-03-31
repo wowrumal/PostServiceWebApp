@@ -21,7 +21,7 @@
 <table align="center" border="2">
   <tr>
     <th>Содержание завления</th>
-    <th>Адресс</th>
+    <th>Адрес</th>
     <th>Телефон</th>
     <th>Менеджер</th>
     <th>Дата</th>

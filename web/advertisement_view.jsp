@@ -56,7 +56,7 @@
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
-    <h2>Адресс доставки:</h2>
+    <h2>Адрес доставки:</h2>
     <input type="text" required name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
     <h2>Вес:</h2>
