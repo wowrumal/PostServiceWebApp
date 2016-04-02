@@ -25,6 +25,8 @@
 
 %>
 
+<h1>Здравствуйте, ${user.firstName}!!!</h1>
+
 <div class="menu">
     Меню
     <ul>
@@ -62,8 +64,6 @@
         </li>
     </ul>
 </div>
-WELCOME SIMPLE USER , ${user.firstName}!!!
-
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="logout_command">
     <input type="submit" value="выход">

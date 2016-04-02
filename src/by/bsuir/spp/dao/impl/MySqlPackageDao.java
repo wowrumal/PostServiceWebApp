@@ -92,6 +92,7 @@ public class MySqlPackageDao implements PackageDao {
                     myPackage.setAddress(resultSet.getString(6));
                     myPackage.setPostIndex(resultSet.getInt(7));
                     myPackage.setPassportId(resultSet.getInt(8));
+                    myPackage.setDeleted(resultSet.getBoolean(9));
                     myPackage.setStatus(resultSet.getString(10));
                 }
             }
@@ -156,6 +157,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setPassportId(resultSet.getInt(8));
+                myPackage.setDeleted(resultSet.getBoolean(9));
                 myPackage.setStatus(resultSet.getString(10));
                 packages.add(myPackage);
             }
@@ -205,6 +207,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setPassportId(resultSet.getInt(8));
+                myPackage.setDeleted(resultSet.getBoolean(9));
                 myPackage.setStatus(resultSet.getString(10));
                 packages.add(myPackage);
             }

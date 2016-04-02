@@ -5,12 +5,16 @@ import by.bsuir.spp.bean.User;
 import by.bsuir.spp.bean.UserType;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.RequestParameterName;
+import by.bsuir.spp.dao.PassportDao;
 import by.bsuir.spp.dao.UserDao;
+import by.bsuir.spp.dao.impl.MySqlPassportDao;
 import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
 import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class UpdateUserCommand implements Command {
     @Override
@@ -33,6 +37,23 @@ public class UpdateUserCommand implements Command {
             user.setPassport(passport);
 
             UserDao userDao = MySqlUserDao.getInstance();
+
+            passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
+            passport.setPassportNumber(request.getParameter(RequestParameterName.PASSPORT_NUMBER));
+            passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
+            passport.setIssuingInstitution(request.getParameter(RequestParameterName.INSTITUTION));
+            try {
+                passport.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            PassportDao passportDao = MySqlPassportDao.getInstance();
+            try {
+                passportDao.update(passport);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
             try {
                 userDao.update(user);
             } catch (DaoException e) {

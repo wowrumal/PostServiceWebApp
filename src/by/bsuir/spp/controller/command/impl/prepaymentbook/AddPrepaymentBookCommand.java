@@ -9,8 +9,7 @@ import by.bsuir.spp.exception.controller.command.CommandException;
 import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddPrepaymentBookCommand implements Command {
     @Override
@@ -23,11 +22,7 @@ public class AddPrepaymentBookCommand implements Command {
             prepaymentBookStatement.setBookkeeperName(request.getParameter(RequestParameterName.BOOKKEEPER_NAME));
             prepaymentBookStatement.setClientName(request.getParameter(RequestParameterName.CLIENT_NAME));
             prepaymentBookStatement.setClientNumber(Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER)));
-            try {
-                prepaymentBookStatement.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.DATE)));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            prepaymentBookStatement.setDate(new Date());
 
             prepaymentBookStatement.setUnpaidCost(Integer.parseInt(request.getParameter(RequestParameterName.UNPAID_COST)));
             prepaymentBookStatement.setOrganizationHeadName(request.getParameter(RequestParameterName.ORGANIZATION_HEAD_NAME));
@@ -52,8 +47,7 @@ public class AddPrepaymentBookCommand implements Command {
                 getRequestParam(request, RequestParameterName.CLIENT_NUMBER) == null ||
                 getRequestParam(request, RequestParameterName.UNPAID_COST) == null ||
                 getRequestParam(request, RequestParameterName.ORGANIZATION_HEAD_NAME) == null ||
-                getRequestParam(request, RequestParameterName.BOOKKEEPER_NAME) == null ||
-                getRequestParam(request, RequestParameterName.DATE) == null) {
+                getRequestParam(request, RequestParameterName.BOOKKEEPER_NAME) == null) {
             return false;
         }
 
@@ -69,12 +63,6 @@ public class AddPrepaymentBookCommand implements Command {
             Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER));
             Integer.parseInt(request.getParameter(RequestParameterName.UNPAID_COST));
         } catch (NumberFormatException e) {
-            return false;
-        }
-
-        try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.DATE));
-        } catch (ParseException e) {
             return false;
         }
 

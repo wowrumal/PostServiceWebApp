@@ -27,6 +27,7 @@
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty user}">
         <input type="hidden" name="user_id" value="${userr.id}">
+        <input type="hidden" name="passport_id" value="${userr.passport.passportId}">
         <input type="hidden" name="command" value="update_user">
     </c:if>
 
@@ -47,43 +48,58 @@
     <input type="text" required name="middle_name" value="${userr.middleName}" placeholder="Иванович" maxlength="15">
 
     <h2>Номер паспорта:</h2>
-    <p>
-        <select required size="1" name="passport_id">
-            <c:choose>
-                <c:when test="${empty passports}">
-                    <option selected>${userr.passport.passportNumber}</option>
-                </c:when>
-                <c:otherwise>
-                    <c:forEach var="passport" items="${passports}">
+    <input type="text" required name="passport_number" value="${userr.passport.passportNumber}">
+
+    <h2>Адрес:</h2>
+    <input type="text" required name="address" value="${userr.passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+
+    <h2>Выдан:</h2>
+    <input type="text" required name="institution" value="${userr.passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно" maxlength="45">
+
+    <h2>Действителен до:</h2>
+    <input type="date" required name="issuing_date" value="${userr.passport.issueDate}">
+
+    <h2>Уроень доступа:</h2>
+
+    <c:choose>
+        <c:when test="${userr.userRole == 'ADMIN'}">
+            <c:if test="${admins_count > 1}">
+                <p>
+                    <select required size="1" name="user_role">
+                        <c:forEach var="role" items="${user_roles}">
+                            <c:choose>
+                                <c:when test="${userr.userRole==role}">
+                                    <option selected>${role}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option>${role}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                </p>
+            </c:if>
+            <c:if test="${admins_count <= 1}">
+                <p>ADMIN</p>
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <p>
+                <select required size="1" name="user_role">
+                    <c:forEach var="role" items="${user_roles}">
                         <c:choose>
-                            <c:when test="${userr.passport.passportId==passport.passportId}">
-                                <option selected value="${passport.passportId}">${passport.passportNumber}</option>
+                            <c:when test="${userr.userRole==role}">
+                                <option selected>${role}</option>
                             </c:when>
                             <c:otherwise>
-                                <option value="${passport.passportId}">${passport.passportNumber}</option>
+                                <option>${role}</option>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                </c:otherwise>
-            </c:choose>
-        </select>
-    </p>
-
-    <h2>Уроень доступа:</h2>
-    <p>
-        <select required size="1" name="user_role">
-            <c:forEach var="role" items="${user_roles}">
-                <c:choose>
-                    <c:when test="${userr.userRole==role}">
-                        <option selected>${role}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option>${role}</option>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </select>
-    </p>
+                </select>
+            </p>
+        </c:otherwise>
+    </c:choose>
 
     <input type="submit" value="применить">
 </form>

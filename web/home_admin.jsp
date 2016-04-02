@@ -14,11 +14,6 @@
 <h1>Здравствуйте админ, ${user.firstName}!!!</h1>
 
 <form action="controller" method="get" enctype="multipart/form-data">
-    <input type="hidden" name="command" value="load_passports">
-    <input type="submit" value="паспорта">
-</form>
-
-<form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_packages">
     <input type="submit" value="посылки">
 </form>

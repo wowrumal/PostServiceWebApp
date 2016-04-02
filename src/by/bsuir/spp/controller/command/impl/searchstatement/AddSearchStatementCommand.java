@@ -1,8 +1,8 @@
 package by.bsuir.spp.controller.command.impl.searchstatement;
 
 import by.bsuir.spp.bean.Passport;
-import by.bsuir.spp.bean.document.*;
 import by.bsuir.spp.bean.document.Package;
+import by.bsuir.spp.bean.document.SearchPackageStatement;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.SearchStatementDao;
@@ -11,8 +11,7 @@ import by.bsuir.spp.exception.controller.command.CommandException;
 import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddSearchStatementCommand implements Command {
     @Override
@@ -24,11 +23,9 @@ public class AddSearchStatementCommand implements Command {
 
             SearchPackageStatement packageStatement = new SearchPackageStatement();
             packageStatement.setPostManagerName(request.getParameter(RequestParameterName.POST_MANAGER_NAME));
-            try {
-                packageStatement.setCurrentDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.DATE)));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+
+            packageStatement.setCurrentDate(new Date());
+
             packageStatement.setPetitionContent(request.getParameter(RequestParameterName.PETITION_CONTENT));
             packageStatement.setAddress(request.getParameter(RequestParameterName.SEARCH_STATEMENT_ADDRESS));
             packageStatement.setPhoneNumber(request.getParameter(RequestParameterName.PHONE_NUMBER));
@@ -61,7 +58,6 @@ public class AddSearchStatementCommand implements Command {
                 getRequestParam(request, RequestParameterName.PETITION_CONTENT) == null ||
                 getRequestParam(request, RequestParameterName.PHONE_NUMBER) == null ||
                 getRequestParam(request, RequestParameterName.POST_MANAGER_NAME) == null ||
-                getRequestParam(request, RequestParameterName.DATE) == null ||
                 getRequestParam(request, RequestParameterName.PACKAGE_ID) == null ||
                 getRequestParam(request, RequestParameterName.PASSPORT_ID) == null)
         {
@@ -73,12 +69,6 @@ public class AddSearchStatementCommand implements Command {
                 getRequestParam(request, RequestParameterName.PHONE_NUMBER).length() > 45 ||
                 getRequestParam(request, RequestParameterName.POST_MANAGER_NAME).length() > 45)
         {
-            return false;
-        }
-
-        try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.DATE));
-        } catch (ParseException e) {
             return false;
         }
 

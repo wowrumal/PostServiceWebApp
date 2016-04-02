@@ -1,6 +1,7 @@
 package by.bsuir.spp.controller.command.impl.user;
 
 import by.bsuir.spp.bean.User;
+import by.bsuir.spp.bean.UserType;
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
@@ -28,8 +29,21 @@ public class LoadUsersCommand implements Command {
                 e.printStackTrace();
             }
         }
+        request.setAttribute(RequestParameterName.ADMINS_COUNT, getAdminsCount(users));
         request.setAttribute(RequestParameterName.USERS, users);
 
         return JspPageName.USERS;
+    }
+
+    private Integer getAdminsCount(List<User> users) {
+        int count = 0;
+
+        for (User user : users) {
+            if (user.getUserRole() == UserType.ADMIN) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }
