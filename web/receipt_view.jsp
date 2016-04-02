@@ -65,8 +65,10 @@
         <h2>Стоимость:</h2>
         <input required type="number" min="1" name="receipt_cost" value="${receipt.cost}" maxlength="10">
 
-        <h2>Дата:</h2>
-        <input required type="date" name="receipt_date" value="${receipt.date}">
+        <c:if test="${not empty receipt}">
+            <h2>Дата:</h2>
+            <input required type="date" name="receipt_date" value="${receipt.date}">
+        </c:if>
 
         <%--<h2>User ID:</h2>
         <p>
