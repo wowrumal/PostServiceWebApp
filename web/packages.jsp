@@ -34,9 +34,9 @@
       <th>Дата</th>
       <th>Отправитель</th>
       <th>Получатель</th>
-      <th>Адресс</th>
+      <th>Адрес</th>
       <th>Почтовый индекс</th>
-      <th>Код</th>
+      <th>Статус</th>
     </tr>
 
     <c:forEach var="packagee" items="${packages}">
@@ -47,7 +47,7 @@
       <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
       <td>${packagee.address}</td>
       <td>${packagee.postIndex}</td>
-      <td>${packagee.barCode}</td>
+      <td>${packagee.status}</td>
       <td>
         <form action="controller" enctype="multipart/form-data" method="get">
           <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
@@ -66,6 +66,12 @@
                 <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_ADVERTISEMENT">
                 <input type="hidden" name="package_id" value="${packagee.idPackage}">
                 <input type="submit" value="создать извещение">
+              </form>
+
+              <form action="controller" enctype="multipart/form-data" method="get">
+                <input type="hidden" name="command" value="reject_package">
+                <input type="hidden" name="package_id" value="${packagee.idPackage}">
+                <input type="submit" value="отклонить">
               </form>
             </c:if>
           </c:forEach>

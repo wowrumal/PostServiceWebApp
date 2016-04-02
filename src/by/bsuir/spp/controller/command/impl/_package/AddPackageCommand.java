@@ -9,8 +9,7 @@ import by.bsuir.spp.exception.controller.command.CommandException;
 import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Кирилл on 2/21/2016.
@@ -25,11 +24,7 @@ public class AddPackageCommand implements Command {
 
             myPackage.setType(request.getParameter(RequestParameterName.PACKAGE_TYPE));
 
-            try {
-                myPackage.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.PACKAGE_DATE)));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            myPackage.setDate(new Date());
 
             myPackage.setSenderName(request.getParameter(RequestParameterName.PACKAGE_SENDER_NAME));
             myPackage.setGetterUser(new User() {{
@@ -37,7 +32,6 @@ public class AddPackageCommand implements Command {
             }});
             myPackage.setAddress(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
             myPackage.setPostIndex(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX)));
-            myPackage.setBarCode(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE)));
             myPackage.setPassportId(((User) request.getSession().getAttribute(RequestParameterName.USER)).getPassport().getPassportId());
 
             PackageDao packageDao = MySqlPackageDao.getInstance();
@@ -61,12 +55,11 @@ public class AddPackageCommand implements Command {
     private boolean validateParams(HttpServletRequest request) {
 
         if (getRequestParam(request, RequestParameterName.PACKAGE_TYPE) == null ||
-                getRequestParam(request, RequestParameterName.PACKAGE_DATE) == null ||
                 getRequestParam(request, RequestParameterName.PACKAGE_SENDER_NAME) == null ||
                 getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME) == null ||
                 getRequestParam(request, RequestParameterName.PACKAGE_ADDRESS) == null ||
-                getRequestParam(request, RequestParameterName.PACKAGE_POST_INDEX) == null ||
-                getRequestParam(request, RequestParameterName.PACKAGE_BARCODE) == null) {
+                getRequestParam(request, RequestParameterName.PACKAGE_POST_INDEX) == null)
+        {
             return false;
         }
 
@@ -74,23 +67,17 @@ public class AddPackageCommand implements Command {
                 getRequestParam(request, RequestParameterName.PACKAGE_SENDER_NAME).length() > 45 ||
                 getRequestParam(request, RequestParameterName.PACKAGE_GETTER_NAME).length() > 45 ||
                 getRequestParam(request, RequestParameterName.PACKAGE_ADDRESS).length() > 45 ||
-                getRequestParam(request, RequestParameterName.PACKAGE_POST_INDEX).length() > 6 ||
-                getRequestParam(request, RequestParameterName.PACKAGE_BARCODE).length() > 6) {
+                getRequestParam(request, RequestParameterName.PACKAGE_POST_INDEX).length() > 6)
+        {
             return false;
         }
 
         try {
             Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX));
-            Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE));
         } catch (NumberFormatException e) {
             return false;
         }
 
-        try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.PACKAGE_DATE));
-        } catch (ParseException e) {
-            return false;
-        }
 
         return true;
     }

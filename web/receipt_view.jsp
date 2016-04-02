@@ -54,7 +54,7 @@
         <input type="hidden" name="command" value="add_receipt">
 
         <h2>Имя плательщика:</h2>
-        <input required type="text" name="receipt_clientname" value="${receipt.clientName}" maxlength="45">
+        <input required type="text" name="receipt_clientname" value="${user.secondName} ${user.firstName}" maxlength="45">
 
         <h2>Услуга:</h2>
         <input required type="text" name="receipt_service" value="${receipt.serviceName}" maxlength="45">
@@ -64,11 +64,6 @@
 
         <h2>Стоимость:</h2>
         <input required type="number" min="1" name="receipt_cost" value="${receipt.cost}" maxlength="10">
-
-        <c:if test="${not empty receipt}">
-            <h2>Дата:</h2>
-            <input required type="date" name="receipt_date" value="${receipt.date}">
-        </c:if>
 
         <%--<h2>User ID:</h2>
         <p>
@@ -87,6 +82,10 @@
         </p>--%>
         <c:if test="${empty receipt}">
             <input type="submit" value="добавить">
+        </c:if>
+
+        <c:if test="${not empty param['message']}">
+            <h2>Оплата отклонена :(</h2>
         </c:if>
 
     </form>

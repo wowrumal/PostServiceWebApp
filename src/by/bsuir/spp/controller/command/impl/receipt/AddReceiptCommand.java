@@ -3,15 +3,14 @@ package by.bsuir.spp.controller.command.impl.receipt;
 import by.bsuir.spp.bean.User;
 import by.bsuir.spp.bean.document.Receipt;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.ReceiptDao;
 import by.bsuir.spp.dao.impl.MySqlReceiptDao;
 import by.bsuir.spp.exception.controller.command.CommandException;
-import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddReceiptCommand implements Command {
     @Override
@@ -25,21 +24,18 @@ public class AddReceiptCommand implements Command {
             receipt.setClientName(request.getParameter(RequestParameterName.RECEIPT_CLIENTNAME));
             receipt.setCost(Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_COST)));
             receipt.setPaymentData(request.getParameter(RequestParameterName.RECEIPT_PAYMENT_DATA));
-            try {
-                receipt.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.RECEIPT_DATE)));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+            receipt.setDate(new Date());
             receipt.setServiceName(request.getParameter(RequestParameterName.RECEIPT_SERVICE));
 
-            try {
+            request.getSession().setAttribute(RequestParameterName.RECEIPT, receipt);
+            /*try {
                 receiptDao.create(receipt);
             } catch (DaoException e) {
                 e.printStackTrace();
-            }
+            }*/
 
-            return new GetUserReceiptsCommand().execute(request);
+            //return new GetUserReceiptsCommand().execute(request);
+            return JspPageName.PAYMENT_PAGE;
         }
         else {
             return new PrepareDataForReceiptCreationCommand().execute(request);
@@ -51,7 +47,6 @@ public class AddReceiptCommand implements Command {
         if (getRequestParam(request, RequestParameterName.RECEIPT_CLIENTNAME) == null ||
                 getRequestParam(request, RequestParameterName.RECEIPT_PAYMENT_DATA) == null ||
                 getRequestParam(request, RequestParameterName.RECEIPT_COST) == null ||
-                getRequestParam(request, RequestParameterName.RECEIPT_DATE) == null ||
                 getRequestParam(request, RequestParameterName.RECEIPT_SERVICE) == null) {
             return false;
         }
@@ -66,12 +61,6 @@ public class AddReceiptCommand implements Command {
         try {
             Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_COST));
         } catch (NumberFormatException e) {
-            return false;
-        }
-
-        try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.RECEIPT_DATE));
-        } catch (ParseException e) {
             return false;
         }
 

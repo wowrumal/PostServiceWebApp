@@ -8,9 +8,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Посылка</title>
+
+    <script type="text/javascript">
+        function func1() {
+            var address = document.getElementById('pack_address');
+            var usersList = document.getElementById('getter');
+            var selectedUser = usersList.options[usersList.selectedIndex].value;
+
+            var arr = [];
+
+            <c:forEach var="user" varStatus="status" items="${users}">
+                arr[${status.index}] = [];
+                arr[${status.index}][0] = "${user.id}";
+                arr[${status.index}][1] = "${user.passport.address}";
+            </c:forEach>
+
+            arr.forEach(function(item, i, arr){
+                if (i == selectedUser){
+                    address.value = item[1];
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <h1>Посылка</h1>
@@ -50,24 +73,26 @@
 </c:choose>
 
 
-<form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
+<form action="controller" name="package_form" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
     <h2>Тип посылки:</h2>
-    <input type="text" required name="package_type" value="${packagee.type}" placeholder="Посылка" maxlength="45">
+    <select required size="1" name="package_type">
+        <option>Письмо</option>
+        <option>Бандероль</option>
+        <option>Крупногабаритная</option>
+    </select>
 
-    <c:if test="${not empty packagee}">
-        <h2>Дата:</h2>
-        <input type="date" required name="package_date" value="${packagee.date}">
-    </c:if>
+    <%--<h2>Дата:</h2>
+    <input type="date" required name="package_date" value="${packagee.date}">--%>
 
     <h2>Отправитель:</h2>
-    <input type="text" required name="package_sender_name" value="${packagee.senderName}" placeholder="Стасюкевич С.Ю."
-           maxlength="45">
+    <input type="text" required name="package_sender_name" value="${user.secondName} ${user.firstName}"
+           placeholder="Стасюкевич С.Ю." maxlength="45">
 
     <h2>Получатель:</h2>
 
     <p>
-        <select required size="1" name="package_getter_name">
+        <select id="getter" required size="1" onchange="func1()" name="package_getter_name">
 
             <c:choose>
                 <c:when test="${empty users}">
@@ -82,7 +107,9 @@
                                         value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
                             </c:when>
                             <c:otherwise>
-                                <option value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
+                                <c:if test="${user.id != getter_user.id}">
+                                    <option value="${getter_user.id}">${getter_user.secondName} ${getter_user.firstName}</option>
+                                </c:if>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
@@ -91,17 +118,18 @@
         </select>
     </p>
 
-    <h2>Адресс посылки:</h2>
-    <input required type="text" name="package_address" value="${packagee.address}"
+    <h2>Адрес посылки:</h2>
+    <input required type="text" id="pack_address" name="package_address" value="${packagee.address}"
            placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
 
     <h2>Почтовый индекс:</h2>
     <input required type="number" min="1" name="package_post_index" value="${packagee.postIndex}" placeholder="33524"
            maxlength="7">
 
-    <h2>Код:</h2>
+
+    <%--<h2>Код:</h2>
     <input required type="number" min="1" name="package_barcode" value="${packagee.barCode}" placeholder="4789623"
-           maxlength="10">
+           maxlength="10">--%>
 
     <c:if test="${user.userRole == 'ADMIN'}">
         <c:if test="${not empty packagee}">

@@ -52,6 +52,7 @@ public class AddAdvertisementCommand implements Command {
             }
 
             packageDao.deleteNewPackage(packageId);
+            packageDao.updateStatus(packageId, "принято");
 
             return new LoadAdvertisementsCommand().execute(request);
         }

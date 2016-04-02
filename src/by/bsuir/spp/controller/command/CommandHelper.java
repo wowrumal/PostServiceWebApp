@@ -28,6 +28,7 @@ public class CommandHelper {
         availableCommands.put(CommandName.UPDATE_PACKAGE, new UpdatePackageCommand());
         availableCommands.put(CommandName.GET_PACKAGES_FOR_USER, new GetPackagesForUserCommand());
         availableCommands.put(CommandName.GET_NEW_PACKAGES, new GetNewPackagesCommand());
+        availableCommands.put(CommandName.REJECT_PACKAGE, new RejectPackageCommand());
 
         availableCommands.put(CommandName.LOAD_PASSPORTS, new LoadPassportsCommand());
         availableCommands.put(CommandName.UPDATE_PASSPORT, new UpdatePassportCommand());
@@ -77,6 +78,9 @@ public class CommandHelper {
         availableCommands.put(CommandName.REGISTRATION_COMMAND, new RegistrationCommand());
         availableCommands.put(CommandName.LOGOUT_COMMAND, new LogoutCommand());
         availableCommands.put(CommandName.PREPARE_DATA_FOR_CREATION_PACKAGE, new PrepareDataForPackageCreation());
+
+        availableCommands.put(CommandName.PAYMENT_COMMAND, PaymentCommand.getInstance());
+        availableCommands.put(CommandName.ADD_COMMENT, new AddCommentCommand());
     }
 
     public static Command getCommand(String commandName) {

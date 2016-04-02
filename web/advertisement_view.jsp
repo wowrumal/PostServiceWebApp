@@ -56,8 +56,31 @@
 
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
-    <h2>Адресс доставки:</h2>
-    <input type="text" required name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    <h2>Информация о посылке:</h2>
+    <table>
+        <tr>
+            <td>Отправитель:</td>
+            <td>${packagee.senderName}</td>
+        </tr>
+        <tr>
+            <td>Получатель:</td>
+            <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
+        </tr>
+
+        <tr>
+            <td>Дата отправления:</td>
+            <td>${packagee.date}</td>
+        </tr>
+    </table>
+
+    <h2>Адрес доставки:</h2>
+    <c:if test="${not empty advertisement}">
+        <input type="text" required name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    </c:if>
+
+    <c:if test="${empty advertisement}">
+        <input type="text" required name="package_address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    </c:if>
 
     <h2>Вес:</h2>
     <input type="number" min="1" required name="weight" value="${advertisement.weight}" placeholder="1000" maxlength="10">
