@@ -18,6 +18,15 @@ public class Package implements Serializable {
     private String address;
     private int postIndex;
     private int passportId;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getPassportId() {
         return passportId;

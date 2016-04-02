@@ -88,4 +88,7 @@ public final class RequestParameterName {
 
 
     public static final String MESSAGE = "message";
+    public static final String GETTER_USER = "getter_user";
+    public static final String COMMENTS = "comments";
+    public static final String COMMENT_TEXT = "comment_text";
 }

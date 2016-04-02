@@ -36,6 +36,7 @@ public class MySqlPackageDao implements PackageDao {
     private static final String INSERT_NEW_PACKAGE = "insert into new_package (package_id) VALUES (?)";
     private static final String SELECT_NEW_PACKAGE_IDS = "select package_id FROM new_package";
     private static final String DELETE_NEW_PACKAGE_ID = "delete FROM new_package WHERE package_id=?";
+    private static final String UPDATE_PACKAGE_STATUS = "update `package` set status=? where id=? ";
 
     @Override
     public Integer create(by.bsuir.spp.bean.document.Package newInstance) throws DaoException {
@@ -85,10 +86,13 @@ public class MySqlPackageDao implements PackageDao {
                     myPackage.setType(resultSet.getString(2));
                     myPackage.setDate(resultSet.getDate(3));
                     myPackage.setSenderName(resultSet.getString(4));
-                    myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
+                    myPackage.setGetterUser(new User() {{
+                        setId(resultSet.getInt(5));
+                    }});
                     myPackage.setAddress(resultSet.getString(6));
                     myPackage.setPostIndex(resultSet.getInt(7));
                     myPackage.setPassportId(resultSet.getInt(8));
+                    myPackage.setStatus(resultSet.getString(10));
                 }
             }
         } catch (SQLException e) {
@@ -146,10 +150,13 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setType(resultSet.getString(2));
                 myPackage.setDate(resultSet.getDate(3));
                 myPackage.setSenderName(resultSet.getString(4));
-                myPackage.setGetterUser(new User(){{setId(resultSet.getInt(5));}});
+                myPackage.setGetterUser(new User() {{
+                    setId(resultSet.getInt(5));
+                }});
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setPassportId(resultSet.getInt(8));
+                myPackage.setStatus(resultSet.getString(10));
                 packages.add(myPackage);
             }
 
@@ -198,6 +205,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setAddress(resultSet.getString(6));
                 myPackage.setPostIndex(resultSet.getInt(7));
                 myPackage.setPassportId(resultSet.getInt(8));
+                myPackage.setStatus(resultSet.getString(10));
                 packages.add(myPackage);
             }
         } catch (SQLException | ConnectionPoolException e) {
@@ -245,5 +253,17 @@ public class MySqlPackageDao implements PackageDao {
         }
 
         return packageIds;
+    }
+
+    @Override
+    public void updateStatus(int idPackage, String status) {
+        try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_PACKAGE_STATUS)) {
+            statement.setString(1, status);
+            statement.setInt(2, idPackage);
+            statement.execute();
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
     }
 }

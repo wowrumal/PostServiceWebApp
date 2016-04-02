@@ -126,6 +126,7 @@
     <input required type="number" min="1" name="package_post_index" value="${packagee.postIndex}" placeholder="33524"
            maxlength="7">
 
+
     <%--<h2>Код:</h2>
     <input required type="number" min="1" name="package_barcode" value="${packagee.barCode}" placeholder="4789623"
            maxlength="10">--%>

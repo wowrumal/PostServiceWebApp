@@ -26,7 +26,7 @@
     <th>Получатель</th>
     <th>Адрес</th>
     <th>Почтовый индекс</th>
-    <th>Код</th>
+    <th>Статус посылки</th>
   </tr>
 
   <c:forEach var="packagee" items="${packages}">
@@ -37,7 +37,7 @@
       <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
       <td>${packagee.address}</td>
       <td>${packagee.postIndex}</td>
-      <td>${packagee.barCode}</td>
+      <td>${packagee.status}</td>
       <td>
         <form action="controller" enctype="multipart/form-data" method="get">
           <input type="hidden" name="command" value="select_package">

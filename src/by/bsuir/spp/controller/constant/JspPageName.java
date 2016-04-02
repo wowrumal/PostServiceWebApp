@@ -29,4 +29,5 @@ public final class JspPageName {
     public static final String USER_SEARCHSTATEMENTS = "user_searchstatements.jsp";
     public static final String USER_PREPAYMENT_BOOKS = "user_prepayment_books.jsp";
     public static final String PAYMENT_PAGE = "payment_page.jsp";
+    public static final String PACKAGE = "package.jsp";
 }

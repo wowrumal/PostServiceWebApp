@@ -15,4 +15,5 @@ public interface PackageDao extends GenericDao<Package, Integer> {
     void addPackageToNewPackages(int idPackage);
     void deleteNewPackage(int idPackage);
     List<Integer> getNewPackageIds();
+    void updateStatus(int idPackage, String status);
 }
