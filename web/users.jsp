@@ -24,6 +24,7 @@
             <th>Пароль</th>
             <th>Имя</th>
             <th>Паспорт</th>
+            <th>Адрес</th>
             <th>Роль</th>
         </tr>
         <c:forEach var="user" items="${users}">
@@ -32,6 +33,7 @@
                 <td>${user.password}</td>
                 <td>${user.secondName} ${user.firstName} ${user.middleName}</td>
                 <td>${user.passport.passportNumber}</td>
+                <td>${user.passport.address}</td>
                 <td>${user.userRole}</td>
                 <td>
                     <form action="controller" enctype="multipart/form-data" method="get">
@@ -40,17 +42,32 @@
                         <input type="submit" value="просмотреть">
                     </form>
                     <form action="controller" enctype="multipart/form-data" method="get">
-                        <input type="hidden" name="command" value="delete_user">
+                        <input type="hidden" name="command" value="select_user">
+                        <input type="hidden" name="sub_command" value="update">
                         <input type="hidden" name="user_id" value="${user.id}">
-                        <input type="submit" value="удалить">
+                        <input type="submit" value="изменить">
                     </form>
+                    <c:choose>
+                        <c:when test="${(user.userRole == 'ADMIN')}">
+                            <c:if test="${admins_count > 1}">
+                                <form action="controller" enctype="multipart/form-data" method="get">
+                                    <input type="hidden" name="command" value="delete_user">
+                                    <input type="hidden" name="user_id" value="${user.id}">
+                                    <input type="submit" value="удалить">
+                                </form>
+                            </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="controller" enctype="multipart/form-data" method="get">
+                                <input type="hidden" name="command" value="delete_user">
+                                <input type="hidden" name="user_id" value="${user.id}">
+                                <input type="submit" value="удалить">
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <form action="controller" enctype="multipart/form-data" method="get">
-        <input type="hidden" name="command" value="prepare_data_for_creation_user">
-        <input type="submit" value="добавить пользователя">
-    </form>
 </body>
 </html>

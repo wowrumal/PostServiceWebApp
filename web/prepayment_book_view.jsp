@@ -81,9 +81,10 @@
     <h2>Бухгалтер:</h2>
     <input type="text" required name="bookkeeper_name" value="${prepayment_book.bookkeeperName}" placeholder="Цивако К.А." maxlength="45">
 
-    <h2>Дата:</h2>
-    <input type="date" required name="date" value="${prepayment_book.date}">
-
+    <c:if test="${not empty prepayment_book}">
+        <h2>Дата:</h2>
+        <input type="date" required name="date" value="${prepayment_book.date}">
+    </c:if>
 
     <c:choose>
         <c:when test="${(user.userRole == 'ADMIN') || (user.userRole == 'POST_MANAGER')}">

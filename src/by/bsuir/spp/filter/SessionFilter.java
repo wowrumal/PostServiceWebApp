@@ -5,6 +5,9 @@ import by.bsuir.spp.bean.UserType;
 import by.bsuir.spp.controller.command.CommandName;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
+import by.bsuir.spp.dao.UserDao;
+import by.bsuir.spp.dao.impl.MySqlUserDao;
+import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,8 @@ public class SessionFilter implements Filter {
     private List<String> userUrls;
     private List<String> adminUrls;
     private List<String> managerUrls;
+
+    private UserDao userDao = MySqlUserDao.getInstance();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -92,17 +97,29 @@ public class SessionFilter implements Filter {
                             break;
                         }
                     }
+
+                    try {
+                        if (userDao.read(user.getId()).getUserRole() != user.getUserRole()) {
+                            allowedRequest = false;
+                        }
+                    } catch (DaoException e) {
+                        e.printStackTrace();
+                    }
+
                     if (!allowedRequest) {
+                        request.getSession().invalidate();
                         response.sendRedirect(JspPageName.LOGIN_PAGE);
                         return;
                     }
                 }
                 else {
+                    request.getSession().invalidate();
                     response.sendRedirect(JspPageName.LOGIN_PAGE);
                     return;
                 }
             }
             else {
+                request.getSession().invalidate();
                 response.sendRedirect(JspPageName.LOGIN_PAGE);
                 return;
             }

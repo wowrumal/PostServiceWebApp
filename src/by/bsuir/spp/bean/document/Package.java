@@ -19,6 +19,15 @@ public class Package implements Serializable {
     private int postIndex;
     private int passportId;
     private String status;
+    private boolean deleted;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public String getStatus() {
         return status;

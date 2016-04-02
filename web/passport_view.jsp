@@ -47,16 +47,16 @@
     <h2>Номер паспорта:</h2>
     <input type="text" required name="passport_number" value="${passport.passportNumber}" placeholder="KH2080553" maxlength="12">
 
+    <h2>Адрес:</h2>
+    <input type="text" required name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+
     <h2>Выдан:</h2>
     <input type="text" required name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно" maxlength="45">
 
     <h2>Действителен до:</h2>
     <input type="date" required name="issuing_date" value="${passport.issueDate}">
 
-    <h2>Адрес прописки:</h2>
-    <input type="text" required name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
-
-    <input type="submit" value="Применить">
+    <input type="submit" value="применить">
 </form>
 </body>
 </html>

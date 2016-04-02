@@ -61,7 +61,14 @@
     <textarea required name="petition_content" placeholder="Утеряна посылка">${search_statement.petitionContent}</textarea>
 
     <h2>Адрес:</h2>
-    <input required type="text" name="search_statement_address" value="${search_statement.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    <c:if test="${not empty search_statement.address}">
+        <input required type="text" name="search_statement_address" value="${search_statement.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    </c:if>
+
+    <c:if test="${empty search_statement.address}">
+        <input required type="text" name="search_statement_address" value="${user.passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
+    </c:if>
+
 
     <h2>Телефон:</h2>
     <input required type="text" name="phone_number" value="${search_statement.phoneNumber}" placeholder="375291234567" maxlength="13">
@@ -94,8 +101,11 @@
     <h2>Менеджер:</h2>
     <input required type="text" name="post_manager_name" value="${search_statement.postManagerName}" placeholder="Стасюкевич С.Ю." maxlength="45">
 
-    <h2>Дата:</h2>
-    <input required type="date" name="date" value="${search_statement.currentDate}">
+    <c:if test="${not empty search_statement}">
+        <h2>Дата:</h2>
+        <input required type="date" name="date" value="${search_statement.currentDate}">
+    </c:if>
+
 
     <c:choose>
         <c:when test="${user.userRole == 'CLIENT'}">
