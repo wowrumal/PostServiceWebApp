@@ -1,4 +1,4 @@
-a<%--
+<%--
   Created by IntelliJ IDEA.
   User: Кирилл
   Date: 4/2/2016
@@ -59,8 +59,8 @@ a<%--
 
 <table>
   <tr>
-    <td>Посылка:</td>
-    <td><%--${advertisement.postPacakge}--%></td>
+    <td>Тип посылки:</td>
+    <td>${packagee.type}</td>
   </tr>
   <tr>
     <td>Вес посылки:</td>
@@ -71,14 +71,22 @@ a<%--
     <td>${advertisement.cost}</td>
   </tr>
   <tr>
+    <td>Отправитель:</td>
+    <td>${packagee.senderName}</td>
+  </tr>
+  <tr>
     <td>Получатель:</td>
-    <td>${advertisement.passport}</td>
+    <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
   </tr>
   <tr>
     <td>Адрес получателя:</td>
     <td>${advertisement.addressForGetting}</td>
   </tr>
+  <tr>
+    <td>Дата отправления:</td>
+    <td>${packagee.date}</td>
+  </tr>
 </table>
-
+<hr/>
 </body>
 </html>

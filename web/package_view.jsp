@@ -35,40 +35,46 @@
         }
     </script>
 </head>
-<body>
+<>
 <h1>Посылка</h1>
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">
-        <form action="controller" method="get" enctype="multipart/form-data">
+    <div>
+        <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="load_packages">
             <input type="submit" value="назад">
         </form>
 
-        <form action="home_admin.jsp">
+        <form style="display: inline-block;" action="home_admin.jsp">
             <input type="submit" value="домой">
         </form>
+    </div>
     </c:when>
 
     <c:when test="${user.userRole == 'CLIENT'}">
-        <form action="controller" method="get" enctype="multipart/form-data">
+     <div>
+        <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="get_packages_for_user">
             <input type="submit" value="назад">
         </form>
 
-        <form action="home.jsp">
+        <form style="display: inline-block;" action="home.jsp">
             <input type="submit" value="домой">
         </form>
+     </div>
     </c:when>
 
     <c:otherwise>
-        <form action="controller" method="get" enctype="multipart/form-data">
+    <div>
+        <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
             <input type="hidden" name="command" value="load_packages">
             <input type="submit" value="назад">
         </form>
 
-        <form action="home_manager.jsp">
+        <form style="display: inline-block;" action="home_manager.jsp">
             <input type="submit" value="домой">
         </form>
+    </div>
     </c:otherwise>
 </c:choose>
 

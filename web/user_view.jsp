@@ -14,15 +14,16 @@
     <title>Пользователь</title>
 </head>
 <body>
+<div>
+    <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="load_users">
+        <input type="submit" value="назад">
+    </form>
 
-<form action="controller" method="get" enctype="multipart/form-data">
-    <input type="hidden" name="command" value="load_users">
-    <input type="submit" value="назад">
-</form>
-
-<form action="home_admin.jsp">
-    <input type="submit" value="домой">
-</form>
+    <form style="display: inline-block;" action="home_admin.jsp">
+        <input type="submit" value="домой">
+    </form>
+</div>
 <h1>Пользователь</h1>
 <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
     <c:if test="${not empty user}">

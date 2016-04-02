@@ -18,6 +18,6 @@ public class PrepareDataForReceiptCreationCommand implements Command {
         List<Integer> userIds = userDao.getUserIds();
 
         request.setAttribute(RequestParameterName.USER_IDS, userIds);
-        return JspPageName.VIEW_RECEIPT;
+        return JspPageName.RECEIPT;
     }
 }

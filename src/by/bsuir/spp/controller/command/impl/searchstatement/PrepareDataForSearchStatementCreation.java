@@ -22,6 +22,6 @@ public class PrepareDataForSearchStatementCreation implements Command {
 
         request.setAttribute(RequestParameterName.PACKAGES, packages);
 
-        return JspPageName.VIEW_SEARCH_STATEMENT;
+        return JspPageName.SEARCH_STATEMENT;
     }
 }

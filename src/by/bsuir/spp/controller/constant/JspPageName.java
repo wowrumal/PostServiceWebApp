@@ -30,4 +30,8 @@ public final class JspPageName {
     public static final String USER_PREPAYMENT_BOOKS = "user_prepayment_books.jsp";
     public static final String PAYMENT_PAGE = "payment_page.jsp";
     public static final String PACKAGE = "package.jsp";
+    public static final String ADVERTISEMENT = "advertisement.jsp";
+    public static final String PREPAYMENT_BOOK = "prepayment_book.jsp";
+    public static final String RECEIPT = "receipt.jsp";
+    public static final String SEARCH_STATEMENT = "search_statement.jsp";
 }
