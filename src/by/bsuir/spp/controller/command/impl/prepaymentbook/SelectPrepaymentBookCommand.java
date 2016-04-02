@@ -2,6 +2,7 @@ package by.bsuir.spp.controller.command.impl.prepaymentbook;
 
 import by.bsuir.spp.bean.document.PrepaymentBookStatement;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PrepaymentBookDao;
 import by.bsuir.spp.dao.impl.MySqlPrepaymentBookDao;
@@ -24,6 +25,11 @@ public class SelectPrepaymentBookCommand implements Command {
             e.printStackTrace();
         }
 
-        return new PrepareDataForPrepaymentBookCreationCommand().execute(request);
+        if (request.getParameter(RequestParameterName.SUB_COMMAND) != null) {
+            return new PrepareDataForPrepaymentBookCreationCommand().execute(request);
+        }
+        else {
+            return JspPageName.PREPAYMENT_BOOK;
+        }
     }
 }

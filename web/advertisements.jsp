@@ -50,6 +50,13 @@
                         <input type="submit" value="просмотреть">
                     </form>
 
+                    <form action="controller" method="get" enctype="multipart/form-data">
+                        <input type="hidden" name="command" value="select_advertisement">
+                        <input type="hidden" name="sub_command" value="edit">
+                        <input type="hidden" name="package_id" value="${advertisement.postPackage.idPackage}">
+                        <input type="submit" value="изменить">
+                    </form>
+
                     <form action="controller" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="command" value="delete_advertisement">
                         <input type="hidden" name="package_id" value="${advertisement.postPackage.idPackage}">

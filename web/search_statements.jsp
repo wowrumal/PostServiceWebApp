@@ -53,6 +53,12 @@
                         <input type="submit" value="просмотреть">
                     </form>
                     <form action="controller" enctype="multipart/form-data" method="get">
+                        <input type="hidden" name="command" value="select_search_statement">
+                        <input type="hidden" name="sub_command" value="edit">
+                        <input type="hidden" name="search_statement_id" value="${statement.id}">
+                        <input type="submit" value="изменить">
+                    </form>
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="delete_search_statement">
                         <input type="hidden" name="search_statement_id" value="${statement.id}">
                         <input type="submit" value="удалить">

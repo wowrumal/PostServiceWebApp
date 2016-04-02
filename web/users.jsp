@@ -27,32 +27,32 @@
             <th>Адрес</th>
             <th>Роль</th>
         </tr>
-        <c:forEach var="user" items="${users}">
+        <c:forEach var="userr" items="${users}">
             <tr>
-                <td>${user.login}</td>
-                <td>${user.password}</td>
-                <td>${user.secondName} ${user.firstName} ${user.middleName}</td>
-                <td>${user.passport.passportNumber}</td>
-                <td>${user.passport.address}</td>
-                <td>${user.userRole}</td>
+                <td>${userr.login}</td>
+                <td>${userr.password}</td>
+                <td>${userr.secondName} ${userr.firstName} ${userr.middleName}</td>
+                <td>${userr.passport.passportNumber}</td>
+                <td>${userr.passport.address}</td>
+                <td>${userr.userRole}</td>
                 <td>
                     <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="select_user">
-                        <input type="hidden" name="user_id" value="${user.id}">
+                        <input type="hidden" name="user_id" value="${userr.id}">
                         <input type="submit" value="просмотреть">
                     </form>
                     <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="select_user">
                         <input type="hidden" name="sub_command" value="update">
-                        <input type="hidden" name="user_id" value="${user.id}">
+                        <input type="hidden" name="user_id" value="${userr.id}">
                         <input type="submit" value="изменить">
                     </form>
                     <c:choose>
-                        <c:when test="${(user.userRole == 'ADMIN')}">
+                        <c:when test="${(userr.userRole == 'ADMIN')}">
                             <c:if test="${admins_count > 1}">
                                 <form action="controller" enctype="multipart/form-data" method="get">
                                     <input type="hidden" name="command" value="delete_user">
-                                    <input type="hidden" name="user_id" value="${user.id}">
+                                    <input type="hidden" name="user_id" value="${userr.id}">
                                     <input type="submit" value="удалить">
                                 </form>
                             </c:if>
@@ -60,7 +60,7 @@
                         <c:otherwise>
                             <form action="controller" enctype="multipart/form-data" method="get">
                                 <input type="hidden" name="command" value="delete_user">
-                                <input type="hidden" name="user_id" value="${user.id}">
+                                <input type="hidden" name="user_id" value="${userr.id}">
                                 <input type="submit" value="удалить">
                             </form>
                         </c:otherwise>

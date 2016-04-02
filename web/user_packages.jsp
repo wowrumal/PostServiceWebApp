@@ -49,7 +49,7 @@
   </c:forEach>
 </table>
 
-<form action="controller" method="post" enctype="multipart/form-data">
+<form action="controller" method="get" enctype="multipart/form-data">
   <input type="hidden" name="command" value="PREPARE_DATA_FOR_CREATION_PACKAGE">
   <input type="hidden" name="sub_command" value="create_package">
   <input type="submit" value="добавить посылку">

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Кирилл
-  Date: 2/22/2016
-  Time: 12:33 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -19,23 +12,28 @@
             var usersList = document.getElementById('getter');
             var selectedUser = usersList.options[usersList.selectedIndex].value;
 
+            var ownUserId = "${user.id}";
+
             var arr = [];
 
-            <c:forEach var="user" varStatus="status" items="${users}">
-                arr[${status.index}] = [];
-                arr[${status.index}][0] = "${user.id}";
-                arr[${status.index}][1] = "${user.passport.address}";
+            <c:forEach var="userr" varStatus="status" items="${users}">
+                var userId = "${userr.id}";
+                if (userId != ownUserId) {
+                    arr[${status.index}] = [];
+                    arr[${status.index}][0] = "${userr.id}";
+                    arr[${status.index}][1] = "${userr.passport.address}";
+                }
             </c:forEach>
 
             arr.forEach(function(item, i, arr){
-                if (i == selectedUser){
+                if (item[0] == selectedUser){
                     address.value = item[1];
                 }
             });
         }
     </script>
 </head>
-<>
+
 <h1>Посылка</h1>
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">

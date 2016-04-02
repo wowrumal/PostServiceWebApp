@@ -51,6 +51,12 @@
                         <input type="submit" value="просмотреть">
                     </form>
                     <form action="controller" enctype="multipart/form-data" method="get">
+                        <input type="hidden" name="command" value="select_prepayment_book">
+                        <input type="hidden" name="sub_command" value="update">
+                        <input type="hidden" name="prepayment_book_number" value="${book.statementNumber}">
+                        <input type="submit" value="изменить">
+                    </form>
+                    <form action="controller" enctype="multipart/form-data" method="get">
                         <input type="hidden" name="command" value="delete_prepayment_book">
                         <input type="hidden" name="prepayment_book_number" value="${book.statementNumber}">
                         <input type="submit" value="удалить">

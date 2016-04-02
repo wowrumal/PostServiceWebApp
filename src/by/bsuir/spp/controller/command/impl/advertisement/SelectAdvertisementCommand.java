@@ -42,6 +42,10 @@ public class SelectAdvertisementCommand implements Command {
             e.printStackTrace();
         }
 
+        if (request.getParameter(RequestParameterName.SUB_COMMAND) != null ) {
+            return new PrepareDataForAdvertisementCreationCommand().execute(request);
+        }
+
         return JspPageName.ADVERTISEMENT;
     }
 }

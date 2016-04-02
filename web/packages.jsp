@@ -64,6 +64,7 @@
                         <input type="submit" value="удалить">
                     </form>
                 </c:if>
+
                 <c:if test="${(user.userRole == 'POST_MANAGER')}">
                     <c:forEach var="pack_id" items="${new_package_ids}">
                         <c:if test="${pack_id == packagee.idPackage}">
