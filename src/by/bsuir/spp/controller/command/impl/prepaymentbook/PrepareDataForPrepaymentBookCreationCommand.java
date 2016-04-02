@@ -19,5 +19,6 @@ public class PrepareDataForPrepaymentBookCreationCommand implements Command {
         request.setAttribute(RequestParameterName.PASSPORT_IDS, passportIds);
 
         return JspPageName.PREPAYMENT_BOOK;
+
     }
 }

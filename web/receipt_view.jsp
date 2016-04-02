@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Чек</title>
+    <title>Квитанция</title>
 </head>
 <body>
 
@@ -55,7 +55,7 @@
         </c:otherwise>
     </c:choose>
 
-    <h1>Чек</h1>
+    <h1>Квитанция</h1>
     <form action="controller" accept-charset="UTF-8" method="post">
         <input type="hidden" name="command" value="add_receipt">
 

@@ -42,6 +42,7 @@ public class SelectAdvertisementCommand implements Command {
             e.printStackTrace();
         }
 
+
         return JspPageName.ADVERTISEMENT;
     }
 }

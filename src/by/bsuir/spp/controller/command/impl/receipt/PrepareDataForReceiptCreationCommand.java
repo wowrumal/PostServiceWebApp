@@ -19,5 +19,6 @@ public class PrepareDataForReceiptCreationCommand implements Command {
 
         request.setAttribute(RequestParameterName.USER_IDS, userIds);
         return JspPageName.RECEIPT;
+
     }
 }
