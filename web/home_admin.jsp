@@ -15,32 +15,32 @@
 
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_packages">
-    <input type="submit" value="посылки">
+    <input type="submit" value="Посылки">
 </form>
 
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_users">
-    <input type="submit" value="клиенты">
+    <input type="submit" value="Клиенты">
 </form>
 
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_receipts">
-    <input type="submit" value="чеки">
+    <input type="submit" value="Квитанции">
 </form>
 
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_advertisements">
-    <input type="submit" value="извещения">
+    <input type="submit" value="Извещения">
 </form>
 
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_prepayment_books">
-    <input type="submit" value="заявления для оформления авансовой книжки">
+    <input type="submit" value="Заявления для оформления авансовой книжки">
 </form>
 
 <form action="controller" method="get" enctype="multipart/form-data">
     <input type="hidden" name="command" value="load_search_statements">
-    <input type="submit" value="заявления поиска посылки">
+    <input type="submit" value="Заявления поиска посылки">
 </form>
 
 

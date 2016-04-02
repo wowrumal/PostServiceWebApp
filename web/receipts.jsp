@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Список чеков</title>
+    <title>Список квитанций</title>
 </head>
 <body>
     <c:choose>
@@ -25,7 +25,7 @@
             </form>
         </c:otherwise>
     </c:choose>
-    <h1>Список чеков</h1>
+    <h1>Список квитанций</h1>
     <table align="center" border="2">
         <tr>
             <th>Имя плательщика</th>

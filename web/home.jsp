@@ -39,7 +39,7 @@
         <li>
             <form action="controller" method="get" enctype="multipart/form-data">
                 <input type="hidden" name="command" value="get_user_receipts">
-                <input type="submit" value="Мои чеки">
+                <input type="submit" value="Мои квитанции">
             </form>
         </li>
         <li>

@@ -17,36 +17,42 @@
 
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">
-        <form action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="LOAD_SEARCH_STATEMENTS">
-            <input type="submit" value="назад">
-        </form>
+        <div>
+            <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
+                <input type="hidden" name="command" value="LOAD_SEARCH_STATEMENTS">
+                <input type="submit" value="назад">
+            </form>
 
-        <form action="home_admin.jsp">
-            <input type="submit" value="домой">
-        </form>
+            <form style="display: inline-block;" action="home_admin.jsp">
+                <input type="submit" value="домой">
+            </form>
+        </div>
     </c:when>
 
     <c:when test="${user.userRole == 'CLIENT'}">
-        <form action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="get_user_search_statements">
-            <input type="submit" value="назад">
-        </form>
+        <div>
+            <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
+                <input type="hidden" name="command" value="get_user_search_statements">
+                <input type="submit" value="назад">
+            </form>
 
-        <form action="home.jsp">
-            <input type="submit" value="домой">
-        </form>
+            <form style="display: inline-block;" action="home.jsp">
+                <input type="submit" value="домой">
+            </form>
+        </div>
     </c:when>
 
     <c:otherwise>
-        <form action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="LOAD_SEARCH_STATEMENTS">
-            <input type="submit" value="назад">
-        </form>
+        <div>
+            <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
+                <input type="hidden" name="command" value="LOAD_SEARCH_STATEMENTS">
+                <input type="submit" value="назад">
+            </form>
 
-        <form action="home_manager.jsp">
-            <input type="submit" value="домой">
-        </form>
+            <form style="display: inline-block;" action="home_manager.jsp">
+                <input type="submit" value="домой">
+            </form>
+        </div>
     </c:otherwise>
 </c:choose>
 
