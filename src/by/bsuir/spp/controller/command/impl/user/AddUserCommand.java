@@ -17,10 +17,12 @@ public class AddUserCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
+
+        User user = getUser(request);
+        request.getSession().setAttribute(RequestParameterName.USERR, user);
         if (validateParams(request)) {
 
             try {
-                User user = new User();
 
                 user.setLogin(request.getParameter(RequestParameterName.LOGIN_FIELD));
                 user.setPassword(DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD)));
@@ -38,15 +40,36 @@ public class AddUserCommand implements Command {
                 UserDao userDao = MySqlUserDao.getInstance();
 
                 Integer idUser = userDao.create(user);
+
+                request.getSession().removeAttribute(RequestParameterName.USERR);
             } catch (DaoException e) {
                 e.printStackTrace();
             }
 
-            return new LoadUsersCommand().execute(request);
+            return "controller?command=load_users";
         }
         else {
-            return new  PrepareDataForUserCreationCommand().execute(request);
+            return "controller?command=prepare_data_for_creation_user";
         }
+    }
+
+    private User getUser(HttpServletRequest request) {
+        User user = new User();
+
+        user.setLogin(request.getParameter(RequestParameterName.LOGIN_FIELD));
+        user.setPassword(DigestUtils.md5Hex(request.getParameter(RequestParameterName.PASSWORD)));
+        user.setFirstName(request.getParameter(RequestParameterName.FIRST_NAME));
+        user.setMiddleName(request.getParameter(RequestParameterName.MIDDLE_NAME));
+        user.setSecondName(request.getParameter(RequestParameterName.SEC_NAME));
+        int idPassport = Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID));
+        user.setUserRole(UserType.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase()));
+        user.setEmail(getRequestParam(request, RequestParameterName.EMAIL));
+        user.setPhone(getRequestParam(request, RequestParameterName.PHONE));
+        Passport passport = new Passport();
+        passport.setPassportId(idPassport);
+        user.setPassport(passport);
+
+        return user;
     }
 
     private boolean validateParams(HttpServletRequest request){

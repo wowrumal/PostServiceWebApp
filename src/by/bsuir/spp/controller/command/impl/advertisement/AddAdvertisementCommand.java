@@ -4,6 +4,7 @@ import by.bsuir.spp.bean.Passport;
 import by.bsuir.spp.bean.document.*;
 import by.bsuir.spp.bean.document.Package;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.command.CommandName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.AdvertisementDao;
 import by.bsuir.spp.dao.PackageDao;
@@ -54,7 +55,8 @@ public class AddAdvertisementCommand implements Command {
             packageDao.deleteNewPackage(packageId);
             packageDao.updateStatus(packageId, "принято");
 
-            return new LoadAdvertisementsCommand().execute(request);
+            //return new LoadAdvertisementsCommand().execute(request);
+            return "controller?command="+ CommandName.LOAD_ADVERTISEMENTS.toString();
         }
         else {
             return new PrepareDataForAdvertisementCreationCommand().execute(request);

@@ -39,10 +39,11 @@ public class UpdatePrepaymentBookCommand implements Command {
                 e.printStackTrace();
             }
 
-            return new LoadPrepaymentBooksCommand().execute(request);
+            return "controller?command=load_prepayment_books";
         }
         else {
-            return new SelectPrepaymentBookCommand().execute(request);
+            return "controller?command=select_prepayment_book&prepayment_book_number=" +
+                    Integer.parseInt(request.getParameter(RequestParameterName.PREPAYMENT_BOOK_NUMBER));
         }
     }
 

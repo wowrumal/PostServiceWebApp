@@ -29,6 +29,6 @@ public class DeletePackageCommand implements Command {
             e.printStackTrace();
         }
 
-        return new LoadPackagesCommand().execute(request);
+        return "controller?command=load_packages";
     }
 }

@@ -16,30 +16,33 @@ public class AddReceiptCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         ReceiptDao receiptDao = MySqlReceiptDao.getInstance();
-
+        Receipt receipt = getReceipt(request);
+        request.getSession().setAttribute(RequestParameterName.RECEIPT, receipt);
         if (validateParams(request)) {
-
-            Receipt receipt = new Receipt();
-            receipt.setUserId(((User) request.getSession().getAttribute(RequestParameterName.USER)).getId());
-            receipt.setClientName(request.getParameter(RequestParameterName.RECEIPT_CLIENTNAME));
-            receipt.setCost(Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_COST)));
-            receipt.setPaymentData(request.getParameter(RequestParameterName.RECEIPT_PAYMENT_DATA));
-            receipt.setDate(new Date());
-            receipt.setServiceName(request.getParameter(RequestParameterName.RECEIPT_SERVICE));
-
-            request.getSession().setAttribute(RequestParameterName.RECEIPT, receipt);
             /*try {
                 receiptDao.create(receipt);
             } catch (DaoException e) {
                 e.printStackTrace();
             }*/
-
             //return new GetUserReceiptsCommand().execute(request);
             return JspPageName.PAYMENT_PAGE;
         }
         else {
-            return new PrepareDataForReceiptCreationCommand().execute(request);
+            request.getSession().removeAttribute(RequestParameterName.RECEIPT);
+            return "controller?command=prepare_data_for_creation_receipt";
         }
+    }
+
+    private Receipt getReceipt(HttpServletRequest request) {
+        Receipt receipt = new Receipt();
+        receipt.setUserId(((User) request.getSession().getAttribute(RequestParameterName.USER)).getId());
+        receipt.setClientName(request.getParameter(RequestParameterName.RECEIPT_CLIENTNAME));
+        receipt.setCost(Integer.parseInt(request.getParameter(RequestParameterName.RECEIPT_COST)));
+        receipt.setPaymentData(request.getParameter(RequestParameterName.RECEIPT_PAYMENT_DATA));
+        receipt.setDate(new Date());
+        receipt.setServiceName(request.getParameter(RequestParameterName.RECEIPT_SERVICE));
+
+        return receipt;
     }
 
     private boolean validateParams(HttpServletRequest request) {

@@ -63,10 +63,10 @@ public class UpdateUserCommand implements Command {
                 e.printStackTrace();
             }
 
-            return new LoadUsersCommand().execute(request);
+            return "controller?command=load_users";
         }
         else {
-            return new SelectUserCommand().execute(request);
+            return "controller?command=select_user&sub_command=update&user_id="+Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
         }
 
     }

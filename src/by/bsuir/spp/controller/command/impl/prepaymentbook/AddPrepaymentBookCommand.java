@@ -15,30 +15,38 @@ public class AddPrepaymentBookCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
 
+        PrepaymentBookStatement statement = getStatement(request);
+        request.getSession().setAttribute("prepayment_book", statement);
+
         if (validateParams(request)) {
-
-            PrepaymentBookStatement prepaymentBookStatement = new PrepaymentBookStatement();
-            prepaymentBookStatement.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
-            prepaymentBookStatement.setBookkeeperName(request.getParameter(RequestParameterName.BOOKKEEPER_NAME));
-            prepaymentBookStatement.setClientName(request.getParameter(RequestParameterName.CLIENT_NAME));
-            prepaymentBookStatement.setClientNumber(Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER)));
-            prepaymentBookStatement.setDate(new Date());
-
-            prepaymentBookStatement.setUnpaidCost(Integer.parseInt(request.getParameter(RequestParameterName.UNPAID_COST)));
-            prepaymentBookStatement.setOrganizationHeadName(request.getParameter(RequestParameterName.ORGANIZATION_HEAD_NAME));
 
             PrepaymentBookDao prepaymentBookDao = MySqlPrepaymentBookDao.getInstance();
             try {
-                prepaymentBookDao.create(prepaymentBookStatement);
+                prepaymentBookDao.create(statement);
+                request.getSession().removeAttribute("prepayment_book");
             } catch (DaoException e) {
                 e.printStackTrace();
             }
 
-            return new GetUserPrepaymentBooksCommand().execute(request);
+            return "controller?command=get_user_prepayment_books";
         }
         else {
-            return new PrepareDataForPrepaymentBookCreationCommand().execute(request);
+            return "controller?command=prepare_data_for_creation_prepayment_book";
         }
+    }
+
+    private PrepaymentBookStatement getStatement(HttpServletRequest request) {
+        PrepaymentBookStatement prepaymentBookStatement = new PrepaymentBookStatement();
+        prepaymentBookStatement.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
+        prepaymentBookStatement.setBookkeeperName(request.getParameter(RequestParameterName.BOOKKEEPER_NAME));
+        prepaymentBookStatement.setClientName(request.getParameter(RequestParameterName.CLIENT_NAME));
+        prepaymentBookStatement.setClientNumber(Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER)));
+        prepaymentBookStatement.setDate(new Date());
+
+        prepaymentBookStatement.setUnpaidCost(Integer.parseInt(request.getParameter(RequestParameterName.UNPAID_COST)));
+        prepaymentBookStatement.setOrganizationHeadName(request.getParameter(RequestParameterName.ORGANIZATION_HEAD_NAME));
+
+        return prepaymentBookStatement;
     }
 
     private boolean validateParams(HttpServletRequest request) {

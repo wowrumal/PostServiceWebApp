@@ -2,6 +2,7 @@ package by.bsuir.spp.controller.command.impl._package;
 
 import by.bsuir.spp.bean.Comment;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.command.CommandName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PackageCommentDao;
 import by.bsuir.spp.dao.impl.MySqlPackageCommentDao;
@@ -29,6 +30,6 @@ public class AddCommentCommand implements Command {
             e.printStackTrace();
         }
 
-        return new SelectPackageCommand().execute(request);
+        return "controller?command=" + CommandName.SELECT_PACKAGE.toString().toLowerCase() + "&package_id="+packageId;
     }
 }

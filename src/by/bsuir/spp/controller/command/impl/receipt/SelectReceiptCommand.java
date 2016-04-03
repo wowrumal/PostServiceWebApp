@@ -2,6 +2,7 @@ package by.bsuir.spp.controller.command.impl.receipt;
 
 import by.bsuir.spp.bean.document.Receipt;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.ReceiptDao;
 import by.bsuir.spp.dao.impl.MySqlReceiptDao;
@@ -23,6 +24,6 @@ public class SelectReceiptCommand implements Command {
             e.printStackTrace();
         }
 
-        return new PrepareDataForReceiptCreationCommand().execute(request);
+        return JspPageName.RECEIPT;
     }
 }

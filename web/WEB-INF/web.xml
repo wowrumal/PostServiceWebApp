@@ -46,7 +46,7 @@
         <init-param>
             <param-name>user_pages</param-name>
             <param-value>
-                /controller,/favicon.ico,/home.jsp,/user_receipts.jsp,/advertisement_view.jsp,/package_view.jsp,/prepayment_book_view.jsp,/receipt_view.jsp,/search_statement_view.jsp,/user_advertisements.jsp,/user_packages.jsp,/user_prepayment_books.jsp,/user_searchstatements.jsp
+                /controller,/favicon.ico,/home.jsp,/user_receipts.jsp,/advertisement_view.jsp,/package_view.jsp,/prepayment_book_view.jsp,/receipt_view.jsp,/search_statement_view.jsp,/user_advertisements.jsp,/user_packages.jsp,/user_prepayment_books.jsp,/user_searchstatements.jsp,/payment_page.jsp
             </param-value>
         </init-param>
         <init-param>

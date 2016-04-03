@@ -2,6 +2,7 @@ package by.bsuir.spp.controller.command.impl._package;
 
 import by.bsuir.spp.bean.User;
 import by.bsuir.spp.controller.command.Command;
+import by.bsuir.spp.controller.command.CommandName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PackageDao;
 import by.bsuir.spp.dao.impl.MySqlPackageDao;
@@ -45,7 +46,8 @@ public class AddPackageCommand implements Command {
 
             request.setAttribute(RequestParameterName.PACKAGE_ID, packageId);
 
-            return new GetPackagesForUserCommand().execute(request);
+            //return new GetPackagesForUserCommand().execute(request);
+            return "controller?command=" + CommandName.GET_PACKAGES_FOR_USER.toString();
         }
         else {
             return new PrepareDataForPackageCreation().execute(request);

@@ -36,10 +36,10 @@ public class UpdateAdvertisementCommand implements Command {
                 e.printStackTrace();
             }
 
-            return new LoadAdvertisementsCommand().execute(request);
+            return "controller?command=load_advertisements";
         }
         else {
-            return new SelectAdvertisementCommand().execute(request);
+            return "controller?command=select_advertisement&package_id=" + Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID));
         }
     }
 

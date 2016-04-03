@@ -2,6 +2,7 @@ package by.bsuir.spp.controller;
 
 import by.bsuir.spp.controller.command.Command;
 import by.bsuir.spp.controller.command.CommandHelper;
+import by.bsuir.spp.controller.command.CommandName;
 import by.bsuir.spp.controller.command.impl.LogoutCommand;
 import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
@@ -76,12 +77,23 @@ public class Controller extends HttpServlet {
             }
             else {
                 page = command.execute(req);
+
+                switch (CommandName.valueOf(commandName.toUpperCase())) {
+                    case LOGIN_COMMAND : {}
+                    case REGISTRATION_COMMAND: {
+                        resp.sendRedirect(page);
+                        return;
+                    }
+                }
+
             }
         } catch (CommandException e) {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
-        dispatcher.forward(req, resp);
+        resp.sendRedirect(page);
+        //return;
+        /*RequestDispatcher dispatcher = req.getRequestDispatcher(page);
+        dispatcher.forward(req, resp);*/
     }
 }

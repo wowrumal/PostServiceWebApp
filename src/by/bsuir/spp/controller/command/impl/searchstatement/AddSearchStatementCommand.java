@@ -17,39 +17,46 @@ public class AddSearchStatementCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
 
+        SearchPackageStatement packageStatement = getStatement(request);
+        request.getSession().setAttribute(RequestParameterName.SEARCH_STATEMENT, packageStatement);
+
         if (validateParams(request)) {
 
             SearchStatementDao searchStatementDao = MySqlSearchStatementDao.getInstance();
-
-            SearchPackageStatement packageStatement = new SearchPackageStatement();
-            packageStatement.setPostManagerName(request.getParameter(RequestParameterName.POST_MANAGER_NAME));
-
-            packageStatement.setCurrentDate(new Date());
-
-            packageStatement.setPetitionContent(request.getParameter(RequestParameterName.PETITION_CONTENT));
-            packageStatement.setAddress(request.getParameter(RequestParameterName.SEARCH_STATEMENT_ADDRESS));
-            packageStatement.setPhoneNumber(request.getParameter(RequestParameterName.PHONE_NUMBER));
-
-            Passport passport = new Passport();
-            passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
-            packageStatement.setPassport(passport);
-
-            by.bsuir.spp.bean.document.Package packagee = new Package();
-            packagee.setIdPackage(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
-            packageStatement.setPostPackage(packagee);
 
             try {
                 searchStatementDao.create(packageStatement);
             } catch (DaoException e) {
                 e.printStackTrace();
             }
-
-            return new GetUserSearchStatementsCommand().execute(request);
+            request.getSession().removeAttribute(RequestParameterName.SEARCH_STATEMENT);
+            return "controller?command=get_user_search_statements";
         }
         else{
-            return new PrepareDataForSearchStatementCreation().execute(request);
+            return "controller?command=prepare_data_for_creation_search_statement";
         }
 
+    }
+
+    private SearchPackageStatement getStatement(HttpServletRequest request) {
+        SearchPackageStatement packageStatement = new SearchPackageStatement();
+        packageStatement.setPostManagerName(request.getParameter(RequestParameterName.POST_MANAGER_NAME));
+
+        packageStatement.setCurrentDate(new Date());
+
+        packageStatement.setPetitionContent(request.getParameter(RequestParameterName.PETITION_CONTENT));
+        packageStatement.setAddress(request.getParameter(RequestParameterName.SEARCH_STATEMENT_ADDRESS));
+        packageStatement.setPhoneNumber(request.getParameter(RequestParameterName.PHONE_NUMBER));
+
+        Passport passport = new Passport();
+        passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
+        packageStatement.setPassport(passport);
+
+        by.bsuir.spp.bean.document.Package packagee = new Package();
+        packagee.setIdPackage(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_ID)));
+        packageStatement.setPostPackage(packagee);
+
+        return packageStatement;
     }
 
     private boolean validateParams(HttpServletRequest request){

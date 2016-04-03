@@ -48,7 +48,7 @@ public class UpdatePackageCommand implements Command {
                 e.printStackTrace();
             }
 
-            return new LoadPackagesCommand().execute(request);
+            return "controller?command=load_packages";
         }
         else {
             return new SelectPackageCommand().execute(request);
