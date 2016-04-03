@@ -33,7 +33,7 @@
         }
     </script>
 </head>
-
+<body>
 <h1>Посылка</h1>
 <c:choose>
     <c:when test="${user.userRole == 'ADMIN'}">
@@ -148,7 +148,6 @@
         <input type="submit" value="создать">
     </c:if>
 </form>
-
 </body>
 </html>
 

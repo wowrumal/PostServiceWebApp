@@ -25,6 +25,7 @@
             <th>Имя</th>
             <th>Паспорт</th>
             <th>Адрес</th>
+            <th>e-mail</th>
             <th>Роль</th>
         </tr>
         <c:forEach var="userr" items="${users}">
@@ -34,6 +35,7 @@
                 <td>${userr.secondName} ${userr.firstName} ${userr.middleName}</td>
                 <td>${userr.passport.passportNumber}</td>
                 <td>${userr.passport.address}</td>
+                <td>${userr.email}</td>
                 <td>${userr.userRole}</td>
                 <td>
                     <form action="controller" enctype="multipart/form-data" method="get">

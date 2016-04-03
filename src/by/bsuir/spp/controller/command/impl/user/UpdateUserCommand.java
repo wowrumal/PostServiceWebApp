@@ -31,6 +31,9 @@ public class UpdateUserCommand implements Command {
             user.setMiddleName(request.getParameter(RequestParameterName.MIDDLE_NAME));
             user.setUserRole(UserType.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase()));
 
+            user.setEmail(getRequestParam(request, RequestParameterName.EMAIL));
+            user.setPhone(getRequestParam(request, RequestParameterName.PHONE));
+
             Passport passport = new Passport();
             passport.setPassportId(Integer.parseInt(request.getParameter(RequestParameterName.PASSPORT_ID)));
 

@@ -53,6 +53,8 @@ public class RegistrationCommand implements Command {
                 user.setSecondName(getRequestParam(request, RequestParameterName.SEC_NAME));
                 user.setMiddleName(getRequestParam(request, RequestParameterName.MIDDLE_NAME));
                 user.setPassport(passport);
+                user.setEmail(getRequestParam(request, RequestParameterName.EMAIL));
+                user.setPhone(getRequestParam(request,RequestParameterName.PHONE));
 
                 if (!userDao.checkLogin(user.getLogin())) {
                     page = JspPageName.REGISTRATION + "?" + RequestParameterName.MESSAGE + "=login_exist";

@@ -12,8 +12,9 @@
     <title>Registration</title>
 </head>
 <body>
-  <h1>Регистрация</h1>
-  <form action="controller" method="post" enctype="multipart/form-data">
+<h1>Регистрация</h1>
+
+<form action="controller" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="command" value="REGISTRATION_COMMAND">
 
@@ -37,6 +38,12 @@
     <input type="text" value="${user.middleName}" required maxlength="44" name="middle_name" placeholder="Иванович">
     <br>
 
+    <label>e-mail</label>
+    <input type="email" value="${user.email}" required maxlength="50" name="email" placeholder="user@gmail.com">
+
+    <label>Номер телефона:</label>
+    <input type="tel" pattern="(\+?\d[- .]*){7,13}" value="${user.email}" required maxlength="50" name="phone" placeholder="+375292847037">
+
     <h2>Пасспортные данные</h2>
 
     <h2>Номер:</h2>
@@ -46,29 +53,30 @@
     <input type="text" name="address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1">
 
     <h2>Выдан:</h2>
-    <input type="text" name="institution" value="${passport.issuingInstitution}" placeholder="Октябрьский РОВД г. Гродно">
+    <input type="text" name="institution" value="${passport.issuingInstitution}"
+           placeholder="Октябрьский РОВД г. Гродно">
 
     <h2>Дата выдачи:</h2>
     <input required type="date" name="issuing_date" value="${passport.issueDate}">
     <br>
     <br>
     <input type="submit" value="зарегистрироваться">
-  </form>
+</form>
 
-  <c:if test="${not empty param['message']}">
+<c:if test="${not empty param['message']}">
     <c:choose>
-      <c:when test="${param['message'] == 'login_exist'}">
-        <p>Введенный логин уже существует</p>
-      </c:when>
-      <c:when test="${param['message'] == 'error'}">
-        <p>Ошибка сервера, повторите попытку</p>
-      </c:when>
-      <c:when test="${param['message'] == 'invalid'}">
-        <p>Проверьте введенные данные и повторите попытку</p>
-      </c:when>
+        <c:when test="${param['message'] == 'login_exist'}">
+            <p>Введенный логин уже существует</p>
+        </c:when>
+        <c:when test="${param['message'] == 'error'}">
+            <p>Ошибка сервера, повторите попытку</p>
+        </c:when>
+        <c:when test="${param['message'] == 'invalid'}">
+            <p>Проверьте введенные данные и повторите попытку</p>
+        </c:when>
     </c:choose>
 
-  </c:if>
+</c:if>
 
 </body>
 </html>

@@ -48,6 +48,12 @@
     <h2>Отчество:</h2>
     <input type="text" required name="middle_name" value="${userr.middleName}" placeholder="Иванович" maxlength="15">
 
+    <h2>e-mail</h2>
+    <input type="email" value="${userr.email}" required maxlength="50" name="email" placeholder="user@gmail.com">
+
+    <h2>Номер телефона:</h2>
+    <input type="tel" pattern="(\+?\d[- .]*){7,13}" value="${userr.phone}" required maxlength="50" name="phone" placeholder="+375292847037">
+
     <h2>Номер паспорта:</h2>
     <input type="text" required name="passport_number" value="${userr.passport.passportNumber}">
 

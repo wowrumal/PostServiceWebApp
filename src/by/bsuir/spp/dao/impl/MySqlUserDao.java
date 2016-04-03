@@ -27,11 +27,11 @@ public class MySqlUserDao implements UserDao {
     }
 
     private static final String SELECT_USER_BY_ID = "select * from `user` where id=?";
-    private static final String INSERT_USER_QUERY = "insert into `user` (login, `password`, firstName, middleName, secondName, passportID) " +
-                                                    "values (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_USER_QUERY = "insert into `user` (login, `password`, firstName, middleName, secondName, passportID, email, phone) " +
+                                                    "values (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_USER_BY_ID = "delete from `user` where id=?";
     private static final String SELECT_ALL_USERS = "select * from `user`";
-    private static final String UPDATE_USER_BY_ID = "update `user` set login=?, firstName=?, middleName=?, secondName=?, userType=? "+
+    private static final String UPDATE_USER_BY_ID = "update `user` set login=?, firstName=?, middleName=?, secondName=?, userType=?, email=?, phone=? "+
                                                     "where id=?";
     private static final String SELECT_IDS = "select id FROM `user`";
     private static final String SQL_CHECK_USER = "select * FROM user WHERE login = ? AND `password` =?";
@@ -49,6 +49,8 @@ public class MySqlUserDao implements UserDao {
             statement.setString(4, newInstance.getMiddleName());
             statement.setString(5, newInstance.getSecondName());
             statement.setInt(6, newInstance.getPassport().getPassportId());
+            statement.setString(7, newInstance.getEmail());
+            statement.setString(8, newInstance.getPhone());
             statement.execute();
             try(ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
@@ -86,6 +88,8 @@ public class MySqlUserDao implements UserDao {
 
                     user.setPassport(passport);
                     user.setUserRole(UserType.values()[resultSet.getInt(8)]);
+                    user.setEmail(resultSet.getString(9));
+                    user.setPhone(resultSet.getString(10));
                 }
             }
 
@@ -106,7 +110,9 @@ public class MySqlUserDao implements UserDao {
             statement.setString(3, user.getMiddleName());
             statement.setString(4, user.getSecondName());
             statement.setInt(5, user.getUserRole().ordinal());
-            statement.setInt(6, user.getId());
+            statement.setString(6, user.getEmail());
+            statement.setString(7, user.getPhone());
+            statement.setInt(8, user.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,7 +159,8 @@ public class MySqlUserDao implements UserDao {
 
                 user.setPassport(passport);
                 user.setUserRole(UserType.values()[resultSet.getInt(8)]);
-
+                user.setEmail(resultSet.getString(9));
+                user.setPhone(resultSet.getString(10));
                 users.add(user);
             }
 
@@ -203,6 +210,8 @@ public class MySqlUserDao implements UserDao {
                     passport.setPassportId(resultSet.getInt(7));
                     actualUser.setPassport(passport);
                     actualUser.setUserRole(UserType.values()[resultSet.getInt(8)]);
+                    actualUser.setEmail(resultSet.getString(9));
+                    actualUser.setPhone(resultSet.getString(10));
                 }
             }
         } catch (SQLException | ConnectionPoolException e) {

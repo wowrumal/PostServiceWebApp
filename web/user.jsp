@@ -47,6 +47,14 @@
         <td>${userr.passport.address}</td>
     </tr>
     <tr>
+        <td>e-mail</td>
+        <td>${userr.email}</td>
+    </tr>
+    <tr>
+        <td>Номер телефона</td>
+        <td>${userr.phone}</td>
+    </tr>
+    <tr>
         <td>Номер паспорта:</td>
         <td>${userr.passport.passportNumber}</td>
     </tr>

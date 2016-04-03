@@ -35,6 +35,8 @@ public final class RequestParameterName {
     public static final String SEC_NAME = "sec_name";
     public static final String USER_ROLE = "user_role";
     public static final String USERS = "users";
+    public static final String EMAIL = "email";
+    public static final String PHONE = "phone";
 
     public static final String PASSPORT_IDS = "passport_ids";
     public static final String USER_ROLES = "user_roles";
