@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <package id="1" type="package" date="2016-02-02" senderName="stas" getterUserId="1" address="address1" postIndex="1" passportId="1" isDeleted="0" status="process"/>
+    <package id="2" type="package" date="2016-02-02" senderName="stas" getterUserId="2" address="address2" postIndex="2" passportId="2" isDeleted="1" status="process"/>
+    <package id="3" type="package" date="2016-02-02" senderName="stas" getterUserId="3" address="address3" postIndex="3" passportId="3" isDeleted="0" status="process"/>
+    <package id="4" type="package" date="2016-02-02" senderName="stas" getterUserId="4" address="address4" postIndex="4" passportId="1" isDeleted="1" status="process"/>
+    <package id="5" type="package" date="2016-02-02" senderName="stas" getterUserId="5" address="address5" postIndex="5" passportId="5" isDeleted="0" status="process"/>
+</dataset>

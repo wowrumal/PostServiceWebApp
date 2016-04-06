@@ -79,7 +79,10 @@ public class AddUserCommand implements Command {
                 getRequestParam(request, RequestParameterName.MIDDLE_NAME) == null ||
                 getRequestParam(request, RequestParameterName.SEC_NAME) == null ||
                 getRequestParam(request, RequestParameterName.PASSPORT_ID) == null ||
-                getRequestParam(request, RequestParameterName.USER_ROLE) == null){
+                getRequestParam(request, RequestParameterName.USER_ROLE) == null ||
+                getRequestParam(request, RequestParameterName.EMAIL) == null ||
+                getRequestParam(request, RequestParameterName.PHONE) == null)
+        {
             return false;
         }
 

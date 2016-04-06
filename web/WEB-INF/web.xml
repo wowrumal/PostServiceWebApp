@@ -40,7 +40,7 @@
         <init-param>
             <param-name>avoid-urls</param-name>
             <param-value>
-                /login.jsp,/registration.jsp
+                /login.jsp,/registration.jsp,/css/styles.css
             </param-value>
         </init-param>
         <init-param>

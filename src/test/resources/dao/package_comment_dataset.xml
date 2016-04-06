@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <package_comment commentId="1" text="text1" date="2016-02-02" packageId="1"/>
+    <package_comment commentId="2" text="text2" date="2016-02-02" packageId="2"/>
+    <package_comment commentId="3" text="text3" date="2016-02-02" packageId="1"/>
+    <package_comment commentId="4" text="text4" date="2016-02-02" packageId="4"/>
+    <package_comment commentId="5" text="text5" date="2016-02-02" packageId="5"/>
+</dataset>

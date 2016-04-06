@@ -11,7 +11,6 @@ public class Package implements Serializable {
 
     private int idPackage;
     private String type;
-    private int barCode;
     private Date date;
     private String senderName;
     private User getterUser;
@@ -20,6 +19,15 @@ public class Package implements Serializable {
     private int passportId;
     private String status;
     private boolean deleted;
+    private String trackNumber;
+
+    public String getTrackNumber() {
+        return trackNumber;
+    }
+
+    public void setTrackNumber(String trackNumber) {
+        this.trackNumber = trackNumber;
+    }
 
     public boolean isDeleted() {
         return deleted;
@@ -61,14 +69,6 @@ public class Package implements Serializable {
         this.type = type;
     }
 
-    public int getBarCode() {
-        return barCode;
-    }
-
-    public void setBarCode(int barCode) {
-        this.barCode = barCode;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -107,6 +107,44 @@ public class Package implements Serializable {
 
     public void setPostIndex(int postIndex) {
         this.postIndex = postIndex;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Package aPackage = (Package) o;
+
+        if (idPackage != aPackage.idPackage) return false;
+        if (postIndex != aPackage.postIndex) return false;
+        if (passportId != aPackage.passportId) return false;
+        if (deleted != aPackage.deleted) return false;
+        if (type != null ? !type.equals(aPackage.type) : aPackage.type != null) return false;
+        if (date != null ? !date.equals(aPackage.date) : aPackage.date != null) return false;
+        if (senderName != null ? !senderName.equals(aPackage.senderName) : aPackage.senderName != null) return false;
+        if (getterUser != null ? !getterUser.equals(aPackage.getterUser) : aPackage.getterUser != null) return false;
+        if (address != null ? !address.equals(aPackage.address) : aPackage.address != null) return false;
+        if (status != null ? !status.equals(aPackage.status) : aPackage.status != null) return false;
+        return !(trackNumber != null ? !trackNumber.equals(aPackage.trackNumber) : aPackage.trackNumber != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idPackage;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (senderName != null ? senderName.hashCode() : 0);
+        result = 31 * result + (getterUser != null ? getterUser.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + postIndex;
+        result = 31 * result + passportId;
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (deleted ? 1 : 0);
+        result = 31 * result + (trackNumber != null ? trackNumber.hashCode() : 0);
+        return result;
     }
 }
 

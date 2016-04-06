@@ -39,7 +39,6 @@ public class UpdatePackageCommand implements Command {
             }});
             myPackage.setAddress(request.getParameter(RequestParameterName.PACKAGE_ADDRESS));
             myPackage.setPostIndex(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_POST_INDEX)));
-            myPackage.setBarCode(Integer.parseInt(request.getParameter(RequestParameterName.PACKAGE_BARCODE)));
 
             PackageDao packageDao = MySqlPackageDao.getInstance();
             try {

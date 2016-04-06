@@ -50,10 +50,8 @@ public class MySqlPassportDao implements PassportDao {
                     id = resultSet.getInt(1);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+           // e.printStackTrace();
         }
 
         return id;
@@ -78,10 +76,8 @@ public class MySqlPassportDao implements PassportDao {
                     passport.setIssueDate(resultSet.getDate(5));
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            //e.printStackTrace();
         }
         return passport;
     }
@@ -97,10 +93,8 @@ public class MySqlPassportDao implements PassportDao {
             statement.setDate(4, new Date(passport.getIssueDate().getTime()));
             statement.setInt(5, passport.getPassportId());
             statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            //e.printStackTrace();
         }
     }
 
@@ -110,10 +104,8 @@ public class MySqlPassportDao implements PassportDao {
             PreparedStatement statement = connection.prepareStatement(DELETE_PASSPORT_BY_ID)) {
             statement.setInt(1, passport.getPassportId());
             statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            //e.printStackTrace();
         }
     }
 
@@ -135,10 +127,8 @@ public class MySqlPassportDao implements PassportDao {
                 passport.setIssueDate(resultSet.getDate(5));
                 passports.add(passport);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            //e.printStackTrace();
         }
 
         return passports;
@@ -153,10 +143,8 @@ public class MySqlPassportDao implements PassportDao {
             while (resultSet.next()) {
                 ids.add(resultSet.getInt(1));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+           // e.printStackTrace();
         }
         return ids;
     }

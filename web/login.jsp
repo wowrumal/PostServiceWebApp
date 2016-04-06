@@ -11,25 +11,27 @@
 <html>
 <head>
     <title>Вход</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <h1>Вход:</h1>
+
 <form method="POST" action="controller">
-  <input type="hidden" name="command" value="login_command">
+    <input type="hidden" name="command" value="login_command">
 
-  <div>
-    <input type="text" name="login_field" id="loginInput" placeholder="Логин">
-  </div>
+    <div>
+        <input type="text" name="login_field" id="loginInput" placeholder="Логин">
+    </div>
 
-  <div>
-    <input type="password" name="password" id="passwordInput" placeholder="Пароль">
-  </div>
+    <div>
+        <input type="password" name="password" id="passwordInput" placeholder="Пароль">
+    </div>
 
-  <button type="submit">Войти</button>
+    <button type="submit">Войти</button>
 
-  <c:if test="${not empty param['message']}">
-    <p>invalid login or password</p>
-  </c:if>
+    <c:if test="${not empty param['message']}">
+        <p>invalid login or password</p>
+    </c:if>
 </form>
 
 <a href="registration.jsp">Зарегистрироваться</a>

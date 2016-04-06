@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <prepayment_book id="1" clientName="client1" clientNumber="1" unpdaidCost="100" organizationHeadName="head1" bookkeeperName="keeper1" date="2016-02-02" passportId="1"/>
+    <prepayment_book id="2" clientName="client2" clientNumber="2" unpdaidCost="100" organizationHeadName="head2" bookkeeperName="keeper2" date="2016-02-02" passportId="2"/>
+    <prepayment_book id="3" clientName="client3" clientNumber="3" unpdaidCost="100" organizationHeadName="head3" bookkeeperName="keeper3" date="2016-02-02" passportId="3"/>
+    <prepayment_book id="4" clientName="client4" clientNumber="4" unpdaidCost="100" organizationHeadName="head4" bookkeeperName="keeper4" date="2016-02-02" passportId="4"/>
+    <prepayment_book id="5" clientName="client5" clientNumber="5" unpdaidCost="100" organizationHeadName="head5" bookkeeperName="keeper5" date="2016-02-02" passportId="5"/>
+</dataset>

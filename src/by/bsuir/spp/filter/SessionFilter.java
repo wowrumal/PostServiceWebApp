@@ -7,7 +7,6 @@ import by.bsuir.spp.controller.constant.JspPageName;
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.UserDao;
 import by.bsuir.spp.dao.impl.MySqlUserDao;
-import by.bsuir.spp.exception.dao.DaoException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -102,8 +101,9 @@ public class SessionFilter implements Filter {
                         if (userDao.read(user.getId()).getUserRole() != user.getUserRole()) {
                             allowedRequest = false;
                         }
-                    } catch (DaoException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                        allowedRequest = false;
                     }
 
                     if (!allowedRequest) {

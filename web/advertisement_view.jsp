@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Извещение</title>
+    <script></script>
 </head>
 <body>
 <h1>Извещение о посылке</h1>

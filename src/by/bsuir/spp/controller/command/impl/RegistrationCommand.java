@@ -74,6 +74,33 @@ public class RegistrationCommand implements Command {
             }
         }
         else {
+
+            Passport passport = new Passport();
+
+            passport.setPassportNumber(getRequestParam(request, RequestParameterName.PASSPORT_NUMBER));
+            passport.setAddress(getRequestParam(request, RequestParameterName.PASSPORT_ADDRESS));
+            try {
+                passport.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.ISSUING_DATE)) );
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            passport.setIssuingInstitution(getRequestParam(request, RequestParameterName.INSTITUTION));
+
+            User user = new User();
+
+            user.setFirstName(getRequestParam(request, RequestParameterName.FIRST_NAME));
+            user.setLogin(getRequestParam(request, RequestParameterName.LOGIN_FIELD));
+            user.setPassword(DigestUtils.md5Hex(getRequestParam(request, RequestParameterName.PASSWORD) + SALT));
+            user.setSecondName(getRequestParam(request, RequestParameterName.SEC_NAME));
+            user.setMiddleName(getRequestParam(request, RequestParameterName.MIDDLE_NAME));
+            user.setPassport(passport);
+            user.setEmail(getRequestParam(request, RequestParameterName.EMAIL));
+            user.setPhone(getRequestParam(request, RequestParameterName.PHONE));
+
+            request.getSession().setAttribute(RequestParameterName.USER, user);
+            request.getSession().setAttribute(RequestParameterName.PASSPORT, passport);
+
             page = JspPageName.REGISTRATION + "?" + RequestParameterName.MESSAGE + "=invalid";
         }
 
@@ -83,15 +110,17 @@ public class RegistrationCommand implements Command {
     private boolean validateParams(HttpServletRequest request)
     {
 
-        if (getRequestParam(request, RequestParameterName.LOGIN_FIELD) == null ||
-                getRequestParam(request, RequestParameterName.PASSWORD) == null ||
-                getRequestParam(request, RequestParameterName.FIRST_NAME) == null ||
-                getRequestParam(request, RequestParameterName.SEC_NAME) == null ||
-                getRequestParam(request, RequestParameterName.MIDDLE_NAME) == null ||
-                getRequestParam(request, RequestParameterName.PASSPORT_NUMBER) == null ||
-                getRequestParam(request, RequestParameterName.PASSPORT_ADDRESS) == null ||
-                getRequestParam(request, RequestParameterName.INSTITUTION) == null ||
-                getRequestParam(request, RequestParameterName.ISSUING_DATE) == null)
+        if (getRequestParam(request, RequestParameterName.LOGIN_FIELD).equals("") ||
+                getRequestParam(request, RequestParameterName.PASSWORD).equals("") ||
+                getRequestParam(request, RequestParameterName.FIRST_NAME).equals("") ||
+                getRequestParam(request, RequestParameterName.SEC_NAME).equals("") ||
+                getRequestParam(request, RequestParameterName.MIDDLE_NAME).equals("") ||
+                getRequestParam(request, RequestParameterName.PASSPORT_NUMBER).equals("") ||
+                getRequestParam(request, RequestParameterName.PASSPORT_ADDRESS).equals("") ||
+                getRequestParam(request, RequestParameterName.INSTITUTION).equals("") ||
+                getRequestParam(request, RequestParameterName.ISSUING_DATE).equals("") ||
+                getRequestParam(request, RequestParameterName.PHONE).equals("") ||
+                getRequestParam(request, RequestParameterName.EMAIL).equals(""))
         {
             return false;
         }

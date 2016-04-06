@@ -22,8 +22,8 @@ public class MySqlPackageDao implements PackageDao {
 
     public static MySqlPackageDao getInstance() { return instance;}
 
-    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterUserId, address, postIndex, passportId) "+
-                                                        "values (?,?,?,?,?,?,?)";
+    private static final String INSERT_PACKAGE_QUERY = "insert into `package` (type, `date`, senderName, getterUserId, address, postIndex, passportId, trackNumber) "+
+                                                        "values (?,?,?,?,?,?,?, uuid())";
     private static final String SELECT_ALL_PACKAGE = "select * from `package`";
     private static final String SELECT_PACKAGE_BY_ID = "select * from `package` where id=?";
     private static final String SELECT_PACKAGE_BY_PASSPORT_ID = "select * from `package` where passportId=?";
@@ -86,14 +86,14 @@ public class MySqlPackageDao implements PackageDao {
                     myPackage.setType(resultSet.getString(2));
                     myPackage.setDate(resultSet.getDate(3));
                     myPackage.setSenderName(resultSet.getString(4));
-                    myPackage.setGetterUser(new User() {{
-                        setId(resultSet.getInt(5));
-                    }});
+                    User user = new User();user.setId(resultSet.getInt(5));
+                    myPackage.setGetterUser(user);
                     myPackage.setAddress(resultSet.getString(6));
                     myPackage.setPostIndex(resultSet.getInt(7));
                     myPackage.setPassportId(resultSet.getInt(8));
                     myPackage.setDeleted(resultSet.getBoolean(9));
                     myPackage.setStatus(resultSet.getString(10));
+                    myPackage.setTrackNumber(resultSet.getString(11));
                 }
             }
         } catch (SQLException e) {
@@ -159,6 +159,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setPassportId(resultSet.getInt(8));
                 myPackage.setDeleted(resultSet.getBoolean(9));
                 myPackage.setStatus(resultSet.getString(10));
+                myPackage.setTrackNumber(resultSet.getString(11));
                 packages.add(myPackage);
             }
 
@@ -209,6 +210,7 @@ public class MySqlPackageDao implements PackageDao {
                 myPackage.setPassportId(resultSet.getInt(8));
                 myPackage.setDeleted(resultSet.getBoolean(9));
                 myPackage.setStatus(resultSet.getString(10));
+                myPackage.setTrackNumber(resultSet.getString(11));
                 packages.add(myPackage);
             }
         } catch (SQLException | ConnectionPoolException e) {

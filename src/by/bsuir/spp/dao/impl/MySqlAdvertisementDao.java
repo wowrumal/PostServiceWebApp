@@ -120,10 +120,8 @@ public class MySqlAdvertisementDao implements AdvertisementDao {
             statement.setString(5, newInstance.getAddressForGetting());
             statement.execute();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            //e.printStackTrace();
         }
         return newInstance.getPostPackage().getIdPackage();
     }

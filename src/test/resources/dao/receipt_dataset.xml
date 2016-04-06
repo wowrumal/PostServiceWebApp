@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+<receipt id="1" clientName="client1" paymentData="data1" cost="100" date="2016-02-02" idUser="1" serviceName="service1"/>
+<receipt id="2" clientName="client2" paymentData="data2" cost="100" date="2016-02-02" idUser="2" serviceName="service2"/>
+<receipt id="3" clientName="client3" paymentData="data3" cost="100" date="2016-02-02" idUser="3" serviceName="service3"/>
+<receipt id="4" clientName="client4" paymentData="data4" cost="100" date="2016-02-02" idUser="4" serviceName="service4"/>
+<receipt id="5" clientName="client5" paymentData="data5" cost="100" date="2016-02-02" idUser="1" serviceName="service5"/>
+</dataset>

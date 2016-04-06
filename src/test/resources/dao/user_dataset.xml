@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user id="1" login="login1" password="password1" firstName="name1" middleName="middle1" secondName="second1" passportID="1" userType="1" email="orange1.css@yam.by" phone="375292847037"/>
+    <user id="2" login="login2" password="password2" firstName="name2" middleName="middle2" secondName="second2" passportID="2" userType="0" email="orange2.css@yam.by" phone="375292847037"/>
+    <user id="3" login="login3" password="password3" firstName="name3" middleName="middle3" secondName="second3" passportID="3" userType="2" email="orange3.css@yam.by" phone="375292847037"/>
+    <user id="4" login="login4" password="password4" firstName="name4" middleName="middle4" secondName="second4" passportID="4" userType="1" email="orange4.css@yam.by" phone="375292847037"/>
+    <user id="5" login="login5" password="password5" firstName="name5" middleName="middle5" secondName="second5" passportID="5" userType="1" email="orange5.css@yam.by" phone="375292847037"/>
+</dataset>

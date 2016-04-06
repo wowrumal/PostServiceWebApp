@@ -26,32 +26,37 @@ public class MySqlPackageCommentDao implements PackageCommentDao {
 
     @Override
     public Integer create(Comment newInstance) throws DaoException {
+        int id = 0;
         try (Connection connection = ConnectionPoolImpl.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(INSERT_COMMENT_SQL)) {
+            PreparedStatement statement = connection.prepareStatement(INSERT_COMMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, newInstance.getText());
             statement.setDate(2, new Date(newInstance.getDate().getTime()));
             statement.setInt(3, newInstance.getPackageId());
-
             statement.execute();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    id = resultSet.getInt(1);
+                }
+            }
         } catch (SQLException | ConnectionPoolException e) {
-            e.printStackTrace();
+            throw new DaoException(e.getMessage(), e);
         }
-        return 1;
+        return id;
     }
 
     @Override
     public Comment read(Integer id) throws DaoException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Comment obj) throws DaoException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(Comment obj) throws DaoException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override

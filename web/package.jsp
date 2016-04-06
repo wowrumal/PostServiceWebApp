@@ -76,6 +76,10 @@
         <td>${packagee.date}</td>
     </tr>
     <tr>
+        <td>Код отслеживания:</td>
+        <td>${packagee.trackNumber}</td>
+    </tr>
+    <tr>
         <td>Статус посылки:</td>
         <td>${packagee.status}</td>
     </tr>

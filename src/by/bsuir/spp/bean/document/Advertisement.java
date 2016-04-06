@@ -53,4 +53,29 @@ public class Advertisement implements Serializable {
     public void setAddressForGetting(String addressForGetting) {
         this.addressForGetting = addressForGetting;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Advertisement that = (Advertisement) o;
+
+        if (weight != that.weight) return false;
+        if (cost != that.cost) return false;
+        if (postPackage != null ? !postPackage.equals(that.postPackage) : that.postPackage != null) return false;
+        if (passport != null ? !passport.equals(that.passport) : that.passport != null) return false;
+        return !(addressForGetting != null ? !addressForGetting.equals(that.addressForGetting) : that.addressForGetting != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = postPackage != null ? postPackage.hashCode() : 0;
+        result = 31 * result + weight;
+        result = 31 * result + cost;
+        result = 31 * result + (passport != null ? passport.hashCode() : 0);
+        result = 31 * result + (addressForGetting != null ? addressForGetting.hashCode() : 0);
+        return result;
+    }
 }

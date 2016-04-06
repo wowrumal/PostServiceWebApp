@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <search_statement id="1" address="address1" phoneNumber="375292847037" passportID="1" petitionContent="content1" packageID="1" currentDate="2016-02-02" managerName="manager1"/>
+    <search_statement id="2" address="address2" phoneNumber="375292847037" passportID="2" petitionContent="content2" packageID="2" currentDate="2016-02-02" managerName="manager2"/>
+    <search_statement id="3" address="address3" phoneNumber="375292847037" passportID="3" petitionContent="content3" packageID="3" currentDate="2016-02-02" managerName="manager3"/>
+    <search_statement id="4" address="address4" phoneNumber="375292847037" passportID="4" petitionContent="content4" packageID="4" currentDate="2016-02-02" managerName="manager4"/>
+    <search_statement id="5" address="address5" phoneNumber="375292847037" passportID="5" petitionContent="content5" packageID="5" currentDate="2016-02-02" managerName="manager5"/>
+</dataset>

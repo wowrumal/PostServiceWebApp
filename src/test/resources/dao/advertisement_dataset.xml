@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <advertisement idPackage="1" weight="20" cost="30" idPassport="1" addressForGetting="address1"/>
+    <advertisement idPackage="2" weight="20" cost="30" idPassport="2" addressForGetting="address2"/>
+    <advertisement idPackage="3" weight="20" cost="30" idPassport="1" addressForGetting="address3"/>
+    <advertisement idPackage="4" weight="20" cost="30" idPassport="4" addressForGetting="address4"/>
+</dataset>

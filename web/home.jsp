@@ -15,6 +15,7 @@
 <html>
 <head>
     <title>Домашняя</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 

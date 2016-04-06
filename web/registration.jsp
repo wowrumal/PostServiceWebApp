@@ -42,7 +42,7 @@
     <input type="email" value="${user.email}" required maxlength="50" name="email" placeholder="user@gmail.com">
 
     <label>Номер телефона:</label>
-    <input type="tel" pattern="(\+?\d[- .]*){7,13}" value="${user.email}" required maxlength="50" name="phone" placeholder="+375292847037">
+    <input type="tel" pattern="(\+?\d[- .]*){7,13}" value="${user.phone}" required maxlength="50" name="phone" placeholder="+375292847037">
 
     <h2>Пасспортные данные</h2>
 
