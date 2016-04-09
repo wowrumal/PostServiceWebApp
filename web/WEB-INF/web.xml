@@ -15,6 +15,15 @@
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DocController</servlet-name>
+        <servlet-class>by.bsuir.spp.controller.DocumentDownloadController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocController</servlet-name>
+        <url-pattern>/doccontroller</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>by.bsuir.spp.listener.ConnectionProviderListener</listener-class>
     </listener>
@@ -46,7 +55,7 @@
         <init-param>
             <param-name>user_pages</param-name>
             <param-value>
-                /controller,/favicon.ico,/home.jsp,/user_receipts.jsp,/advertisement_view.jsp,/package_view.jsp,/prepayment_book_view.jsp,/receipt_view.jsp,/search_statement_view.jsp,/user_advertisements.jsp,/user_packages.jsp,/user_prepayment_books.jsp,/user_searchstatements.jsp,/payment_page.jsp
+                /controller,/doccontroller,/favicon.ico,/home.jsp,/user_receipts.jsp,/advertisement_view.jsp,/package_view.jsp,/prepayment_book_view.jsp,/receipt_view.jsp,/search_statement_view.jsp,/user_advertisements.jsp,/user_packages.jsp,/user_prepayment_books.jsp,/user_searchstatements.jsp,/payment_page.jsp
             </param-value>
         </init-param>
         <init-param>
@@ -57,7 +66,7 @@
         <init-param>
             <param-name>admin_pages</param-name>
             <param-value>
-                /controller,/favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_admin.jsp,/package_view.jsp,/packages.jsp,/passport_view.jsp,/passports.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp,/user_view.jsp,/users.jsp
+                /controller,/doccontroller,/favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_admin.jsp,/package_view.jsp,/packages.jsp,/passport_view.jsp,/passports.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp,/user_view.jsp,/users.jsp
             </param-value>
         </init-param>
         <init-param>
@@ -67,7 +76,7 @@
         </init-param>
         <init-param>
             <param-name>manager_pages</param-name>
-            <param-value>/controller,/favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_manager.jsp,/package_view.jsp,/packages.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp</param-value>
+            <param-value>/controller,/doccontroller,/favicon.ico,/advertisements.jsp,/advertisement_view.jsp,/home_manager.jsp,/package_view.jsp,/packages.jsp,/prepayment_book_view.jsp,/prepayment_books.jsp,/receipt_view.jsp,/receipts.jsp,/search_statement_view.jsp,/search_statements.jsp</param-value>
         </init-param>
     </filter>
 

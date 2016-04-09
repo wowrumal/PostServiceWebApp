@@ -81,6 +81,21 @@ public class TestCommentDao extends DBTestCase {
         Assert.assertEquals(actualComment, dummyComment);
     }
 
+    @Test(expected = DaoException.class)
+    public void testCreateWithNotExistedPackage() throws ParseException {
+        Comment dummyComment = new Comment();
+        dummyComment.setDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2016-02-02").getTime()));
+        dummyComment.setText("asda");
+        dummyComment.setPackageId(16);
+
+        try {
+            int id = commentDao.create(dummyComment);
+        } catch (DaoException e) {
+            Assert.assertEquals(DaoException.class, e.getClass());
+        }
+    }
+
+
     @Test
     public void testCreateWithWrongParams() throws DaoException, ParseException {
         Comment dummyComment = new Comment();
@@ -125,6 +140,12 @@ public class TestCommentDao extends DBTestCase {
         int expectedListSize = 2;
         int actualListSize = commentDao.getCommentsForPackage(1).size();
         Assert.assertEquals(expectedListSize, actualListSize);
+    }
+
+    public void testGetCommentForNotExistedPackage() {
+        int expectedListSize = 2;
+        int actualListSize = commentDao.getCommentsForPackage(23).size();
+        Assert.assertNotEquals(expectedListSize, actualListSize);
     }
 
 

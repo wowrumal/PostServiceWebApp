@@ -90,6 +90,25 @@ public class TestPackageDao extends DBTestCase {
         Assert.assertEquals(actualPackage, expectedPackage);
     }
 
+    public void testCreateWithWrongParams() throws ParseException {
+        by.bsuir.spp.bean.document.Package expectedPackage = new Package();
+        expectedPackage.setDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2016-02-02").getTime()));
+        expectedPackage.setPassportId(1);
+        expectedPackage.setDeleted(false);
+        User user = new User(); user.setId(56);
+        expectedPackage.setGetterUser(user);
+        expectedPackage.setAddress("address112");
+        expectedPackage.setPostIndex(213);
+        expectedPackage.setType("type");
+        expectedPackage.setStatus("доставляется");
+
+        try {
+            int packaId = packageDao.create(expectedPackage);
+        } catch (Exception e) {
+            Assert.assertEquals(DaoException.class, e.getClass());
+        }
+    }
+
     public void testRead() throws ParseException, DaoException {
         Package myPackage = new Package();
         myPackage.setIdPackage(1);
@@ -109,6 +128,25 @@ public class TestPackageDao extends DBTestCase {
         Assert.assertEquals(actualPackage, myPackage);
     }
 
+    public void testReadWrongExpected() throws ParseException, DaoException {
+        Package myPackage = new Package();
+        myPackage.setIdPackage(1);
+        myPackage.setType("package");
+        myPackage.setDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2016-02-02").getTime()));
+        myPackage.setSenderName("stas");
+        User user = new User();user.setId(1);
+        myPackage.setGetterUser(user);
+        myPackage.setAddress("address1");
+        myPackage.setPostIndex(1);
+        myPackage.setPassportId(1);
+        myPackage.setDeleted(false);
+        myPackage.setStatus("processas");
+
+        Package actualPackage = packageDao.read(1);
+
+        Assert.assertNotEquals(actualPackage, myPackage);
+    }
+
     public void testReadNotExist() throws DaoException {
         Package pack = packageDao.read(213);
         Assert.assertNull(pack);
@@ -123,6 +161,18 @@ public class TestPackageDao extends DBTestCase {
         Assert.assertEquals(actualPackage, myPackage);
     }
 
+    public void testUpdateWithNotExistPassport() throws DaoException {
+        Package myPackage = packageDao.read(2);
+        myPackage.setPassportId(231);
+        myPackage.setAddress("asdasd");
+        try {
+            packageDao.update(myPackage);
+        } catch (Exception e) {
+            Assert.assertEquals(e.getClass(), DaoException.class);
+        }
+
+    }
+
     public void testDelete() throws DaoException {
         packageDao.delete(new Package() {{
             setIdPackage(2);
@@ -133,7 +183,9 @@ public class TestPackageDao extends DBTestCase {
 
     public void testDeleteNotExist() throws DaoException {
         int expectedListSize = packageDao.getAllPackages().size();
-        packageDao.delete(new Package(){{setIdPackage(123);}});
+        packageDao.delete(new Package() {{
+            setIdPackage(123);
+        }});
         int actualListSize = packageDao.getAllPackages().size();
         Assert.assertEquals(expectedListSize, actualListSize);
     }
@@ -143,6 +195,13 @@ public class TestPackageDao extends DBTestCase {
         int actualSize = packageDao.getAllPackages().size();
         Assert.assertEquals(expectedSize, actualSize);
     }
+
+    public void testGetUnexpectedAllPackages() {
+        int expectedSize = 4;
+        int actualSize = packageDao.getAllPackages().size();
+        Assert.assertNotEquals(expectedSize, actualSize);
+    }
+
 
     public void testGetPackagesIds() {
         List<Integer> list = new ArrayList<Integer>() {{
@@ -158,10 +217,30 @@ public class TestPackageDao extends DBTestCase {
         Assert.assertEquals(actualList, list);
     }
 
+    public void testGetWrongPackageIds() {
+        List<Integer> list = new ArrayList<Integer>() {{
+            add(1);
+            add(2);
+            add(12);
+            add(4);
+            add(5);
+        }};
+
+        List<Integer> actualList = packageDao.getPackageIds();
+
+        Assert.assertNotEquals(actualList, list);
+    }
+
     public void testGetPackagesByPassportId() {
         int expectedCount = 2;
         int actualCount = packageDao.getPackagesByPassportId(1).size();
         Assert.assertEquals(expectedCount, actualCount);
+    }
+
+    public void testGetPackagesByWrongPassportId() {
+        int expectedCount = 2;
+        int actualCount = packageDao.getPackagesByPassportId(214).size();
+        Assert.assertNotEquals(expectedCount, actualCount);
     }
 
     public void testGetNewPackageIds() {
@@ -171,12 +250,29 @@ public class TestPackageDao extends DBTestCase {
         Assert.assertEquals(expectedSize, actualSize);
     }
 
+    public void testGetNotExpectedNewPackageIds() {
+        int expectedSize = 3;
+        int actualSize = packageDao.getNewPackageIds().size();
+
+        Assert.assertNotEquals(expectedSize, actualSize);
+    }
+
     public void testAddPackageToNewPackages() {
         int expectedSize = 5;
         packageDao.addPackageToNewPackages(5);
         int actualSize = packageDao.getNewPackageIds().size();
 
         Assert.assertEquals(expectedSize, actualSize);
+    }
+
+    public void testAddNotExistPackageToNewPackages() {
+        int expectedSize = 5;
+        try {
+            packageDao.addPackageToNewPackages(214);
+        } catch (Exception e) {
+            Assert.assertEquals(e.getClass(), DaoException.class);
+        }
+
     }
 
     public void testDeleteNewPackage() {
@@ -199,6 +295,20 @@ public class TestPackageDao extends DBTestCase {
         packageDao.updateStatus(packId, dummyStatus);
         Package pack = packageDao.read(1);
         Assert.assertEquals(dummyStatus, pack.getStatus());
+    }
+
+    public void testUpdateStatusForNotExistPackage() {
+        int packId = 124;
+        String dummyStatus = "statusss";
+        packageDao.updateStatus(packId, dummyStatus);
+    }
+
+    public void testUpdateStatusWithNullField() throws DaoException {
+        int packId = 2;
+        String dummyStatus = null;
+        packageDao.updateStatus(packId, dummyStatus);
+        Package pack = packageDao.read(2);
+        Assert.assertNull(pack.getStatus());
     }
 
 

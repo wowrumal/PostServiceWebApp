@@ -30,7 +30,7 @@
 
 <table align="center" border="2">
     <tr>
-        <th>Тип посыли</th>
+        <th>Тип посылки</th>
         <th>Дата</th>
         <th>Отправитель</th>
         <th>Получатель</th>

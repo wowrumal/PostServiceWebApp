@@ -80,5 +80,15 @@
         </tr>
     </table>
   <hr/>
+  <form action="doccontroller" method="get" enctype="multipart/form-data">
+      <input type="hidden" name="command" value="receipt_document">
+      <input type="hidden" name="receipt_id" value="${receipt.receiptId}">
+      <select name="doc_type">
+          <option value="pdf">pdf</option>
+          <option value="xls">xls</option>
+          <option value="xml">xml</option>
+      </select>
+      <input type="submit" value="скачать квитанцию">
+  </form>
 </body>
 </html>

@@ -74,11 +74,24 @@ public class TestAdvertisementDao extends DBTestCase {
         Assert.assertEquals(expectedListSize, actualListSize);
     }
 
+    public void testGetAllAdvertisementsWrongCount() {
+        int expectedListSize = 3;
+        int actualListSize = advertisementDao.getAllAdvertisement().size();
+        Assert.assertNotEquals(expectedListSize, actualListSize);
+    }
+
     public void testGetAdvertisementsByPassportId() {
         int dummyPassportId = 1;
         int expectedSize = 2;
         int actualSize = advertisementDao.getAdvertisementsByPassportId(dummyPassportId).size();
         Assert.assertEquals(expectedSize, actualSize);
+    }
+
+    public void testGetAdvertisementsByNotExistPassportId() {
+        int dummyPassportId = 124;
+        int expectedSize = 2;
+        int actualSize = advertisementDao.getAdvertisementsByPassportId(dummyPassportId).size();
+        Assert.assertNotEquals(expectedSize, actualSize);
     }
 
     public void testCreate() throws DaoException {
@@ -95,6 +108,19 @@ public class TestAdvertisementDao extends DBTestCase {
         Advertisement actualAdvertisement = advertisementDao.read(advertId);
 
         Assert.assertEquals(actualAdvertisement, dummyAdvertisement);
+    }
+
+    @Test(expected = DaoException.class)
+    public void testCreateWithWrongParams() throws DaoException {
+        Advertisement dummyAdvertisement = new Advertisement();
+        Passport passport = new Passport(); passport.setPassportId(1);
+        by.bsuir.spp.bean.document.Package pack = new Package(); pack.setIdPackage(5);
+        dummyAdvertisement.setPassport(passport);
+        dummyAdvertisement.setPostPackage(pack);
+        //dummyAdvertisement.setWeight(200);
+        dummyAdvertisement.setAddressForGetting("address");
+
+        int advertId = advertisementDao.create(dummyAdvertisement);
     }
 
     @Test(expected = SQLException.class)
@@ -127,6 +153,23 @@ public class TestAdvertisementDao extends DBTestCase {
         Assert.assertEquals(advertisement, actualAdvertisement);
     }
 
+    public void testReadNotExpected() throws DaoException {
+        Advertisement advertisement = new Advertisement();
+        Package packag = new Package();
+        packag.setIdPackage(1);
+        Passport passport = new Passport();
+        passport.setPassportId(1);
+        advertisement.setPassport(passport);
+        advertisement.setPostPackage(packag);
+        advertisement.setWeight(20);
+        advertisement.setCost(30);
+        advertisement.setAddressForGetting("address12");
+
+        Advertisement actualAdvertisement = advertisementDao.read(1);
+
+        Assert.assertNotEquals(advertisement, actualAdvertisement);
+    }
+
     public void testReadNotExist() throws DaoException {
         Advertisement advertisement = advertisementDao.read(21);
         Assert.assertNull(advertisement);
@@ -140,6 +183,16 @@ public class TestAdvertisementDao extends DBTestCase {
         Advertisement actualAdvertisement = advertisementDao.read(1);
 
         Assert.assertEquals(advertisement, actualAdvertisement);
+    }
+
+    @Test(expected = DaoException.class)
+    public void testUpdateNullField() {
+        Advertisement advertisement = null;
+        try {
+            advertisementDao.update(advertisement);
+        } catch (Exception e) {
+            Assert.assertEquals(NullPointerException.class, e.getClass());
+        }
     }
 
     public void testDelete() throws DaoException {

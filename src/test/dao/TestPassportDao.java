@@ -73,6 +73,19 @@ public class TestPassportDao extends DBTestCase {
         Assert.assertEquals(actualPassport, expectedPassport);
     }
 
+    public void testReadUnexpected() throws DaoException, ParseException {
+        Passport actualPassport = passportDao.read(1);
+
+        Passport expectedPassport = new Passport();
+        expectedPassport.setPassportId(1);
+        expectedPassport.setPassportNumber("number22");
+        expectedPassport.setAddress("address1");
+        expectedPassport.setIssuingInstitution("insistution1");
+        expectedPassport.setIssueDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2016-02-02").getTime()));
+
+        Assert.assertNotEquals(actualPassport, expectedPassport);
+    }
+
     @Test
     public void testReadPes() throws DaoException {
         Passport passport = passportDao.read(1000);
@@ -93,6 +106,21 @@ public class TestPassportDao extends DBTestCase {
 
         Passport actualPassport = passportDao.read(passportId);
         Assert.assertEquals(actualPassport, expectedPassport);
+    }
+
+    public void testCreateWithWrongParams() throws ParseException, DaoException {
+        Passport expectedPassport = new Passport();
+        expectedPassport.setPassportNumber(null);
+        expectedPassport.setAddress("address23");
+        expectedPassport.setIssuingInstitution("insistution23");
+        expectedPassport.setIssueDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2016-10-12").getTime()));
+
+        int passportId = passportDao.create(expectedPassport);
+
+        expectedPassport.setPassportId(passportId);
+
+        Passport actualPassport = passportDao.read(passportId);
+        Assert.assertNull(actualPassport);
     }
 
     @Test(expected = SQLException.class)
@@ -160,6 +188,12 @@ public class TestPassportDao extends DBTestCase {
         Assert.assertEquals(expectedCount, actualCount);
     }
 
+    public void testGetUnexpectedAllPassports() {
+        int expectedCount = 123;
+        int actualCount = passportDao.getAllPassports().size();
+        Assert.assertNotEquals(expectedCount, actualCount);
+    }
+
     @Test
     public void testGetIdPassports() {
         List<Integer> expectedList = new ArrayList<Integer>(){{
@@ -174,5 +208,20 @@ public class TestPassportDao extends DBTestCase {
 
         List<Integer> actualList = passportDao.getIdPassports();
         Assert.assertEquals(actualList, expectedList);
+    }
+
+    public void testGetUnexpectedIdPassports() {
+        List<Integer> expectedList = new ArrayList<Integer>(){{
+            add(1);
+            add(2);
+            add(3);
+            add(23);
+            add(5);
+            add(6);
+            add(7);
+        }};
+
+        List<Integer> actualList = passportDao.getIdPassports();
+        Assert.assertNotEquals(actualList, expectedList);
     }
 }

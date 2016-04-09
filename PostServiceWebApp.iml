@@ -44,5 +44,11 @@
     <orderEntry type="library" exported="" name="log4j-core-2.5" level="project" />
     <orderEntry type="library" exported="" name="apache-log4j:log4j:1.2.8" level="project" />
     <orderEntry type="library" exported="" name="org.slf4j:slf4j-simple:1.7.20" level="project" />
+    <orderEntry type="library" name="itextpdf-5.2.1" level="project" />
+    <orderEntry type="library" name="bcmail-jdk16-1.46" level="project" />
+    <orderEntry type="library" name="bcprov-jdk16-1.46" level="project" />
+    <orderEntry type="library" name="bctsp-jdk16-1.46" level="project" />
+    <orderEntry type="library" name="org.apache.poi:poi:3.14" level="project" />
+    <orderEntry type="library" name="org.apache.poi:poi-ooxml:3.13" level="project" />
   </component>
 </module>

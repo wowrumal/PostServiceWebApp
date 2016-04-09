@@ -94,4 +94,6 @@ public final class RequestParameterName {
     public static final String COMMENTS = "comments";
     public static final String COMMENT_TEXT = "comment_text";
     public static final String ADMINS_COUNT = "admins_count";
+
+    public static final String DOC_TYPE = "doc_type";
 }

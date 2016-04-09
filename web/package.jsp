@@ -105,6 +105,17 @@
 </c:forEach>
 </table>
 
+<form action="doccontroller" method="get" enctype="multipart/form-data">
+    <input type="hidden" name="command" value="package_document">
+    <input type="hidden" name="package_id" value="${packagee.idPackage}">
+    <select name="doc_type">
+        <option value="pdf">pdf</option>
+        <option value="xls">xls</option>
+        <option value="xml">xml</option>
+    </select>
+    <input type="submit" value="скачать документ оформленной посылки">
+</form>
+
 </body>
 </html>
 

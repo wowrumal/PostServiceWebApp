@@ -82,5 +82,16 @@
         </tr>
     </table>
     <hr/>
+
+    <form action="doccontroller" method="get" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="search_document">
+        <input type="hidden" name="search_statement_id" value="${search_statement.id}">
+        <select name="doc_type">
+            <option value="pdf">pdf</option>
+            <option value="xls">xls</option>
+            <option value="xml">xml</option>
+        </select>
+        <input type="submit" value="скачать заявление">
+    </form>
 </body>
 </html>

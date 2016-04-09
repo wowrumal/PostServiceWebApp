@@ -68,6 +68,12 @@ public class TestPrepaymentBookDao extends DBTestCase {
         Assert.assertEquals(expectedListSize, actualListSize);
     }
 
+    public void testGetUnexpectedAllPrepaymentBooks() {
+        int expectedListSize = 3;
+        int actualListSize = prepaymentBookDao.getAllPrepaymentBooks().size();
+        Assert.assertNotEquals(expectedListSize, actualListSize);
+    }
+
     public void testGetPrepaymentBooksByPassportId() {
         int expectedListSize = 1;
         int actualListSize = prepaymentBookDao.getPrepaymentBooksByPassportId(1).size();
@@ -96,6 +102,24 @@ public class TestPrepaymentBookDao extends DBTestCase {
         PrepaymentBookStatement actualStatement = prepaymentBookDao.read(id);
 
         Assert.assertEquals(actualStatement, statement);
+    }
+
+    public void testCreateWithWrongParam() throws ParseException {
+        PrepaymentBookStatement statement = new PrepaymentBookStatement();
+        statement.setDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2016-02-02").getTime()));
+        statement.setPassportId(7);
+        statement.setClientNumber(213);
+        statement.setBookkeeperName("name");
+        statement.setClientName("client");
+        statement.setOrganizationHeadName("head");
+        statement.setUnpaidCost(200);
+
+        try {
+            int id = prepaymentBookDao.create(statement);
+        } catch (Exception e) {
+            Assert.assertEquals(e.getClass(), DaoException.class);
+        }
+
     }
 
     public void testRead() throws ParseException, DaoException {

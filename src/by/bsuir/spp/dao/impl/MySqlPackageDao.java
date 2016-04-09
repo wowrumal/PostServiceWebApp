@@ -60,10 +60,8 @@ public class MySqlPackageDao implements PackageDao {
                     id = resultSet.getInt(1);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            //e.printStackTrace();
         }
 
         return id;
@@ -227,7 +225,7 @@ public class MySqlPackageDao implements PackageDao {
             statement.setInt(1, idPackage);
             statement.execute();
         } catch (SQLException | ConnectionPoolException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

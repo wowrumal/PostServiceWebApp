@@ -84,5 +84,16 @@
     </tr>
 </table>
 <hr/>
+
+    <form action="doccontroller" method="get" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="prepayment_book_document">
+        <input type="hidden" name="prepayment_book_number" value="${prepayment_book.statementNumber}">
+        <select name="doc_type">
+            <option value="pdf">pdf</option>
+            <option value="xls">xls</option>
+            <option value="xml">xml</option>
+        </select>
+        <input type="submit" value="скачать заявление на восстановление авансовой книжки">
+    </form>
 </body>
 </html>
