@@ -10,6 +10,7 @@ import by.bsuir.spp.dao.impl.MySqlPackageDao;
 import by.bsuir.spp.dao.impl.MySqlSearchStatementDao;
 import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.documentgenerator.DocumentGenerator;
+import by.bsuir.spp.documentgenerator.impl.CsvDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.PdfDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.XlsDocumentGenerator;
 import by.bsuir.spp.exception.dao.DaoException;
@@ -66,7 +67,13 @@ public class DownloadSearchPackStatementCommand implements DocumentCommand {
                     documentGenerator.generateSearchStatement(searchPackageStatement, response.getOutputStream());
                     break;
                 }
-                case "xml" : {
+                case "csv" : {
+                    fileName += ".csv";
+                    response.setContentType("text/csv");
+                    response.setHeader("Content-Disposition",
+                            "attachment;filename=" + fileName);
+                    documentGenerator = CsvDocumentGenerator.getInstance();
+                    documentGenerator.generateSearchStatement(searchPackageStatement, response.getOutputStream());
                     break;
                 }
             }

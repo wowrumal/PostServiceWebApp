@@ -7,6 +7,7 @@ import by.bsuir.spp.dao.UserDao;
 import by.bsuir.spp.dao.impl.MySqlPackageDao;
 import by.bsuir.spp.dao.impl.MySqlUserDao;
 import by.bsuir.spp.documentgenerator.DocumentGenerator;
+import by.bsuir.spp.documentgenerator.impl.CsvDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.PdfDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.XlsDocumentGenerator;
 import by.bsuir.spp.exception.dao.DaoException;
@@ -67,7 +68,13 @@ public class DownloadPackageDocCommand implements DocumentCommand {
                 documentGenerator.generatePackage(myPackage, response.getOutputStream());
                 break;
             }
-            case "xml" : {
+            case "csv" : {
+                fileName += ".csv";
+                response.setContentType("text/csv");
+                response.setHeader("Content-Disposition",
+                        "attachment;filename=" + fileName);
+                documentGenerator = CsvDocumentGenerator.getInstance();
+                documentGenerator.generatePackage(myPackage, response.getOutputStream());
                 break;
             }
         }

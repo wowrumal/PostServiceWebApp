@@ -6,6 +6,7 @@ import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.PrepaymentBookDao;
 import by.bsuir.spp.dao.impl.MySqlPrepaymentBookDao;
 import by.bsuir.spp.documentgenerator.DocumentGenerator;
+import by.bsuir.spp.documentgenerator.impl.CsvDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.PdfDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.XlsDocumentGenerator;
 import by.bsuir.spp.exception.dao.DaoException;
@@ -59,7 +60,13 @@ public class DownloadPrepaymentBookDocCommand implements DocumentCommand {
                     documentGenerator.generatePrepaymentBook(prepaymentBookStatement, response.getOutputStream());
                     break;
                 }
-                case "xml" : {
+                case "csv" : {
+                    fileName += ".csv";
+                    response.setContentType("text/csv");
+                    response.setHeader("Content-Disposition",
+                            "attachment;filename=" + fileName);
+                    documentGenerator = CsvDocumentGenerator.getInstance();
+                    documentGenerator.generatePrepaymentBook(prepaymentBookStatement, response.getOutputStream());
                     break;
                 }
             }

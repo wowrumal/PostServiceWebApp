@@ -111,7 +111,7 @@
     <select name="doc_type">
         <option value="pdf">pdf</option>
         <option value="xls">xls</option>
-        <option value="xml">xml</option>
+        <option value="csv">csv</option>
     </select>
     <input type="submit" value="скачать документ оформленной посылки">
 </form>

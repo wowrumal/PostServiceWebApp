@@ -6,6 +6,7 @@ import by.bsuir.spp.controller.constant.RequestParameterName;
 import by.bsuir.spp.dao.ReceiptDao;
 import by.bsuir.spp.dao.impl.MySqlReceiptDao;
 import by.bsuir.spp.documentgenerator.DocumentGenerator;
+import by.bsuir.spp.documentgenerator.impl.CsvDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.PdfDocumentGenerator;
 import by.bsuir.spp.documentgenerator.impl.XlsDocumentGenerator;
 import by.bsuir.spp.exception.dao.DaoException;
@@ -33,7 +34,7 @@ public class DownloadReceiptDocCommand implements DocumentCommand {
         try {
             Receipt receipt = receiptDao.read(idReceipt);
 
-            String fileName = "receipt" + receipt.getClientName() + "_" + receipt.getServiceName() + receipt.getReceiptId();
+            String fileName = "receipt" + receipt.getReceiptId();
 
             String docType = request.getParameter(RequestParameterName.DOC_TYPE);
             DocumentGenerator documentGenerator;
@@ -57,7 +58,13 @@ public class DownloadReceiptDocCommand implements DocumentCommand {
                     documentGenerator.generateReceipt(receipt, response.getOutputStream());
                     break;
                 }
-                case "xml" : {
+                case "csv" : {
+                    fileName += ".csv";
+                    response.setContentType("text/csv");
+                    response.setHeader("Content-Disposition",
+                            "attachment;filename=" + fileName);
+                    documentGenerator = CsvDocumentGenerator.getInstance();
+                    documentGenerator.generateReceipt(receipt, response.getOutputStream());
                     break;
                 }
             }
