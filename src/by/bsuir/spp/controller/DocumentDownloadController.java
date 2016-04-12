@@ -8,7 +8,6 @@ import by.bsuir.spp.controller.command.impl.searchstatement.DownloadSearchPackSt
 import by.bsuir.spp.controller.constant.RequestParameterName;
 import com.itextpdf.text.DocumentException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +49,5 @@ public class DocumentDownloadController extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
-        dispatcher.forward(req, resp);
     }
 }
