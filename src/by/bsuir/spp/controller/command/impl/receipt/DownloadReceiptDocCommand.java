@@ -15,6 +15,7 @@ import com.itextpdf.text.DocumentException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class DownloadReceiptDocCommand implements DocumentCommand {
 
@@ -34,7 +35,7 @@ public class DownloadReceiptDocCommand implements DocumentCommand {
         try {
             Receipt receipt = receiptDao.read(idReceipt);
 
-            String fileName = "receipt" + receipt.getReceiptId();
+            String fileName = URLEncoder.encode("Receipt_" + receipt.getClientName(), "UTF-8");
 
             String docType = request.getParameter(RequestParameterName.DOC_TYPE);
             DocumentGenerator documentGenerator;

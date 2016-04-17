@@ -15,6 +15,7 @@ import com.itextpdf.text.DocumentException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class DownloadPrepaymentBookDocCommand implements DocumentCommand {
 
@@ -36,7 +37,7 @@ public class DownloadPrepaymentBookDocCommand implements DocumentCommand {
         try {
             PrepaymentBookStatement prepaymentBookStatement = prepaymentBookDao.read(bookNumber);
 
-            String fileName = "prepaymentBook" + prepaymentBookStatement.getStatementNumber();
+            String fileName = URLEncoder.encode("PrepaymentBook_" + prepaymentBookStatement.getClientName(), "UTF-8");
 
             String docType = request.getParameter(RequestParameterName.DOC_TYPE);
             DocumentGenerator documentGenerator;

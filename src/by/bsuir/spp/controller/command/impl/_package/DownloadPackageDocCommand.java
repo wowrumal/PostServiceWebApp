@@ -16,6 +16,7 @@ import com.itextpdf.text.DocumentException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class DownloadPackageDocCommand implements DocumentCommand {
 
@@ -44,7 +45,8 @@ public class DownloadPackageDocCommand implements DocumentCommand {
             e.printStackTrace();
         }
 
-        String fileName = "package" + myPackage.getIdPackage();
+        String fileName = "Package_" + myPackage.getSenderName();
+        fileName = URLEncoder.encode(fileName, "UTF-8");
 
         String docType = request.getParameter(RequestParameterName.DOC_TYPE);
         DocumentGenerator documentGenerator;

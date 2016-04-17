@@ -41,6 +41,7 @@ public class PdfDocumentGenerator implements DocumentGenerator {
         this.IMAGE_BACK = IMAGE_BACK;
     }
 
+
     @Override
     public void generatePackage(by.bsuir.spp.bean.document.Package pack, OutputStream outputStream) throws DocumentException {
         Document packDoc = new Document(PageSize.A6, 50, 50, 50, 50);
@@ -96,12 +97,11 @@ public class PdfDocumentGenerator implements DocumentGenerator {
             image.setAbsolutePosition(0, 0);
             canvas.saveState();
             PdfGState pdfGState = new PdfGState();
-            pdfGState.setFillOpacity(0.8f);
+            pdfGState.setFillOpacity(0.2f);
             canvas.setGState(pdfGState);
             canvas.addImage(image);
             canvas.restoreState();
         }
-
 
         packDoc.close();
 
@@ -175,7 +175,7 @@ public class PdfDocumentGenerator implements DocumentGenerator {
             image.setAbsolutePosition(0, 0);
             canvas.saveState();
             PdfGState pdfGState = new PdfGState();
-            pdfGState.setFillOpacity(0.8f);
+            pdfGState.setFillOpacity(0.2f);
             canvas.setGState(pdfGState);
             canvas.addImage(image);
             canvas.restoreState();
@@ -304,7 +304,7 @@ public class PdfDocumentGenerator implements DocumentGenerator {
             image.setAbsolutePosition(0, 0);
             canvas.saveState();
             PdfGState pdfGState = new PdfGState();
-            pdfGState.setFillOpacity(0.8f);
+            pdfGState.setFillOpacity(0.2f);
             canvas.setGState(pdfGState);
             canvas.addImage(image);
             canvas.restoreState();
@@ -315,10 +315,22 @@ public class PdfDocumentGenerator implements DocumentGenerator {
 
     @Override
     public void generateReceipt(Receipt receipt, OutputStream outputStream) throws DocumentException {
-        Document receiptDoc = new Document(PageSize.A6, 50, 50, 50, 50);
+        Document receiptDoc = new Document(PageSize.A5.rotate(), 10, 10, 10, 10);
         PdfWriter writer = PdfWriter.getInstance(receiptDoc, outputStream);
         writer.setEncryption(USER_PASS.getBytes(), MAIN_PASS.getBytes(), PdfWriter.ALLOW_SCREENREADERS, PdfWriter.ENCRYPTION_AES_128);
         receiptDoc.open();
+
+        PdfPTable pdfPTableHeader = new PdfPTable(1);
+        pdfPTableHeader.setWidthPercentage(40);
+        insertCellWithoutBorder(pdfPTableHeader, "ИП Иванов К.С.", Element.ALIGN_LEFT, 1, new Font(BASE_FONT, 8));
+        insertCellWithoutBorder(pdfPTableHeader, "ПОШТА СЕРВИС. Веб-приложение.", Element.ALIGN_LEFT, 1, new Font(BASE_FONT, 8, Font.BOLD));
+        insertCellWithoutBorder(pdfPTableHeader, "ИНН 503510313842    ОГРН 3115034502213", Element.ALIGN_LEFT, 1, new Font(BASE_FONT, 8));
+        insertCellWithoutBorder(pdfPTableHeader, "РБ, г. Минск, ул. Гикало 9", Element.ALIGN_LEFT, 1, new Font(BASE_FONT, 8));
+        insertCellWithoutBorder(pdfPTableHeader, "Тел.: +375 (29) 284-70-37", Element.ALIGN_LEFT, 1, new Font(BASE_FONT, 8));
+        pdfPTableHeader.setHorizontalAlignment(Element.ALIGN_LEFT);
+        receiptDoc.add(pdfPTableHeader);
+        receiptDoc.add(Chunk.NEWLINE);
+
         Paragraph title = new Paragraph("Квитанция №" + receipt.getReceiptId(), new Font(BASE_FONT, 13, Font.BOLD));
         title.setAlignment(Element.ALIGN_CENTER);
 
@@ -326,21 +338,44 @@ public class PdfDocumentGenerator implements DocumentGenerator {
 
         receiptDoc.add(Chunk.NEWLINE);
 
-        receiptDoc.add(new Chunk("Имя плательщика:  ", new Font(BASE_FONT, 10, Font.BOLD)));
-        receiptDoc.add(new Phrase(receipt.getClientName(), new Font(BASE_FONT, 10, Font.UNDERLINE)));
-        receiptDoc.add(Chunk.NEWLINE);receiptDoc.add(Chunk.NEWLINE);
+        receiptDoc.add(new Chunk("Ф.И.О. плательщика:  ", new Font(BASE_FONT, 10, Font.BOLD)));
+        receiptDoc.add(new Phrase(receipt.getClientName() + "                                                                                  ",
 
-        receiptDoc.add(new Chunk("Услуга:  ", new Font(BASE_FONT, 10, Font.BOLD)));
-        receiptDoc.add(new Phrase(receipt.getServiceName(), new Font(BASE_FONT, 10, Font.UNDERLINE)));
-        receiptDoc.add(Chunk.NEWLINE);receiptDoc.add(Chunk.NEWLINE);
+                new Font(BASE_FONT, 10, Font.UNDERLINE)));
+        receiptDoc.add(Chunk.NEWLINE);
+
+        PdfPTable table = new PdfPTable(2);
+        table.setWidthPercentage(80);
+
+        table.setWidths(new float[]{1.2f, 0.8f});
+        insertCell(table, "Наименование услуги", Element.ALIGN_CENTER, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "Сумма(бел.руб.)", Element.ALIGN_CENTER, 1, new Font(BASE_FONT, 10));
+        table.setHeaderRows(1);
+
+        insertCell(table, receipt.getServiceName(), Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+        insertCell(table, Integer.toString(receipt.getCost()), Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+
+        insertCell(table, "", Element.ALIGN_CENTER, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_CENTER, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_CENTER, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_CENTER, 1, new Font(BASE_FONT, 10));
+        insertCell(table, "", Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+
+        insertCell(table, "Всего по квитанции:", Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+        insertCell(table, Integer.toString(receipt.getCost()), Element.ALIGN_RIGHT, 1, new Font(BASE_FONT, 10));
+
+        receiptDoc.add(table);
+        receiptDoc.add(Chunk.NEWLINE);
 
         receiptDoc.add(new Chunk("Данные оплаты:  ", new Font(BASE_FONT, 10, Font.BOLD)));
-        receiptDoc.add(new Phrase(receipt.getPaymentData(), new Font(BASE_FONT, 10, Font.UNDERLINE)));
+        receiptDoc.add(new Phrase("  " +receipt.getPaymentData() + "                                                                                   " +
+                "                                                                                                                       ",
+                new Font(BASE_FONT, 10, Font.UNDERLINE)));
         receiptDoc.add(Chunk.NEWLINE);receiptDoc.add(Chunk.NEWLINE);
 
-        receiptDoc.add(new Chunk("Стоимость:  ", new Font(BASE_FONT, 10, Font.BOLD)));
-        receiptDoc.add(new Phrase(receipt.getCost()+" бел.руб", new Font(BASE_FONT, 10, Font.UNDERLINE)));
-        receiptDoc.add(Chunk.NEWLINE);receiptDoc.add(Chunk.NEWLINE);
 
         receiptDoc.add(new Chunk("Дата оплаты:  ", new Font(BASE_FONT, 10, Font.BOLD)));
         receiptDoc.add(new Phrase(new SimpleDateFormat("yyyy-MM-dd").format(receipt.getDate()), new Font(BASE_FONT, 10, Font.UNDERLINE)));
@@ -355,17 +390,50 @@ public class PdfDocumentGenerator implements DocumentGenerator {
             e.printStackTrace();
         }
         if (image != null) {
-            image.scaleAbsolute(PageSize.A6.getWidth(), PageSize.A6.getHeight());
+            image.scaleAbsolute(PageSize.A5.rotate().getWidth(), PageSize.A5.rotate().getHeight());
             image.setAbsolutePosition(0, 0);
             canvas.saveState();
             PdfGState pdfGState = new PdfGState();
-            pdfGState.setFillOpacity(0.8f);
+            pdfGState.setFillOpacity(0.2f);
             canvas.setGState(pdfGState);
             canvas.addImage(image);
             canvas.restoreState();
         }
 
         receiptDoc.close();
+    }
+
+    private void insertCell(PdfPTable table, String text, int align, int colspan, Font font){
+
+        //create a new cell with the specified Text and Font
+        PdfPCell cell = new PdfPCell(new Phrase(text.trim(), font));
+        //set the cell alignment
+        cell.setHorizontalAlignment(align);
+        //set the cell column span in case you want to merge two or more cells
+        cell.setColspan(colspan);
+        //in case there is no text and you wan to create an empty row
+        if(text.trim().equalsIgnoreCase("")){
+            cell.setMinimumHeight(10f);
+        }
+        //add the call to the table
+        table.addCell(cell);
+    }
+
+    private void insertCellWithoutBorder(PdfPTable table, String text, int align, int colspan, Font font){
+
+        //create a new cell with the specified Text and Font
+        PdfPCell cell = new PdfPCell(new Phrase(text.trim(), font));
+        //set the cell alignment
+        cell.setHorizontalAlignment(align);
+        //set the cell column span in case you want to merge two or more cells
+        cell.setColspan(colspan);
+        //in case there is no text and you wan to create an empty row
+        if(text.trim().equalsIgnoreCase("")){
+            cell.setMinimumHeight(10f);
+        }
+        cell.setBorder(Rectangle.NO_BORDER);
+        //add the call to the table
+        table.addCell(cell);
     }
 
     @Override
@@ -450,7 +518,7 @@ public class PdfDocumentGenerator implements DocumentGenerator {
             image.setAbsolutePosition(0, 0);
             canvas.saveState();
             PdfGState pdfGState = new PdfGState();
-            pdfGState.setFillOpacity(0.8f);
+            pdfGState.setFillOpacity(0.2f);
             canvas.setGState(pdfGState);
             canvas.addImage(image);
             canvas.restoreState();
@@ -458,4 +526,5 @@ public class PdfDocumentGenerator implements DocumentGenerator {
 
         searchStatementDoc.close();
     }
+
 }

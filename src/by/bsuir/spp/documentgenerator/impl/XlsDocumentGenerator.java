@@ -361,4 +361,5 @@ public class XlsDocumentGenerator implements DocumentGenerator {
         workbook.write(outputStream);
         outputStream.close();
     }
+
 }

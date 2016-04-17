@@ -19,6 +19,7 @@ import com.itextpdf.text.DocumentException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class DownloadSearchPackStatementCommand implements DocumentCommand {
 
@@ -43,7 +44,9 @@ public class DownloadSearchPackStatementCommand implements DocumentCommand {
             SearchPackageStatement searchPackageStatement = searchStatementDao.read(statementId);
             searchPackageStatement.setPostPackage(packageDao.read(searchPackageStatement.getPostPackage().getIdPackage()));
             searchPackageStatement.getPostPackage().setGetterUser(userDao.read(searchPackageStatement.getPostPackage().getGetterUser().getId()));
-            String fileName = "search_pack_" + searchPackageStatement.getId();
+
+            String fileName = URLEncoder.encode("Search_Pack_" + searchPackageStatement.getPostPackage().getType() + "_" +
+                            searchPackageStatement.getPostPackage().getSenderName(), "UTF-8");
 
             String docType = request.getParameter(RequestParameterName.DOC_TYPE);
             DocumentGenerator documentGenerator;

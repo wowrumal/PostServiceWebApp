@@ -23,6 +23,7 @@ import com.itextpdf.text.DocumentException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class DownloadAdvertisementDocCommand implements DocumentCommand {
 
@@ -52,7 +53,7 @@ public class DownloadAdvertisementDocCommand implements DocumentCommand {
             advertisement.setPassport(passport);
             advertisement.setPostPackage(packagee);
 
-            String fileName = "advertisement" + advertisement.getPostPackage().getIdPackage();
+            String fileName = URLEncoder.encode("Advertisement_" + advertisement.getPostPackage().getGetterUser().getSecondName(), "UTF-8");
 
             String docType = request.getParameter(RequestParameterName.DOC_TYPE);
             DocumentGenerator documentGenerator;
