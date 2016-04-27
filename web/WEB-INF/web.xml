@@ -43,13 +43,13 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <filter>
+<!--    <filter>
         <filter-name>SessionFilter</filter-name>
         <filter-class>by.bsuir.spp.filter.SessionFilter</filter-class>
         <init-param>
             <param-name>avoid-urls</param-name>
             <param-value>
-                /login.jsp,/registration.jsp,/css/styles.css
+                /login.jsp,/registration.jsp,/css/styles.css,
             </param-value>
         </init-param>
         <init-param>
@@ -83,7 +83,7 @@
     <filter-mapping>
         <filter-name>SessionFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
 
 </web-app>

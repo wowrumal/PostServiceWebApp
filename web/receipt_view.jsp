@@ -8,69 +8,61 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Чек</title>
-</head>
-<body>
 
-    <c:choose>
-        <c:when test="${user.userRole == 'ADMIN'}">
-        <div>
-            <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="load_receipts">
-                <input type="submit" value="назад">
-            </form>
+<jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 
-            <form style="display: inline-block;" action="home_admin.jsp">
-                <input type="submit" value="домой">
-            </form>
-        </div>
-        </c:when>
+<div class="container">
+    <h3>Чек</h3>
 
-        <c:when test="${user.userRole == 'CLIENT'}">
-        <div>
-            <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_user_receipts">
-                <input type="submit" value="назад">
-            </form>
-
-            <form style="display: inline-block;" action="home.jsp">
-                <input type="submit" value="домой">
-            </form>
-        </div>
-        </c:when>
-
-        <c:otherwise>
-        <div>
-            <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="load_receipts">
-                <input type="submit" value="назад">
-            </form>
-
-            <form style="display: inline-block;" action="home_manager.jsp">
-                <input type="submit" value="домой">
-            </form>
-        </div>
-        </c:otherwise>
-    </c:choose>
-
-    <h1>Чек</h1>
     <form action="controller" accept-charset="UTF-8" method="post">
         <input type="hidden" name="command" value="add_receipt">
 
-        <h2>Имя плательщика:</h2>
-        <input required type="text" name="receipt_clientname" value="${user.secondName} ${user.firstName}" maxlength="45">
+        <div class="row">
+            <div class="input-field col s6">
+                <input required type="text" name="receipt_clientname" value="${user.secondName} ${user.firstName}" maxlength="45" id="receipt_clientname" class="validate">
+                <label for="receipt_clientname">Имя плательщика</label>
+            </div>
 
-        <h2>Услуга:</h2>
-        <input required type="text" name="receipt_service" value="${receipt.serviceName}" maxlength="45">
+            <div class="input-field col s6">
+                <input required type="text" name="receipt_service" value="${receipt.serviceName}" maxlength="45" id="receipt_service" class="validate">
+                <label for="receipt_service">Услуга</label>
+            </div>
+        </div>
 
-        <h2>Данные оплаты:</h2>
-        <input required type="text" name="receipt_payment_data" value="${receipt.paymentData}" maxlength="100">
+        <div class="row">
+            <div class="input-field col s6">
+                <input required type="text" name="receipt_payment_data" value="${receipt.paymentData}" maxlength="100" id="receipt_payment_data" class="validate">
+                <label for="receipt_payment_data">Данные оплаты</label>
+            </div>
 
-        <h2>Стоимость:</h2>
-        <input required type="number" min="1" name="receipt_cost" value="${receipt.cost}" maxlength="10">
+            <div class="input-field col s6">
+                <input required type="number" min="1" name="receipt_cost" value="${receipt.cost}" maxlength="10" id="receipt_cost" class="validate">
+                <label for="receipt_cost">Стоимость</label>
+            </div>
+        </div>
 
+        <div class="row right">
+
+            <form>
+                <button class="btn waves-effect waves-light" type="submit" name="action" onClick="history.go(-1);return true;">
+                    <i class="material-icons">arrow_back</i>
+                </button>
+            </form>
+
+            <c:if test="${empty receipt}">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    <i class="material-icons">check</i>
+                </button>
+            </c:if>
+
+            <c:if test="${not empty param['message']}">
+                <h2>Оплата отклонена :(</h2>
+            </c:if>
+        </div>
+    </form>
+
+</div>
         <%--<h2>User ID:</h2>
         <p>
             <select size="1" name="user_id">
@@ -86,14 +78,4 @@
                 </c:forEach>
             </select>
         </p>--%>
-        <c:if test="${empty receipt}">
-            <input type="submit" value="добавить">
-        </c:if>
-
-        <c:if test="${not empty param['message']}">
-            <h2>Оплата отклонена :(</h2>
-        </c:if>
-
-    </form>
-</body>
-</html>
+<jsp:include page="footer.jsp" />

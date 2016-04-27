@@ -12,12 +12,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Домашняя</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
+
+<jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 
 <%
     List<Advertisement> advertisements = MySqlAdvertisementDao.getInstance().getAdvertisementsByPassportId(
@@ -26,49 +23,45 @@
 
 %>
 
-<h1>Здравствуйте, ${user.firstName}!!!</h1>
+<div class="container">
 
-<div class="menu">
-    Меню
-    <ul>
-        <li>
-            <form action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_packages_for_user">
-                <input type="submit" value="Мои посылки">
-            </form>
-        </li>
-        <li>
-            <form action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_user_receipts">
-                <input type="submit" value="Мои квитанции">
-            </form>
-        </li>
-        <li>
-            <form action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_user_advertisements">
-                <%--<input type="submit" value="Мои извещения[${fn:length(advertisements)}]">--%>
-                <input type="submit" value="Мои извещения[<%out.print(advertisements.size());%>]">
-            </form>
-        </li>
-        <li>
-            <form action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_user_search_statements">
-                <input type="submit" value="Заявления поиска посылки">
-            </form>
-        </li>
+    <h1>Здравствуйте, ${user.firstName}!!!</h1>
 
-        <li>
-            <form action="controller" method="get" enctype="multipart/form-data">
-                <input type="hidden" name="command" value="get_user_prepayment_books">
-                <input type="submit" value="Заявления оформления авансовой книги">
-            </form>
-        </li>
-    </ul>
+    <div class="menu">
+        Меню
+        <ul>
+            <li>
+                <form action="controller" method="get" enctype="multipart/form-data">
+                    <input type="hidden" name="command" value="get_packages_for_user">
+                    <input type="submit" value="Мои посылки">
+                </form>
+            </li>
+            <li>
+                <form action="controller" method="get" enctype="multipart/form-data">
+                    <input type="hidden" name="command" value="get_user_receipts">
+                    <input type="submit" value="Мои квитанции">
+                </form>
+            </li>
+            <li>
+                <form action="controller" method="get" enctype="multipart/form-data">
+                    <input type="hidden" name="command" value="get_user_advertisements">
+                    <input type="submit" value="Мои извещения [<%out.print(advertisements.size());%>]">
+                </form>
+            </li>
+            <li>
+                <form action="controller" method="get" enctype="multipart/form-data">
+                    <input type="hidden" name="command" value="get_user_search_statements">
+                    <input type="submit" value="Заявления поиска посылки">
+                </form>
+            </li>
+
+            <li>
+                <form action="controller" method="get" enctype="multipart/form-data">
+                    <input type="hidden" name="command" value="get_user_prepayment_books">
+                    <input type="submit" value="Заявления оформления авансовой книги">
+                </form>
+            </li>
+        </ul>
+    </div>
 </div>
-<form action="controller" method="get" enctype="multipart/form-data">
-    <input type="hidden" name="command" value="logout_command">
-    <input type="submit" value="выход">
-</form>
-
-</body>
-</html>
+<jsp:include page="footer.jsp" />

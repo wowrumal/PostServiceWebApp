@@ -50,5 +50,7 @@
     <orderEntry type="library" name="bctsp-jdk16-1.46" level="project" />
     <orderEntry type="library" name="org.apache.poi:poi:3.14" level="project" />
     <orderEntry type="library" name="org.apache.poi:poi-ooxml:3.13" level="project" />
+    <orderEntry type="library" name="jquery-2.1.1" level="application" />
+    <orderEntry type="library" name="materialize" level="application" />
   </component>
 </module>

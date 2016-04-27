@@ -8,50 +8,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-  <title>Заявления</title>
-</head>
-<body>
+<jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 
-<form action="home.jsp">
-  <input type="submit" value="домой">
-</form>
-<h1>Завяления поиска посылки</h1>
-<table align="center" border="2">
-  <tr>
-    <th>Содержание завления</th>
-    <th>Адрес</th>
-    <th>Телефон</th>
-    <th>Менеджер</th>
-    <th>Дата</th>
-  </tr>
-  <c:forEach var="statement" items="${search_statements}">
-    <tr>
-      <td>${statement.petitionContent}</td>
-      <td>${statement.address}</td>
-      <td>${statement.phoneNumber}</td>
-      <td>${statement.postManagerName}</td>
-      <td>${statement.currentDate}</td>
-      <td>
-        <form action="controller" enctype="multipart/form-data" method="get">
-          <input type="hidden" name="command" value="select_search_statement">
-          <input type="hidden" name="search_statement_id" value="${statement.id}">
-          <input type="submit" value="просмотреть">
-        </form>
-<%--        <form action="controller" enctype="multipart/form-data" method="post">
-          <input type="hidden" name="command" value="delete_search_statement">
-          <input type="hidden" name="search_statement_id" value="${statement.id}">
-          <input type="submit" value="delete">
-        </form>--%>
-      </td>
-    </tr>
-  </c:forEach>
-</table>
+<div class="container">
+  <h3>Мои заявления поиска посылки</h3>
+  <a href="controller?command=prepare_data_for_creation_search_statement" class="btn waves-effect waves-light"><i class="material-icons">add</i></a>
 
-<form action="controller" enctype="multipart/form-data" method="get">
-  <input type="hidden" name="command" value="prepare_data_for_creation_search_statement">
-  <input type="submit" value="оформить новое заявление">
-</form>
-</body>
-</html>
+  <ul class="collapsible" data-collapsible="expandable">
+    <c:forEach var="statement" items="${search_statements}">
+      <li>
+        <div class="collapsible-header">
+          <div class="row item-header">
+            <span class="col offset-s1 s6"><b>Посылка:</b> ${statement.postPackage.type} - ${statement.postPackage.date} </span>
+            <span class="col s3 offset-s1"><b>Дата:</b> ${statement.currentDate} </span>
+            <i class="material-icons right">arrow_drop_down</i>
+          </div>
+        </div>
+        <div class="collapsible-body item">
+          <div class="row">
+            <span class="col s6 offset-s1"><b>Содержание заявления:</b> ${statement.petitionContent} </span>
+            <span class="col s3 offset-s1 package-align"><b>Паспорт:</b> ${statement.passport.passportNumber} </span>
+
+            <a class="waves-effect waves-light btn col s1 dropdown-button" data-activates='dropdown${statement.id}'><i class="material-icons">file_download</i></a>
+
+            <ul id='dropdown${statement.id}' class='dropdown-content'>
+              <li><a href="doccontroller?command=search_document&package_id=${statement.id}&doc_type=xls">XLS</a></li>
+              <li><a href="doccontroller?command=search_document&package_id=${statement.id}&doc_type=csv">CSV</a></li>
+              <li><a href="doccontroller?command=search_document&package_id=${statement.id}&doc_type=pdf">PDF</a></li>
+            </ul>
+
+          </div>
+          <div class="row">
+            <span class="col s6 offset-s1"><b>Адрес:</b> ${statement.address} </span>
+            <span class="col s3 package-align"><b>Телефон:</b> ${statement.phoneNumber} </span>
+          </div>
+
+          <div class="row">
+            <span class="col s6 offset-s1"><b>Менеджер:</b> ${statement.postManagerName} </span>
+          </div>
+
+        </div>
+      </li>
+    </c:forEach>
+  </ul>
+</div>
+
+<jsp:include page="footer.jsp" />

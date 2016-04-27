@@ -8,102 +8,82 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Извещение</title>
-    <script></script>
-</head>
-<body>
-<h1>Извещение о посылке</h1>
 
-<FORM>
-    <INPUT Type="button" VALUE="назад" onClick="history.go(-1);return true;">
-</FORM>
+<jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 
-<c:choose>
-    <c:when test="${user.userRole == 'ADMIN'}">
-        <%--<form action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="load_advertisements">
-            <input type="submit" value="назад">
-        </form>--%>
+<div class="container">
 
-        <form action="home_admin.jsp">
-            <input type="submit" value="домой">
-        </form>
-    </c:when>
+    <h3>Извещение</h3>
 
-    <c:when test="${user.userRole == 'CLIENT'}">
-        <%--<form action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="get_user_advertisements">
-            <input type="submit" value="назад">
-        </form>--%>
+    <form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 
-        <form action="home.jsp">
-            <input type="submit" value="домой">
-        </form>
-    </c:when>
+        <div class="row">
+            <div class="col s4">
+                <b>Отправитель:</b> ${packagee.senderName}
+            </div>
 
-    <c:otherwise>
-        <%--<form action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="load_advertisements">
-            <input type="submit" value="назад">
-        </form>--%>
+            <div class="col s4">
+                <b>Получатель:</b> ${packagee.getterUser.secondName} ${packagee.getterUser.firstName}
+            </div>
 
-        <form action="home_manager.jsp">
-            <input type="submit" value="домой">
-        </form>
-    </c:otherwise>
-</c:choose>
+            <div class="col s4">
+                <b>Дата отправления:</b> ${packagee.date}
+            </div>
+        </div>
 
-<form action="controller" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
+        <div class="row">
+            <div class="input-field col s4">
+                <c:if test="${not empty advertisement}">
+                    <input type="text" id="package_address" class="validate" required name="package_address" value="${advertisement.addressForGetting}"/>
+                </c:if>
+                <c:if test="${empty advertisement}">
+                    <input type="text" id="package_address" class="validate" required name="package_address" value="${passport.address}"/>
+                </c:if>
+                <label for="package_address">Адрес доставки</label>
+            </div>
 
-    <h2>Информация о посылке:</h2>
-    <table>
-        <tr>
-            <td>Отправитель:</td>
-            <td>${packagee.senderName}</td>
-        </tr>
-        <tr>
-            <td>Получатель:</td>
-            <td>${packagee.getterUser.secondName} ${packagee.getterUser.firstName}</td>
-        </tr>
+            <div class="input-field col s4">
+                <input type="number" id="weight" min="1" class="validate" required name="weight" value="${advertisement.weight}" maxlength="10"/>
+                <label for="weight">Вес</label>
+            </div>
 
-        <tr>
-            <td>Дата отправления:</td>
-            <td>${packagee.date}</td>
-        </tr>
-    </table>
+            <div class="input-field col s4">
+                <input type="number" id="cost" min="1" class="validate" required name="cost" value="${advertisement.cost}" maxlength="10">
+                <label for="cost">Стоимость доставки</label>
+            </div>
+        </div>
 
-    <h2>Адрес доставки:</h2>
-    <c:if test="${not empty advertisement}">
-        <input type="text" required name="package_address" value="${advertisement.addressForGetting}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
-    </c:if>
+        <div class="row right">
 
-    <c:if test="${empty advertisement}">
-        <input type="text" required name="package_address" value="${passport.address}" placeholder="г. Гродно, ул. Гастелло 17, кв. 1" maxlength="45">
-    </c:if>
+            <form>
+                <button class="btn waves-effect waves-light" type="submit" name="action" onClick="history.go(-1);return true;">
+                    <i class="material-icons">arrow_back</i>
+                </button>
+            </form>
 
-    <h2>Вес:</h2>
-    <input type="number" min="1" required name="weight" value="${advertisement.weight}" placeholder="1000" maxlength="10">
+            <c:choose>
+                <c:when test="${user.userRole == 'POST_MANAGER'}">
+                    <c:if test="${empty advertisement}">
+                        <input type="hidden" name="command" value="add_advertisement">
+                        <input type="hidden" name="package_id" value="${package_id}">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            <i class="material-icons">check</i>
+                        </button>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" name="package_id" value="${advertisement.postPackage.idPackage}">
+                    <input type="hidden" name="passport_id" value="${advertisement.passport.passportId}">
+                    <input type="hidden" name="command" value="update_advertisement">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        <i class="material-icons">check</i>
+                    </button>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </form>
 
-    <h2>Стоимость доставки:</h2>
-    <input type="number" min="1" required name="cost" value="${advertisement.cost}" placeholder="300000" maxlength="10">
+</div>
 
-    <c:choose>
-        <c:when test="${user.userRole == 'POST_MANAGER'}">
-            <c:if test="${empty advertisement}">
-                <input type="hidden" name="command" value="add_advertisement">
-                <input type="submit" value="создать">
-                <input type="hidden" name="package_id" value="${package_id}">
-            </c:if>
-        </c:when>
-        <c:otherwise>
-            <input type="hidden" name="package_id" value="${advertisement.postPackage.idPackage}">
-            <input type="hidden" name="passport_id" value="${advertisement.passport.passportId}">
-            <input type="hidden" name="command" value="update_advertisement">
-            <input type="submit" value="обновить">
-        </c:otherwise>
-    </c:choose>
-</form>
-</body>
-</html>
+<jsp:include page="footer.jsp" />

@@ -8,100 +8,99 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Заявление авансовой книжки</title>
-</head>
-<body>
 
-<c:choose>
-    <c:when test="${user.userRole == 'ADMIN'}">
-    <div>
-        <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="load_prepayment_books">
-            <input type="submit" value="назад">
-        </form>
+<jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 
-        <form style="display: inline-block;" action="home_admin.jsp">
-            <input type="submit" value="домой">
-        </form>
-    </div>
-    </c:when>
+<div class="row">
+    <h3>Заявление о восстановлении авансовой книжки</h3>
 
-    <c:when test="${user.userRole == 'CLIENT'}">
-    <div>
-        <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="get_user_prepayment_books">
-            <input type="submit" value="назад">
-        </form>
+    <form action="controller" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 
-        <form style="display: inline-block;" action="home.jsp">
-            <input type="submit" value="доиой">
-        </form>
-    </div>
-    </c:when>
+        <div class="row">
+            <div class="input-field col s6">
+                <input type="text" required name="client_name" value="${prepayment_book.clientName}" placeholder="Полищук Д.А." maxlength="45" id="client_name" class="validate">
+                <label for="client_name">Имя клиента</label>
+            </div>
 
-    <c:otherwise>
-    <div>>
-        <form style="display: inline-block;" action="controller" method="get" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="load_prepayment_books">
-            <input type="submit" value="назад">
-        </form>
+            <div class="input-field col s6">
+                <input required name="client_number" value="${prepayment_book.clientNumber}" placeholder="28" maxlength="7" id="client_number" type="text" class="validate">
+                <label for="client_number">Номер клиента</label>
+            </div>
+        </div>
 
-        <form style="display: inline-block;" action="home_manager.jsp">
-            <input type="submit" value="домой">
-        </form>
-    </div>
-    </c:otherwise>
-</c:choose>
-<h1>Завяление о восстановлении авансовой книжки</h1>
-<form action="controller" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+        <div class="row">
+            <div class="input-field col s6">
+            <c:choose>
+                <c:when test="${user.userRole == 'CLIENT'}">
+                    <input type="hidden" id="passport_id" name="passport_id" value="${user.passport.passportId}" class="validate">
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" id="passport_id" name="passport_id" value="${prepayment_book.passportId}" class="validate">
+                </c:otherwise>
+            </c:choose>
+                <label for="passport_id">Номер паспорта</label>
+            </div>
 
-    <h2>Имя клиента:</h2>
-    <input type="text" required name="client_name" value="${prepayment_book.clientName}" placeholder="Полищук Д.А." maxlength="45">
+            <div class="input-field col s6">
+                <input type="number" min="1" required name="unpaid_cost" value="${prepayment_book.unpaidCost}" placeholder="50000" maxlength="10" id="unpaid_cost" class="validate">
+                <label for="unpaid_cost">Сумма на счету</label>
+            </div>
+        </div>
 
-    <h2>Номер клиента:</h2>
-    <input type="text" required name="client_number" value="${prepayment_book.clientNumber}" placeholder="28" maxlength="7">
+        <div class="row">
+            <div class="input-field col s6">
+                <input required name="organization_head_name" value="${prepayment_book.organizationHeadName}" placeholder="Стасюкевич С.Ю." maxlength="45" id="organization_head_name" type="text" class="validate">
+                <label for="organization_head_name">Глава организации</label>
+            </div>
 
-    <c:choose>
-        <c:when test="${user.userRole == 'CLIENT'}">
-            <input type="hidden" name="passport_id" value="${user.passport.passportId}">
-        </c:when>
-        <c:otherwise>
-            <input type="hidden" name="passport_id" value="${prepayment_book.passportId}">
-        </c:otherwise>
-    </c:choose>
+            <div class="input-field col s6">
+                <input required name="bookkeeper_name" value="${prepayment_book.bookkeeperName}" placeholder="Цивако К.А." maxlength="45" id="bookkeeper_name" type="text" class="validate">
+                <label for="bookkeeper_name">Бухгалтер</label>
+            </div>
+        </div>
 
-    <h2>Средства на счету:</h2>
-    <input type="number" min="1" required name="unpaid_cost" value="${prepayment_book.unpaidCost}" placeholder="50000" maxlength="10">
+        <c:if test="${not empty prepayment_book}">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input required name="date" value="${prepayment_book.date}" id="date" type="date" class="datepicker">
+                    <label for="date">Дата</label>
+                </div>
+            </div>
+        </c:if>
 
-    <h2>Глава организации:</h2>
-    <input type="text" required name="organization_head_name" value="${prepayment_book.organizationHeadName}" placeholder="Стасюкевич С.Ю." maxlength="45">
+        <div class="row right">
 
-    <h2>Бухгалтер:</h2>
-    <input type="text" required name="bookkeeper_name" value="${prepayment_book.bookkeeperName}" placeholder="Цивако К.А." maxlength="45">
+            <form>
+                <button class="btn waves-effect waves-light" type="submit" name="action" onClick="history.go(-1);return true;">
+                    <i class="material-icons">arrow_back</i>
+                </button>
+            </form>
 
-    <c:if test="${not empty prepayment_book}">
-        <h2>Дата:</h2>
-        <input type="date" required name="date" value="${prepayment_book.date}">
-    </c:if>
+            <c:choose>
+                <c:when test="${(user.userRole == 'ADMIN') || (user.userRole == 'POST_MANAGER')}">
+                    <c:if test="${not empty prepayment_book}">
+                        <input type="hidden" name="command" value="update_prepayment_book">
+                        <input type="hidden" readonly name="prepayment_book_number" value="${prepayment_book.statementNumber}">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            <i class="material-icons">check</i>
+                        </button>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${empty prepayment_book}">
+                        <input type="hidden" name="command" value="add_prepayment_book">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            <i class="material-icons">check</i>
+                        </button>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
 
-    <c:choose>
-        <c:when test="${(user.userRole == 'ADMIN') || (user.userRole == 'POST_MANAGER')}">
-            <c:if test="${not empty prepayment_book}">
-                <input type="hidden" name="command" value="update_prepayment_book">
-                <input type="hidden" readonly name="prepayment_book_number" value="${prepayment_book.statementNumber}">
-                <input type="submit" value="обновить">
-            </c:if>
-        </c:when>
-        <c:otherwise>
-            <c:if test="${empty prepayment_book}">
-                <input type="hidden" name="command" value="add_prepayment_book">
-                <input type="submit" value="добавить">
-            </c:if>
-        </c:otherwise>
-    </c:choose>
+        </div>
 
-</form>
-</body>
-</html>
+    </form>
+
+</div>
+
+<jsp:include page="footer.jsp" />

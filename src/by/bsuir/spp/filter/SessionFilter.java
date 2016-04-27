@@ -74,6 +74,7 @@ public class SessionFilter implements Filter {
         }
 
 
+
         if (!allowedRequest) {
             allowedRequest = true;
             HttpSession session = request.getSession();
