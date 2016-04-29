@@ -39,7 +39,7 @@ public class UpdateSearchStatementCommand implements Command {
         SearchPackageStatement packageStatement = new SearchPackageStatement();
         packageStatement.setPostManagerName(request.getParameter(RequestParameterName.POST_MANAGER_NAME));
         try {
-            packageStatement.setCurrentDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.DATE)));
+            packageStatement.setCurrentDate(new SimpleDateFormat("dd MMMM, yyyy").parse(request.getParameter(RequestParameterName.DATE)));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class UpdateSearchStatementCommand implements Command {
         }
 
         try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.DATE));
+            new SimpleDateFormat("dd MMMM, yyyy").parse(getRequestParam(request, RequestParameterName.DATE));
         } catch (ParseException e) {
             return false;
         }

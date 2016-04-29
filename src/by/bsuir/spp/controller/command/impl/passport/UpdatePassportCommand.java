@@ -23,7 +23,7 @@ public class UpdatePassportCommand implements Command {
             passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
             passport.setIssuingInstitution(request.getParameter(RequestParameterName.INSTITUTION));
             try {
-                passport.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
+                passport.setIssueDate(new SimpleDateFormat("dd MMMM, yyyy").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -58,7 +58,7 @@ public class UpdatePassportCommand implements Command {
         }
 
         try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.ISSUING_DATE));
+            new SimpleDateFormat("dd MMMM, yyyy").parse(getRequestParam(request, RequestParameterName.ISSUING_DATE));
         } catch (ParseException e) {
             return false;
         }

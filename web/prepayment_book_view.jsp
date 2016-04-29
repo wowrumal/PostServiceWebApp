@@ -12,7 +12,7 @@
 <jsp:include page="header.jsp" />
 <jsp:include page="menu.jsp" />
 
-<div class="row">
+<div class="container">
     <h3>Заявление о восстановлении авансовой книжки</h3>
 
     <form action="controller" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -30,7 +30,15 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s6">
+
+            <c:if test="${not empty prepayment_book}">
+                <div class="input-field col s6">
+                    <input required name="date" value="${prepayment_book.date}" id="date" type="date" class="datepicker">
+                    <label for="date">Дата</label>
+                </div>
+            </c:if>
+
+
             <c:choose>
                 <c:when test="${user.userRole == 'CLIENT'}">
                     <input type="hidden" id="passport_id" name="passport_id" value="${user.passport.passportId}" class="validate">
@@ -39,8 +47,6 @@
                     <input type="hidden" id="passport_id" name="passport_id" value="${prepayment_book.passportId}" class="validate">
                 </c:otherwise>
             </c:choose>
-                <label for="passport_id">Номер паспорта</label>
-            </div>
 
             <div class="input-field col s6">
                 <input type="number" min="1" required name="unpaid_cost" value="${prepayment_book.unpaidCost}" placeholder="50000" maxlength="10" id="unpaid_cost" class="validate">
@@ -60,19 +66,10 @@
             </div>
         </div>
 
-        <c:if test="${not empty prepayment_book}">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input required name="date" value="${prepayment_book.date}" id="date" type="date" class="datepicker">
-                    <label for="date">Дата</label>
-                </div>
-            </div>
-        </c:if>
-
         <div class="row right">
 
             <form>
-                <button class="btn waves-effect waves-light" type="submit" name="action" onClick="history.go(-1);return true;">
+                <button class="btn waves-effect waves-light light-blue lighten-1" type="submit" name="action" onClick="history.go(-1);return true;">
                     <i class="material-icons">arrow_back</i>
                 </button>
             </form>

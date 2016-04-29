@@ -46,7 +46,7 @@ public class UpdateUserCommand implements Command {
             passport.setAddress(request.getParameter(RequestParameterName.PASSPORT_ADDRESS));
             passport.setIssuingInstitution(request.getParameter(RequestParameterName.INSTITUTION));
             try {
-                passport.setIssueDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
+                passport.setIssueDate(new SimpleDateFormat("dd MMMM, yyyy").parse(request.getParameter(RequestParameterName.ISSUING_DATE)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

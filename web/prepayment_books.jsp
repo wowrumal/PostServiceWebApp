@@ -19,15 +19,15 @@
                 <li>
                     <div class="collapsible-header">
                         <div class="row item-header">
-                            <span class="col offset-s1 s6"><b>Организация:</b> ${book.organizationHeadName} </span>
-                            <span class="col s3 offset-s1"><b>Средства на счету:</b> ${book.unpaidCost} </span>
+                            <span class="col offset-s1 s5"><b>Организация:</b> ${book.organizationHeadName} </span>
+                            <span class="col s4 offset-s1"><b>Средства на счету:</b> ${book.unpaidCost} </span>
                             <i class="material-icons right">arrow_drop_down</i>
                         </div>
                     </div>
                     <div class="collapsible-body item">
                         <div class="row">
-                            <span class="col s6 offset-s1"><b>Имя клиента:</b> ${book.clientName}</span>
-                            <span class="col s3 offset-s1 package-align"><b>Номер клиента:</b> ${book.clientNumber}</span>
+                            <span class="col s5 offset-s1"><b>Имя клиента:</b> ${book.clientName}</span>
+                            <span class="col s4 offset-s1 package-align"><b>Номер клиента:</b> ${book.clientNumber}</span>
 
                             <a class="waves-effect waves-light btn col s1 dropdown-button" data-activates='dropdown${book.clientNumber}'><i class="material-icons">file_download</i></a>
 
@@ -39,8 +39,8 @@
 
                         </div>
                         <div class="row">
-                            <span class="col s6 offset-s1"><b>Бухгалтер:</b> ${book.bookkeeperName}</span>
-                            <span class="col s3 package-align"><b>Дата:</b> ${book.date} </span>
+                            <span class="col s5 offset-s1"><b>Бухгалтер:</b> ${book.bookkeeperName}</span>
+                            <span class="col s4 package-align"><b>Дата:</b> ${book.date} </span>
 
                             <form action="controller" enctype="multipart/form-data" method="get">
                                 <input type="hidden" name="command" value="delete_prepayment_book">

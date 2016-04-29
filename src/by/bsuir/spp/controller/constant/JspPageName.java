@@ -20,8 +20,8 @@ public final class JspPageName {
     public static final String VIEW_SEARCH_STATEMENT = "search_statement_view.jsp";
     public static final String LOGIN_PAGE = "login.jsp";
     public static final String HOME_PAGE = "home.jsp";
-    public static final String HOME_ADMIN_PAGE = "home_admin.jsp";
-    public static final String HOME_MANAGER_PAGE = "home_manager.jsp";
+    public static final String HOME_ADMIN_PAGE = "home.jsp";
+    public static final String HOME_MANAGER_PAGE = "home.jsp";
     public static final String REGISTRATION  = "registration.jsp";
     public static final String USER_PACKAGES = "user_packages.jsp";
     public static final String USER_RECEIPTS = "user_receipts.jsp";

@@ -29,7 +29,7 @@ public class SelectPrepaymentBookCommand implements Command {
             return new PrepareDataForPrepaymentBookCreationCommand().execute(request);
         }
         else {
-            return JspPageName.PREPAYMENT_BOOK;
+            return JspPageName.PREPAYMENT_BOOKS;
         }
     }
 }

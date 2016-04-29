@@ -33,9 +33,9 @@
                             <a class="waves-effect waves-light btn col s1 dropdown-button" data-activates='dropdown${statement.id}'><i class="material-icons">file_download</i></a>
 
                             <ul id='dropdown${statement.id}' class='dropdown-content'>
-                                <li><a href="doccontroller?command=search_document&package_id=${statement.id}&doc_type=xls">XLS</a></li>
-                                <li><a href="doccontroller?command=search_document&package_id=${statement.id}&doc_type=csv">CSV</a></li>
-                                <li><a href="doccontroller?command=search_document&package_id=${statement.id}&doc_type=pdf">PDF</a></li>
+                                <li><a href="doccontroller?command=search_document&search_statement_id=${statement.id}&doc_type=xls">XLS</a></li>
+                                <li><a href="doccontroller?command=search_document&search_statement_id=${statement.id}&doc_type=csv">CSV</a></li>
+                                <li><a href="doccontroller?command=search_document&search_statement_id=${statement.id}&doc_type=pdf">PDF</a></li>
                             </ul>
 
                         </div>

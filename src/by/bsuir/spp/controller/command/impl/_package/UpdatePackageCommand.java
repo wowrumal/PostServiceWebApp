@@ -28,7 +28,7 @@ public class UpdatePackageCommand implements Command {
             myPackage.setType(request.getParameter(RequestParameterName.PACKAGE_TYPE));
 
             try {
-                myPackage.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.PACKAGE_DATE)));
+                myPackage.setDate(new SimpleDateFormat("dd MMMM, yyyy").parse(request.getParameter(RequestParameterName.PACKAGE_DATE)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -83,7 +83,7 @@ public class UpdatePackageCommand implements Command {
         }
 
         try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.PACKAGE_DATE));
+            new SimpleDateFormat("dd MMMM, yyyy").parse(getRequestParam(request, RequestParameterName.PACKAGE_DATE));
         } catch (ParseException e) {
             return false;
         }

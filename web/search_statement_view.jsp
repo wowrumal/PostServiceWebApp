@@ -18,10 +18,17 @@
     <form action="controller" accept-charset="UTF-8" method="post">
 
         <div class="row">
-
-            <div class="input-field col s6">
+            <div class="input-field col s12">
                 <textarea id="petition_content" class="materialize-textarea" required name="petition_content" placeholder="Утеряна посылка">${search_statement.petitionContent}</textarea>
                 <label for="petition_content">Содержание завления</label>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="input-field col s6">
+                <input required type="text" name="post_manager_name" value="${search_statement.postManagerName}" placeholder="Стасюкевич С.Ю." maxlength="45" id="post_manager_name" class="validate">
+                <label for="post_manager_name">Менеджер</label>
             </div>
 
             <div class="input-field col s6">
@@ -43,6 +50,26 @@
                 <label for="phone_number">Телефон</label>
             </div>
 
+            <c:if test="${not empty search_statement}">
+                <div class="input-field col s6">
+                    <input required type="date" name="date" value="${search_statement.currentDate}" id="date" class="datepicker">
+                    <label for="date">Дата</label>
+                </div>
+            </c:if>
+
+        </div>
+
+        <c:if test="${user.userRole != 'CLIENT'}">
+            <input type="hidden" readonly name="passport_id" value="${search_statement.passport.passportId}">
+            <input type="hidden" name="package_id" value="${search_statement.postPackage.idPackage}">
+        </c:if>
+
+        <c:if test="${user.userRole == 'CLIENT'}">
+            <input type="hidden" readonly name="passport_id" value="${user.passport.passportId}">
+        </c:if>
+
+        <div class="row">
+
             <c:if test="${user.userRole == 'CLIENT'}">
                 <div class="input-field col s6">
                     <select  required size="1" name="package_id" id="package_id">
@@ -63,35 +90,10 @@
 
         </div>
 
-        <c:if test="${user.userRole != 'CLIENT'}">
-            <input type="hidden" readonly name="passport_id" value="${search_statement.passport.passportId}">
-            <input type="hidden" name="package_id" value="${search_statement.postPackage.idPackage}">
-        </c:if>
-
-        <c:if test="${user.userRole == 'CLIENT'}">
-            <input type="hidden" readonly name="passport_id" value="${user.passport.passportId}">
-        </c:if>
-
-        <div class="row">
-
-            <div class="input-field col s6">
-                <input required type="text" name="post_manager_name" value="${search_statement.postManagerName}" placeholder="Стасюкевич С.Ю." maxlength="45" id="post_manager_name" class="validate">
-                <label for="post_manager_name">Менеджер</label>
-            </div>
-
-            <c:if test="${not empty search_statement}">
-                <div class="input-field col s6">
-                    <input required type="date" name="date" value="${search_statement.currentDate}" id="date" class="datepicker">
-                    <label for="date">Дата</label>
-                </div>
-            </c:if>
-
-        </div>
-
         <div class="row right">
 
             <form>
-                <button class="btn waves-effect waves-light" type="submit" name="action" onClick="history.go(-1);return true;">
+                <button class="btn waves-effect waves-light light-blue lighten-1" type="submit" name="action" onClick="history.go(-1);return true;">
                     <i class="material-icons">arrow_back</i>
                 </button>
             </form>

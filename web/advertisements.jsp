@@ -21,15 +21,15 @@
                 <li>
                     <div class="collapsible-header">
                         <div class="row item-header">
-                            <span class="col offset-s1 s6"><b>Адрес:</b> ${advertisement.addressForGetting} </span>
-                            <span class="col s3 offset-s1"><b>Тип посылки:</b> ${advertisement.postPackage.type} </span>
+                            <span class="col offset-s1 s5"><b>Адрес:</b> ${advertisement.addressForGetting} </span>
+                            <span class="col s4"><b>Тип посылки:</b> ${advertisement.postPackage.type} </span>
                             <i class="material-icons right">arrow_drop_down</i>
                         </div>
                     </div>
                     <div class="collapsible-body item">
                         <div class="row">
-                            <span class="col s6 offset-s1"><b>Вес посылки:</b> ${advertisement.weight} </span>
-                            <span class="col s3 package-align"><b>Стоимость:</b> ${advertisement.cost} </span>
+                            <span class="col s5 offset-s1"><b>Вес посылки:</b> ${advertisement.weight} </span>
+                            <span class="col s4 package-align"><b>Стоимость:</b> ${advertisement.cost} </span>
 
                             <a class="waves-effect waves-light btn col s1 dropdown-button" data-activates='dropdown${advertisement.postPackage.idPackage}'><i class="material-icons">file_download</i></a>
 
@@ -41,7 +41,7 @@
 
                         </div>
                         <div class="row">
-                            <span class="col s6 offset-s1"><b>Номер паспорта:</b> ${advertisement.passport.passportNumber}</span>
+                            <span class="col s5 offset-s1"><b>Номер паспорта:</b> ${advertisement.passport.passportNumber}</span>
 
                             <form action="controller" method="get" enctype="multipart/form-data">
                                 <input type="hidden" name="command" value="delete_advertisement">

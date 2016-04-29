@@ -23,7 +23,7 @@ public class UpdatePrepaymentBookCommand implements Command {
             prepaymentBookStatement.setClientName(request.getParameter(RequestParameterName.CLIENT_NAME));
             prepaymentBookStatement.setClientNumber(Integer.parseInt(request.getParameter(RequestParameterName.CLIENT_NUMBER)));
             try {
-                prepaymentBookStatement.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter(RequestParameterName.DATE)));
+                prepaymentBookStatement.setDate(new SimpleDateFormat("dd MMMM, yyyy").parse(request.getParameter(RequestParameterName.DATE)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -42,8 +42,7 @@ public class UpdatePrepaymentBookCommand implements Command {
             return "controller?command=load_prepayment_books";
         }
         else {
-            return "controller?command=select_prepayment_book&prepayment_book_number=" +
-                    Integer.parseInt(request.getParameter(RequestParameterName.PREPAYMENT_BOOK_NUMBER));
+            return "controller?command=load_prepayment_books";
         }
     }
 
@@ -74,7 +73,7 @@ public class UpdatePrepaymentBookCommand implements Command {
         }
 
         try {
-            new SimpleDateFormat("yyyy-MM-dd").parse(getRequestParam(request, RequestParameterName.DATE));
+            new SimpleDateFormat("dd MMMM, yyyy").parse(getRequestParam(request, RequestParameterName.DATE));
         } catch (ParseException e) {
             return false;
         }

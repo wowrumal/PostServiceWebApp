@@ -26,22 +26,16 @@
             <input type="hidden" name="command" value="REGISTRATION_COMMAND">
 
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s6">
                     <i class="material-icons prefix register">email</i>
                     <input id="login_field" type="text" value="${user.login}" class="validate" required maxlength="44" name="login_field">
                     <label for="login_field">Логин</label>
                 </div>
 
-                <div class="input-field col s4">
+                <div class="input-field col s6">
                     <i class="material-icons prefix register">vpn_key</i>
                     <input id="password" type="password" class="validate" required maxlength="44" name="password">
                     <label for="password">Пароль</label>
-                </div>
-
-                <div class="input-field col s4">
-                    <i class="material-icons prefix register">email</i>
-                    <input id="email" type="email" class="validate" value="${user.email}" required maxlength="50" name="email">
-                    <label for="email">Email</label>
                 </div>
             </div>
 
@@ -65,7 +59,16 @@
             </div>
 
             <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix register">email</i>
+                    <input id="email" type="email" class="validate" value="${user.email}" required maxlength="50" name="email">
+                    <label for="email">Email</label>
+                </div>
 
+                <div class="input-field col s6">
+                    <input type="tel" pattern="(\+?\d[- .]*){7,13}" value="${user.phone}" required maxlength="50" name="phone" id="phone">
+                    <label for="phone">Телефон</label>
+                </div>
             </div>
 
             <h4>Паспортные данные</h4>

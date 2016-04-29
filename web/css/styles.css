@@ -6147,8 +6147,12 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 @media (min-height: 40.125em) {
   .picker--time .picker__box {
     margin-bottom: 5em; } }
+.collapsible-header.active {
+  background-color: rgba(30, 136, 229, 0.24); }
+
 footer.page-footer {
-  padding-top: 0; }
+  padding-top: 0;
+  margin-top: 0; }
 
 nav .brand-logo {
   padding-left: 20px; }
@@ -6164,7 +6168,7 @@ nav i.material-icons.auth {
 nav ul .user-name {
   padding-left: 30px;
   font-weight: 700;
-  font-size: 20px; }
+  font-size: 16px; }
 
 div.collapsible-body.item {
   padding-top: 20px; }
@@ -6178,11 +6182,14 @@ body {
   flex-direction: column; }
   body .wrapper {
     flex: 1 0 auto; }
+    body .wrapper .container h3 {
+      padding-top: 100px;
+      color: #424242; }
     body .wrapper .container ul li .collapsible-header .item-header span {
       margin-left: 4.9vw; }
     body .wrapper .container ul li .collapsible-body .row span.package-align {
       margin-left: 4.3vw; }
     body .wrapper .container ul li .collapsible-body .row form .btn-align {
-      margin-right: 1.3vw; }
+      margin-right: 1.5vw; }
 
 /*# sourceMappingURL=styles.css.map */

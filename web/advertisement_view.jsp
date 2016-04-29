@@ -57,7 +57,7 @@
         <div class="row right">
 
             <form>
-                <button class="btn waves-effect waves-light" type="submit" name="action" onClick="history.go(-1);return true;">
+                <button class="btn waves-effect waves-light light-blue lighten-1" type="submit" name="action" onClick="history.go(-1);return true;">
                     <i class="material-icons">arrow_back</i>
                 </button>
             </form>
